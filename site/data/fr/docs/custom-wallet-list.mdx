@@ -1,0 +1,567 @@
+---
+title: Liste de Portefeuilles Personnalisée
+description: Personnalisation de la liste de portefeuilles
+---
+
+# Liste de Portefeuilles Personnalisée
+
+## Personnalisation de la liste de portefeuilles
+
+Vous pouvez importer des portefeuilles individuels depuis `'@spectrumkit/spectrumkit/wallets'` avec la fonction `connectorsForWallets` pour construire votre propre liste de portefeuilles avec leurs connecteurs nécessaires. De cette manière, vous avez un contrôle total sur les portefeuilles à afficher et dans quel ordre.
+
+Par exemple, vous pouvez choisir de n'afficher que Rainbow ainsi que des portefeuilles génériques de secours.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, walletConnectWallet],
+    },
+  ],
+  {
+    appName: 'My RainbowKit App',
+    projectId: 'YOUR_PROJECT_ID',
+  }
+);
+```
+
+Vous pouvez ensuite passer vos connecteurs à la fonction `createConfig` de Wagmi.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import { createConfig } from 'wagmi';
+
+const connectors = connectorsForWallets(/* ... */);
+
+const config = createConfig({
+  connectors,
+  {/* Wagmi config */}
+});
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <WagmiProvider config={config}>
+    <QueryClientProvider client={queryClient}>
+      <RainbowKitProvider {...etc}>
+        {/* Your App */}
+      </RainbowKitProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
+);
+```
+
+### Portefeuilles intégrés
+
+Les portefeuilles suivants sont fournis via l'objet `wallet`.
+
+#### Portefeuilles Génériques
+
+Les portefeuilles suivants sont limités à des méthodes de connexion génériques plutôt qu'à des applications spécifiques. Il est donc recommandé d'inclure toujours ces portefeuilles.
+
+##### WalletConnect
+
+Ceci est une option de portefeuille de secours conçue pour les portefeuilles basés sur WalletConnect qui n'ont pas été fournis par un autre portefeuille de la liste.
+
+**Il est recommandé d'inclure toujours ce portefeuille dans la liste pour garantir le support de tous les portefeuilles basés sur WalletConnect.**
+
+```tsx
+import { walletConnectWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+##### Portefeuille Injecté
+
+Ceci est une option de portefeuille de secours conçue pour les scénarios où `window.ethereum` existe mais n'a pas été fourni par un autre portefeuille de la liste. Ce portefeuille se cachera automatiquement de la liste lorsque le secours n'est pas nécessaire ou s'il n'y a aucun portefeuille injecté disponible.
+
+**Il est recommandé d'inclure toujours ce portefeuille dans la liste pour garantir le support de tous les portefeuilles injectés.**
+
+```tsx
+import { injectedWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+##### Portefeuille Sûr
+
+Pour les dApps qui prennent en charge les Safe Apps permettant aux utilisateurs de se connecter facilement à leur coffre-fort Safe ou multi-sig, incluez l'option `safeWallet` pour des connexions automatiques. L'option Safe n'apparaîtra que dans l'environnement du navigateur Safe Wallet.
+
+```tsx
+import { safeWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+### Portefeuilles Spécifiques
+
+Les portefeuilles suivants sont fournis via l'objet `wallet` (par ordre alphabétique).
+
+#### Portefeuille 1inch
+
+```tsx
+import { oneInchWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Backpack
+
+```tsx
+import { backpackWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Compte Base (anciennement portefeuille Coinbase)
+
+Ce connecteur de portefeuille prend en charge le Compte Base, l'évolution du Smart Wallet de Coinbase. Il offre une authentification transparente et des fonctionnalités améliorées telles que des sous-comptes et des permissions de dépenses.
+
+Les options de configuration sont conformes à la [référence SDK Base Account](https://docs.base.org/base-account/reference/core/createBaseAccount).
+
+```tsx
+import { baseAccount } from '@spectrumkit/spectrumkit/wallets';
+
+// Configure attribution (choose one approach)
+baseAccount.preference = {
+  attribution: { auto: true }, // Smart Wallet generates origin-based identifier
+};
+
+// Or use custom attribution
+baseAccount.preference = {
+  attribution: { dataSuffix: '0x1234567890abcdef' }, // 16-byte hex identifier
+};
+
+// Configure sub-accounts
+baseAccount.subAccounts = {
+  creation: 'on-connect', // or 'manual'
+  defaultAccount: 'sub', // or 'universal'
+  funding: 'spend-permissions', // or 'manual'
+};
+
+// Configure paymaster URLs for gasless transactions
+baseAccount.paymasterUrls = {
+  [base.id]: 'https://api.developer.coinbase.com/rpc/v1/base/...',
+};
+```
+
+#### BeraSig
+
+```tsx
+import { berasigWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Meilleur Portefeuille
+
+```tsx
+import { bestWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Bifrost
+
+```tsx
+import { bifrostWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Binance Web3
+
+```tsx
+import { binanceWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitget
+
+```tsx
+import { bitgetWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitski
+
+```tsx
+import { bitskiWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitverse
+
+```tsx
+import { bitverseWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Bloom
+
+```tsx
+import { bloomWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Brave
+
+```tsx
+import { braveWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Bybit
+
+```tsx
+import { bybitWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Coin98
+
+```tsx
+import { coin98Wallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Compass
+
+```tsx
+import { compassWallet } from '@spectrumkit/spectrumkit/compassWallet';
+```
+
+#### Core
+
+```tsx
+import { coreWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille CTRL
+
+```tsx
+import { ctrlWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Dawn
+
+```tsx
+import { dawnWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Enkrypt
+
+```tsx
+import { enkryptWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### FoxWallet
+
+```tsx
+import { foxWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Frame
+
+```tsx
+import { frameWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Frontier
+
+```tsx
+import { frontierWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Gate
+
+```tsx
+import { gateWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Gemini
+
+Ce connecteur de portefeuille intelligent permet une authentification transparente via des passes à keys.gemini.com - pas de téléchargements, d’extensions ou de clés API requis. Cela fonctionne immédiatement.
+
+Le paramètre `appName` est requis pour identifier votre dApp, et `appIcon` est facultatif pour personnaliser votre expérience de connexion.
+
+```tsx
+import { geminiWallet } from '@spectrumkit/spectrumkit/wallets';
+
+const gemini = geminiWallet({
+  appName: 'My App',
+  appIcon: 'https://my-app.com/logo.png', // Optional
+});
+```
+
+#### imToken
+
+```tsx
+import { imTokenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille ioPay
+
+```tsx
+import { iopayWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Kaia
+
+```tsx
+import { kaiaWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kaikas
+
+```tsx
+import { kaikasWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Kraken
+
+```tsx
+import { krakenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Kresus
+
+```tsx
+import { kresusWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ledger Live
+
+```tsx
+import { ledgerWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Magic Eden
+
+```tsx
+import { magicEdenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### MetaMask
+
+```tsx
+import { metaMaskWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### MEW Wallet
+
+```tsx
+import { mewWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Nova
+
+```tsx
+import { novaWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille OKX
+
+```tsx
+import { okxWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Omni
+
+```tsx
+import { omniWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### OneKey
+
+```tsx
+import { oneKeyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ParaSwap
+
+```tsx
+import { paraSwapWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Phantom
+
+```tsx
+import { phantomWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Porto
+
+```tsx
+import { portoWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Rabby
+
+```tsx
+import { rabbyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Rainbow
+
+```tsx
+import { rainbowWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Portefeuille Ramper
+
+```tsx
+import { ramperWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Prêt
+
+```tsx
+import { readyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ronin Wallet
+
+```tsx
+import { roninWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Safeheron
+
+```tsx
+import { safeheronWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Taho
+
+```tsx
+import { tahoWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Talisman
+
+```tsx
+import { talismanWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Tokenary
+
+```tsx
+import { tokenaryWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### TokenPocket
+
+```tsx
+import { tokenPocketWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Trust Wallet
+
+```tsx
+import { trustWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Uniswap Wallet
+
+```tsx
+import { uniswapWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Valora
+
+```tsx
+import { valoraWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Wigwam
+
+```tsx
+import { wigwamWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### xPortal
+
+```tsx
+import { xPortalWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Zerion
+
+```tsx
+import { zerionWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ZilPay
+
+```tsx
+import { zilPayWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+### Exemples
+
+#### Ordonnance
+
+Voici quelques exemples d'affichage de différents portefeuilles, dans différents ordres.
+
+Afficher MetaMask ainsi que les portefeuilles génériques de secours.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  metaMaskWallet,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [metaMaskWallet, walletConnectWallet],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
+
+Affichez Rainbow, MetaMask et Base Account ainsi que les portefeuilles génériques de secours.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  baseAccount,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Suggested',
+      wallets: [
+        rainbowWallet,
+        metaMaskWallet,
+        baseAccount,
+        walletConnectWallet,
+      ],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
+
+> Rappel : L'ordre du tableau `wallets` définit l'ordre dans lequel les portefeuilles seront affichés dans l'interface utilisateur.
+
+#### Multiples groupes
+
+Vous pouvez utiliser la clé `groupName` pour nommer différents groupes de portefeuilles. C'est utile si vous souhaitez indiquer à vos utilisateurs quels portefeuilles vous recommandez, ainsi que d'autres portefeuilles possibles.
+
+Recommandez Rainbow et MetaMask, mais proposez également Base Account ainsi que des portefeuilles génériques de secours.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  baseAccount,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, metaMaskWallet],
+    },
+    {
+      groupName: 'Others',
+      wallets: [baseAccount, walletConnectWallet],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```

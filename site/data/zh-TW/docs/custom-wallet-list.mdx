@@ -1,0 +1,567 @@
+---
+title: 自定義錢包列表
+description: 自定義錢包列表
+---
+
+# 自定義錢包列表
+
+## 自定義錢包列表
+
+您可以從 `'@spectrumkit/spectrumkit/wallets'` 並且使用 `connectorsForWallets` 函數來匯入單個錢包，並建置您自己的錢包列表及必要的連接器。這樣您可以完全控制顯示哪些錢包以及其顯示順序。
+
+例如，您可以選擇只顯示 Rainbow 和通用回退錢包。
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, walletConnectWallet],
+    },
+  ],
+  {
+    appName: 'My RainbowKit App',
+    projectId: 'YOUR_PROJECT_ID',
+  }
+);
+```
+
+然後，您可以將連接器傳遞給 Wagmi 的 `createConfig`。
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import { createConfig } from 'wagmi';
+
+const connectors = connectorsForWallets(/* ... */);
+
+const config = createConfig({
+  connectors,
+  {/* Wagmi config */}
+});
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <WagmiProvider config={config}>
+    <QueryClientProvider client={queryClient}>
+      <RainbowKitProvider {...etc}>
+        {/* Your App */}
+      </RainbowKitProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
+);
+```
+
+### 內建錢包
+
+以下錢包可通過 `wallet` 物件提供。
+
+#### 通用錢包
+
+建議這些錢包始終被包含在列表中，因為它們適用於非特定應用的通用連接方法。
+
+##### WalletConnect
+
+這是一個回退錢包選項，專為尚未被列表中其他錢包提供的 WalletConnect 錢包設計。
+
+**建議您始終將此錢包包含在列表中，以確保所有基於 WalletConnect 的錢包都受到支援。**
+
+```tsx
+import { walletConnectWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+##### 嵌入式錢包
+
+這是一個回退錢包選項，專為存在 `window.ethereum` 但尚未被其他錢包提供的情況設計。若不需要回退或無法使用嵌入式錢包，此錢包將自動從列表中隱藏。
+
+**建議您始終將此錢包包含在列表中，以確保所有嵌入式錢包都受到支援。**
+
+```tsx
+import { injectedWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+##### Safe 錢包
+
+對於支援 Safe Apps 的 dApp，以便讓用戶輕鬆連接其 Safe vault 或多簽帳戶，請包含 `safeWallet` 選項以自動連接。Safe 選項僅在 Safe Wallet 瀏覽器環境中顯示。
+
+```tsx
+import { safeWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+### 特定錢包
+
+以下錢包按照字母順序由 `wallet` 物件提供。
+
+#### 1inch 錢包
+
+```tsx
+import { oneInchWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Backpack
+
+```tsx
+import { backpackWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Base 帳戶（原 Coinbase Wallet）
+
+此錢包連接器支持 Base 帳戶，即 Coinbase 智能錢包的演變。它提供流暢的身份驗證和增強功能，如子賬戶和支出許可。
+
+配置選項與 [Base Account SDK 參考](https://docs.base.org/base-account/reference/core/createBaseAccount) 對齊。
+
+```tsx
+import { baseAccount } from '@spectrumkit/spectrumkit/wallets';
+
+// Configure attribution (choose one approach)
+baseAccount.preference = {
+  attribution: { auto: true }, // Smart Wallet generates origin-based identifier
+};
+
+// Or use custom attribution
+baseAccount.preference = {
+  attribution: { dataSuffix: '0x1234567890abcdef' }, // 16-byte hex identifier
+};
+
+// Configure sub-accounts
+baseAccount.subAccounts = {
+  creation: 'on-connect', // or 'manual'
+  defaultAccount: 'sub', // or 'universal'
+  funding: 'spend-permissions', // or 'manual'
+};
+
+// Configure paymaster URLs for gasless transactions
+baseAccount.paymasterUrls = {
+  [base.id]: 'https://api.developer.coinbase.com/rpc/v1/base/...',
+};
+```
+
+#### BeraSig
+
+```tsx
+import { berasigWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 最佳錢包
+
+```tsx
+import { bestWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bifrost 錢包
+
+```tsx
+import { bifrostWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Binance Web3 錢包
+
+```tsx
+import { binanceWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitget
+
+```tsx
+import { bitgetWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitski
+
+```tsx
+import { bitskiWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitverse
+
+```tsx
+import { bitverseWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bloom 錢包
+
+```tsx
+import { bloomWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Brave 錢包
+
+```tsx
+import { braveWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bybit 錢包
+
+```tsx
+import { bybitWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Coin98 錢包
+
+```tsx
+import { coin98Wallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Compass 錢包
+
+```tsx
+import { compassWallet } from '@spectrumkit/spectrumkit/compassWallet';
+```
+
+#### 核心
+
+```tsx
+import { coreWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### CTRL 錢包
+
+```tsx
+import { ctrlWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Dawn 錢包
+
+```tsx
+import { dawnWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Enkrypt 錢包
+
+```tsx
+import { enkryptWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### FoxWallet
+
+```tsx
+import { foxWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Frame 錢包
+
+```tsx
+import { frameWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Frontier 錢包
+
+```tsx
+import { frontierWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Gate 錢包
+
+```tsx
+import { gateWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 雙子座錢包
+
+這款智能錢包連接器通過 keys.gemini.com 上的密鑰實現無縫身份驗證——無需下載、擴展或 API 密鑰。即開即用。
+
+`appName` 參數用於識別您的 dApp，而 `appIcon` 是可選的品牌化您的連接體驗。
+
+```tsx
+import { geminiWallet } from '@spectrumkit/spectrumkit/wallets';
+
+const gemini = geminiWallet({
+  appName: 'My App',
+  appIcon: 'https://my-app.com/logo.png', // Optional
+});
+```
+
+#### imToken
+
+```tsx
+import { imTokenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ioPay 錢包
+
+```tsx
+import { iopayWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kaia 錢包
+
+```tsx
+import { kaiaWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kaikas
+
+```tsx
+import { kaikasWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kraken 錢包
+
+```tsx
+import { krakenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kresus 錢包
+
+```tsx
+import { kresusWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ledger Live
+
+```tsx
+import { ledgerWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Magic Eden 錢包
+
+```tsx
+import { magicEdenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### MetaMask
+
+```tsx
+import { metaMaskWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### MEW 錢包
+
+```tsx
+import { mewWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Nova 錢包
+
+```tsx
+import { novaWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### OKX 錢包
+
+```tsx
+import { okxWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Omni
+
+```tsx
+import { omniWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### OneKey
+
+```tsx
+import { oneKeyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ParaSwap
+
+```tsx
+import { paraSwapWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Phantom
+
+```tsx
+import { phantomWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 波爾圖
+
+```tsx
+import { portoWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Rabby 錢包
+
+```tsx
+import { rabbyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Rainbow
+
+```tsx
+import { rainbowWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ramper 錢包
+
+```tsx
+import { ramperWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 準備好
+
+```tsx
+import { readyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ronin 錢包
+
+```tsx
+import { roninWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Safeheron
+
+```tsx
+import { safeheronWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Taho
+
+```tsx
+import { tahoWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Talisman
+
+```tsx
+import { talismanWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Tokenary
+
+```tsx
+import { tokenaryWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### TokenPocket
+
+```tsx
+import { tokenPocketWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Trust 錢包
+
+```tsx
+import { trustWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Uniswap 錢包
+
+```tsx
+import { uniswapWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Valora
+
+```tsx
+import { valoraWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Wigwam
+
+```tsx
+import { wigwamWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### xPortal
+
+```tsx
+import { xPortalWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Zerion
+
+```tsx
+import { zerionWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ZilPay
+
+```tsx
+import { zilPayWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+### 範例
+
+#### 排序
+
+以下是不同錢包的顯示範例，順序各不相同。
+
+顯示 MetaMask 和通用回退錢包。
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  metaMaskWallet,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [metaMaskWallet, walletConnectWallet],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
+
+顯示 Rainbow、MetaMask 和 Base 帳戶，以及通用回退錢包。
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  baseAccount,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Suggested',
+      wallets: [
+        rainbowWallet,
+        metaMaskWallet,
+        baseAccount,
+        walletConnectWallet,
+      ],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
+
+> 提醒：`wallets` 陣列的順序定義了錢包在 UI 中顯示的順序。
+
+#### 多個群組
+
+您可以使用 `groupName` 鍵為不同的錢包群組命名。如果您希望向用戶推薦某些錢包，以及顯示其他可能的錢包，這會很有用。
+
+推薦 Rainbow 和 MetaMask，但同時提供 Base 帳戶和通用回退錢包。
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  baseAccount,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, metaMaskWallet],
+    },
+    {
+      groupName: 'Others',
+      wallets: [baseAccount, walletConnectWallet],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```

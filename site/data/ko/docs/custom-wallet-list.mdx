@@ -1,0 +1,567 @@
+---
+title: 맞춤형 지갑 목록
+description: 지갑 목록 사용자 정의
+---
+
+# 맞춤형 지갑 목록
+
+## 지갑 목록 사용자 정의
+
+필요한 커넥터들과 함께 `'@spectrumkit/spectrumkit/wallets'`에서 개별 지갑을 가져와 자신의 지갑 목록을 만들 수 있습니다. 이렇게 하면 표시할 지갑과 그 순서를 완전히 제어할 수 있습니다.
+
+예를 들어 Rainbow와 일반 보조 지갑만 표시하도록 선택할 수 있습니다.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, walletConnectWallet],
+    },
+  ],
+  {
+    appName: 'My RainbowKit App',
+    projectId: 'YOUR_PROJECT_ID',
+  }
+);
+```
+
+그런 다음 커넥터를 Wagmi의 `createConfig`에 전달할 수 있습니다.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import { createConfig } from 'wagmi';
+
+const connectors = connectorsForWallets(/* ... */);
+
+const config = createConfig({
+  connectors,
+  {/* Wagmi config */}
+});
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <WagmiProvider config={config}>
+    <QueryClientProvider client={queryClient}>
+      <RainbowKitProvider {...etc}>
+        {/* Your App */}
+      </RainbowKitProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
+);
+```
+
+### 내장된 지갑
+
+다음 지갑은 `wallet` 객체를 통해 제공됩니다.
+
+#### 일반 지갑
+
+다음 지갑은 특정 앱보다는 일반 연결 방법에 한정되어 있습니다. 결과적으로, 이러한 지갑은 항상 포함시키는 것이 좋습니다.
+
+##### WalletConnect
+
+이 옵션은 목록에 제공되지 않은 WalletConnect 기반 지갑을 위한 보조 지갑 옵션입니다.
+
+**모든 WalletConnect 기반 지갑을 지원하기 위해 항상 이 지갑을 목록에 포함시키는 것이 좋습니다.**
+
+```tsx
+import { walletConnectWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+##### Injected Wallet
+
+이 옵션은 `window.ethereum`이 존재하지만 목록에 다른 지갑으로 제공되지 않은 시나리오를 위한 보조 지갑 옵션입니다. 보조 지갑이 필요하지 않거나 사용 가능한 인젝티드 지갑이 없을 경우 이 지갑은 자동으로 목록에서 숨겨질 것입니다.
+
+**모든 인젝티드 지갑을 지원하기 위해 항상 이 지갑을 목록에 포함시키는 것이 좋습니다.**
+
+```tsx
+import { injectedWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+##### Safe Wallet
+
+Safe Apps를 지원하여 사용자가 Safe 금고 또는 다중 서명에 쉽게 연결할 수 있도록 하려면, 자동 연결을 위한 `safeWallet` 옵션을 포함하세요. Safe 옵션은 Safe Wallet 브라우저 환경에서만 나타납니다.
+
+```tsx
+import { safeWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+### 특정 지갑
+
+다음 지갑은 `wallet` 객체를 통해 제공됩니다 (알파벳 순).
+
+#### 1inch Wallet
+
+```tsx
+import { oneInchWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Backpack
+
+```tsx
+import { backpackWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 베이스 계정 (이전에는 Coinbase Wallet)
+
+이 지갑 커넥터는 베이스 계정을 지원하며, Coinbase 스마트 지갑의 진화된 형태입니다. 하위 계정 및 지출 권한과 같은 향상된 기능을 제공하며, 원활한 인증을 제공합니다.
+
+구성 옵션은 [베이스 계정 SDK 참고](https://docs.base.org/base-account/reference/core/createBaseAccount)와 일치합니다.
+
+```tsx
+import { baseAccount } from '@spectrumkit/spectrumkit/wallets';
+
+// Configure attribution (choose one approach)
+baseAccount.preference = {
+  attribution: { auto: true }, // Smart Wallet generates origin-based identifier
+};
+
+// Or use custom attribution
+baseAccount.preference = {
+  attribution: { dataSuffix: '0x1234567890abcdef' }, // 16-byte hex identifier
+};
+
+// Configure sub-accounts
+baseAccount.subAccounts = {
+  creation: 'on-connect', // or 'manual'
+  defaultAccount: 'sub', // or 'universal'
+  funding: 'spend-permissions', // or 'manual'
+};
+
+// Configure paymaster URLs for gasless transactions
+baseAccount.paymasterUrls = {
+  [base.id]: 'https://api.developer.coinbase.com/rpc/v1/base/...',
+};
+```
+
+#### BeraSig
+
+```tsx
+import { berasigWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Best Wallet
+
+```tsx
+import { bestWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 바이프로스트 지갑
+
+```tsx
+import { bifrostWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Binance Web3 Wallet
+
+```tsx
+import { binanceWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitget
+
+```tsx
+import { bitgetWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitski
+
+```tsx
+import { bitskiWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitverse
+
+```tsx
+import { bitverseWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bloom Wallet
+
+```tsx
+import { bloomWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Brave Wallet
+
+```tsx
+import { braveWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bybit Wallet
+
+```tsx
+import { bybitWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Coin98 Wallet
+
+```tsx
+import { coin98Wallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Compass Wallet
+
+```tsx
+import { compassWallet } from '@spectrumkit/spectrumkit/compassWallet';
+```
+
+#### Core
+
+```tsx
+import { coreWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### CTRL 지갑
+
+```tsx
+import { ctrlWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Dawn Wallet
+
+```tsx
+import { dawnWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Enkrypt Wallet
+
+```tsx
+import { enkryptWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### FoxWallet
+
+```tsx
+import { foxWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Frame Wallet
+
+```tsx
+import { frameWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Frontier Wallet
+
+```tsx
+import { frontierWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Gate Wallet
+
+```tsx
+import { gateWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 제미니 지갑
+
+이 스마트 지갑 커넥터는 keys.gemini.com에서 패스키를 통한 매끄러운 인증을 가능하게 합니다 – 다운로드, 확장 프로그램, 또는 API 키가 필요하지 않습니다. 기본 상태에서 바로 작동합니다.
+
+`appName` 매개변수는 귀하의 dApp을 식별하기 위해 필요하며, `appIcon`은 연결 경험의 브랜딩을 위해 선택적으로 사용할 수 있습니다.
+
+```tsx
+import { geminiWallet } from '@spectrumkit/spectrumkit/wallets';
+
+const gemini = geminiWallet({
+  appName: 'My App',
+  appIcon: 'https://my-app.com/logo.png', // Optional
+});
+```
+
+#### imToken
+
+```tsx
+import { imTokenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ioPay Wallet
+
+```tsx
+import { iopayWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kaia Wallet
+
+```tsx
+import { kaiaWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kaikas
+
+```tsx
+import { kaikasWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kraken Wallet
+
+```tsx
+import { krakenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kresus Wallet
+
+```tsx
+import { kresusWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ledger Live
+
+```tsx
+import { ledgerWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Magic Eden Wallet
+
+```tsx
+import { magicEdenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### MetaMask
+
+```tsx
+import { metaMaskWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### MEW 지갑
+
+```tsx
+import { mewWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Nova Wallet
+
+```tsx
+import { novaWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### OKX Wallet
+
+```tsx
+import { okxWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Omni
+
+```tsx
+import { omniWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### OneKey
+
+```tsx
+import { oneKeyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ParaSwap
+
+```tsx
+import { paraSwapWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Phantom
+
+```tsx
+import { phantomWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 포르토
+
+```tsx
+import { portoWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Rabby Wallet
+
+```tsx
+import { rabbyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Rainbow
+
+```tsx
+import { rainbowWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ramper Wallet
+
+```tsx
+import { ramperWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 준비 완료
+
+```tsx
+import { readyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ronin 지갑
+
+```tsx
+import { roninWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Safeheron
+
+```tsx
+import { safeheronWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Taho
+
+```tsx
+import { tahoWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Talisman
+
+```tsx
+import { talismanWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Tokenary
+
+```tsx
+import { tokenaryWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### TokenPocket
+
+```tsx
+import { tokenPocketWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### 트러스트 지갑
+
+```tsx
+import { trustWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Uniswap 지갑
+
+```tsx
+import { uniswapWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Valora
+
+```tsx
+import { valoraWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Wigwam
+
+```tsx
+import { wigwamWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### xPortal
+
+```tsx
+import { xPortalWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Zerion
+
+```tsx
+import { zerionWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ZilPay
+
+```tsx
+import { zilPayWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+### 예시들
+
+#### 주문
+
+다른 순서로 다양한 지갑을 표시하는 몇 가지 예시가 있습니다.
+
+일반 보조 지갑과 함께 MetaMask를 표시합니다.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  metaMaskWallet,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [metaMaskWallet, walletConnectWallet],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
+
+레인보우, 메타마스크 및 베이스 계정을 일반적인 백업 지갑과 함께 표시합니다.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  baseAccount,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Suggested',
+      wallets: [
+        rainbowWallet,
+        metaMaskWallet,
+        baseAccount,
+        walletConnectWallet,
+      ],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
+
+> 알림: `wallets` 배열의 순서는 UI에 지갑이 표시되는 순서를 정의합니다.
+
+#### 여러 그룹
+
+`groupName` 키를 사용하여 다양한 지갑 그룹의 이름을 지정할 수 있습니다. 이는 사용자가 추천하는 지갑 및 다른 가능한 지갑을 사용자에게 전달하려 할 때 유용합니다.
+
+레인보우와 메타마스크를 추천하되, 일반적인 백업 지갑과 함께 베이스 계정도 제공합니다.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  baseAccount,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, metaMaskWallet],
+    },
+    {
+      groupName: 'Others',
+      wallets: [baseAccount, walletConnectWallet],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```

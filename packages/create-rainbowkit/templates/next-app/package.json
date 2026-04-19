@@ -1,0 +1,25 @@
+{
+  "name": "spectrumkit-next-app",
+  "private": true,
+  "version": "0.0.109",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@spectrumkit/spectrumkit": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
+    "next": "^16.1.5",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "viem": "2.38.0",
+    "wagmi": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.1",
+    "@types/react": "^19.2.7",
+    "eslint-config-next": "^16.1.0",
+    "typescript": "5.7.3"
+  }
+}

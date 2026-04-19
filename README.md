@@ -1,0 +1,83 @@
+# SpectrumKit &nbsp; [![Version](https://img.shields.io/npm/v/@spectrumkit/spectrumkit?colorA=1f2937&colorB=3b82f6&labelColor=1f2937)](https://www.npmjs.com/package/@spectrumkit/spectrumkit)
+
+> Forked from [rainbow-me/rainbowkit](https://github.com/rainbow-me/rainbowkit). Adds wagmi v3 support, a `createWallet()` factory that collapses the wallet-connector boilerplate, and an aggressive simplification pass. Original copyright preserved in `LICENSE`.
+
+**The best way to connect a wallet**
+
+SpectrumKit is a [React](https://reactjs.org/) library that makes it easy to add wallet connection to your dapp.
+
+- 🔥 Out-of-the-box wallet management
+- ✅ Easily customizable
+- 🦄 Built on top of [wagmi](https://wagmi.sh) and [viem](https://viem.sh)
+
+## Quick start
+
+You can scaffold a new RainbowKit + [wagmi](https://wagmi.sh) + [Next.js](https://nextjs.org) app with one of the following commands, using your package manager of choice:
+
+```bash
+npm init @spectrumkit/spectrumkit@latest
+# or
+pnpm create @spectrumkit/spectrumkit@latest
+# or
+yarn create @spectrumkit/spectrumkit
+```
+
+## Documentation
+
+For full documentation, visit [rainbowkit.com](https://rainbowkit.com).
+
+### Try it out
+
+You can use the CodeSandbox links below to try out RainbowKit:
+
+- with [Create React App](https://codesandbox.io/p/sandbox/github/rainbow-me/rainbowkit/tree/main/examples/with-create-react-app)
+- with [Next.js](https://codesandbox.io/p/sandbox/github/rainbow-me/rainbowkit/tree/main/examples/with-next)
+- with [Next.js App Router](https://codesandbox.io/p/sandbox/github/rainbow-me/rainbowkit/tree/main/examples/with-next-app)
+- with [Remix](https://codesandbox.io/p/sandbox/github/rainbow-me/rainbowkit/tree/main/examples/with-remix)
+- with [Vite](https://codesandbox.io/p/sandbox/github/rainbow-me/rainbowkit/tree/main/examples/with-vite)
+- with [React Router](https://codesandbox.io/p/sandbox/github/rainbow-me/rainbowkit/tree/main/examples/with-react-router)
+
+## Examples
+
+The following examples are provided in the [examples](./examples/) folder of this repo.
+
+- `with-create-react-app`
+- `with-next`
+- `with-next-app`
+- `with-next-custom-button`
+- `with-next-mint-nft`
+- `with-next-siwe-next-auth`
+- `with-next-siwe-iron-session`
+- `with-remix`
+- `with-vite`
+- `with-react-router`
+
+### Running examples
+
+To run an example locally, install dependencies.
+
+```bash
+pnpm install
+```
+
+Then go into an example directory, eg: `with-next`.
+
+```bash
+cd examples/with-next
+```
+
+Then run the dev script.
+
+```bash
+pnpm run dev
+```
+
+## Contributing
+
+Please follow our [contributing guidelines](/.github/CONTRIBUTING.md).
+
+## License
+
+Licensed under the MIT License, Copyright © 2022-present [Rainbow](https://rainbow.me).
+
+See [LICENSE](/LICENSE) for more information.

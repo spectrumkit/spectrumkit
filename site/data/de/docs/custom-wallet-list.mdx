@@ -1,0 +1,567 @@
+---
+title: Benutzerdefinierte Wallet-Liste
+description: Anpassen der Wallet-Liste
+---
+
+# Benutzerdefinierte Wallet-Liste
+
+## Anpassen der Wallet-Liste
+
+Sie können einzelne Wallets aus `'@spectrumkit/spectrumkit/wallets'` importieren, zusammen mit der `connectorsForWallets`-Funktion, um Ihre eigene Liste von Wallets mit ihren notwendigen Connektoren zu erstellen. Auf diese Weise haben Sie die volle Kontrolle darüber, welche Wallets angezeigt werden und in welcher Reihenfolge.
+
+Sie können beispielsweise wählen, nur Rainbow zusammen mit generischen Fallback-Wallets anzuzeigen.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, walletConnectWallet],
+    },
+  ],
+  {
+    appName: 'My RainbowKit App',
+    projectId: 'YOUR_PROJECT_ID',
+  }
+);
+```
+
+Sie können dann Ihre Connektoren an Wagmies `createConfig` übergeben.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import { createConfig } from 'wagmi';
+
+const connectors = connectorsForWallets(/* ... */);
+
+const config = createConfig({
+  connectors,
+  {/* Wagmi config */}
+});
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <WagmiProvider config={config}>
+    <QueryClientProvider client={queryClient}>
+      <RainbowKitProvider {...etc}>
+        {/* Your App */}
+      </RainbowKitProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
+);
+```
+
+### Integrierte Wallets
+
+Die folgenden Wallets werden über das `wallet`-Objekt bereitgestellt.
+
+#### Generische Wallets
+
+Die folgenden Wallets sind eher auf generische Verbindungsmethoden als auf spezifische Apps ausgerichtet. Daher wird empfohlen, diese Wallets immer einzuschließen.
+
+##### WalletConnect
+
+Dies ist eine Fallback-Wallet-Option, die für WalletConnect-basierte Wallets entwickelt wurde, die nicht von einer anderen Wallet in der Liste bereitgestellt wurden.
+
+**Es wird empfohlen, diese Wallet immer in die Liste aufzunehmen, um sicherzustellen, dass alle WalletConnect-basierten Wallets unterstützt werden.**
+
+```tsx
+import { walletConnectWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+##### Eingebettete Wallet
+
+Dies ist eine Fallback-Wallet-Option für Szenarien, in denen `window.ethereum` existiert, aber nicht von einer anderen Wallet in der Liste bereitgestellt wurde. Diese Wallet wird sich automatisch aus der Liste entfernen, wenn kein Fallback erforderlich ist oder wenn keine eingebaute Wallet verfügbar ist.
+
+**Es wird empfohlen, diese Wallet immer in die Liste aufzunehmen, um sicherzustellen, dass alle eingebetteten Wallets unterstützt werden.**
+
+```tsx
+import { injectedWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+##### Sicheres Wallet
+
+Für dApps, die Safe Apps unterstützen, um Nutzern zu ermöglichen, sich einfach mit ihrem Safe-Vault oder Multi-Sig zu verbinden, fügen Sie die Option `safeWallet` für automatische Verbindungen hinzu. Die Safe Option wird nur in der Safe Wallet-Browserumgebung angezeigt.
+
+```tsx
+import { safeWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+### Spezifische Wallets
+
+Die folgenden Wallets werden über das `wallet`-Objekt bereitgestellt (in alphabetischer Reihenfolge).
+
+#### 1inch Wallet
+
+```tsx
+import { oneInchWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Backpack
+
+```tsx
+import { backpackWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Basis Konto (ehemals Coinbase Wallet)
+
+Dieser Wallet-Connector unterstützt das Basis Konto, die Weiterentwicklung des Coinbase Smart Wallet. Es bietet nahtlose Authentifizierung und erweiterte Funktionen wie Unterkonten und Ausgabeberechtigungen.
+
+Konfigurationsoptionen entsprechen der [Basis Konto SDK-Referenz](https://docs.base.org/base-account/reference/core/createBaseAccount).
+
+```tsx
+import { baseAccount } from '@spectrumkit/spectrumkit/wallets';
+
+// Configure attribution (choose one approach)
+baseAccount.preference = {
+  attribution: { auto: true }, // Smart Wallet generates origin-based identifier
+};
+
+// Or use custom attribution
+baseAccount.preference = {
+  attribution: { dataSuffix: '0x1234567890abcdef' }, // 16-byte hex identifier
+};
+
+// Configure sub-accounts
+baseAccount.subAccounts = {
+  creation: 'on-connect', // or 'manual'
+  defaultAccount: 'sub', // or 'universal'
+  funding: 'spend-permissions', // or 'manual'
+};
+
+// Configure paymaster URLs for gasless transactions
+baseAccount.paymasterUrls = {
+  [base.id]: 'https://api.developer.coinbase.com/rpc/v1/base/...',
+};
+```
+
+#### BeraSig
+
+```tsx
+import { berasigWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Beste Wallet
+
+```tsx
+import { bestWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bifrost Wallet
+
+```tsx
+import { bifrostWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Binance Web3 Wallet
+
+```tsx
+import { binanceWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitget
+
+```tsx
+import { bitgetWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitski
+
+```tsx
+import { bitskiWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bitverse
+
+```tsx
+import { bitverseWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bloom Wallet
+
+```tsx
+import { bloomWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Brave Wallet
+
+```tsx
+import { braveWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bybit Wallet
+
+```tsx
+import { bybitWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Coin98 Wallet
+
+```tsx
+import { coin98Wallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kompass Wallet
+
+```tsx
+import { compassWallet } from '@spectrumkit/spectrumkit/compassWallet';
+```
+
+#### Core
+
+```tsx
+import { coreWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### CTRL Wallet
+
+```tsx
+import { ctrlWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Dämmerung Wallet
+
+```tsx
+import { dawnWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Enkrypt Wallet
+
+```tsx
+import { enkryptWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### FoxWallet
+
+```tsx
+import { foxWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Rahmen Wallet
+
+```tsx
+import { frameWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Frontier Wallet
+
+```tsx
+import { frontierWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Gate Wallet
+
+```tsx
+import { gateWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Gemini Geldbörse
+
+Dieser intelligente Wallet-Connector ermöglicht nahtlose Authentifizierung über Passwörter auf keys.gemini.com - keine Downloads, Erweiterungen oder API-Schlüssel erforderlich. Es funktioniert direkt ohne Anpassung.
+
+Der `appName` Parameter ist erforderlich, um Ihre dApp zu identifizieren, während `appIcon` optional für die Markenanpassung Ihrer Verbindungserfahrung ist.
+
+```tsx
+import { geminiWallet } from '@spectrumkit/spectrumkit/wallets';
+
+const gemini = geminiWallet({
+  appName: 'My App',
+  appIcon: 'https://my-app.com/logo.png', // Optional
+});
+```
+
+#### imToken
+
+```tsx
+import { imTokenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ioPay Wallet
+
+```tsx
+import { iopayWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kaia Wallet
+
+```tsx
+import { kaiaWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kaikas
+
+```tsx
+import { kaikasWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kraken Wallet
+
+```tsx
+import { krakenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Kresus Wallet
+
+```tsx
+import { kresusWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ledger Live
+
+```tsx
+import { ledgerWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Magic Eden Wallet
+
+```tsx
+import { magicEdenWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### MetaMask
+
+```tsx
+import { metaMaskWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### MEW Wallet
+
+```tsx
+import { mewWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Nova Wallet
+
+```tsx
+import { novaWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### OKX Wallet
+
+```tsx
+import { okxWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Omni
+
+```tsx
+import { omniWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### OneKey
+
+```tsx
+import { oneKeyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ParaSwap
+
+```tsx
+import { paraSwapWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Phantom
+
+```tsx
+import { phantomWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Porto
+
+```tsx
+import { portoWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Rabby Wallet
+
+```tsx
+import { rabbyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Regenbogen
+
+```tsx
+import { rainbowWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ramper Wallet
+
+```tsx
+import { ramperWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Bereit
+
+```tsx
+import { readyWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Ronin Wallet
+
+```tsx
+import { roninWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Safeheron
+
+```tsx
+import { safeheronWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Taho
+
+```tsx
+import { tahoWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Talisman
+
+```tsx
+import { talismanWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Tokenary
+
+```tsx
+import { tokenaryWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### TokenPocket
+
+```tsx
+import { tokenPocketWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Trust Wallet
+
+```tsx
+import { trustWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Uniswap Wallet
+
+```tsx
+import { uniswapWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Valora
+
+```tsx
+import { valoraWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Wigwam
+
+```tsx
+import { wigwamWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### xPortal
+
+```tsx
+import { xPortalWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### Zerion
+
+```tsx
+import { zerionWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+#### ZilPay
+
+```tsx
+import { zilPayWallet } from '@spectrumkit/spectrumkit/wallets';
+```
+
+### Beispiele
+
+#### Bestellung
+
+Hier sind einige Beispiele für die Anzeige verschiedener Wallets in unterschiedlicher Reihenfolge.
+
+Zeigen Sie MetaMask zusammen mit generischen Fallback-Wallets.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  metaMaskWallet,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [metaMaskWallet, walletConnectWallet],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
+
+Zeigen Sie Rainbow, MetaMask und das Basis-Konto zusammen mit generischen Fallback-Wallets an.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  baseAccount,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Suggested',
+      wallets: [
+        rainbowWallet,
+        metaMaskWallet,
+        baseAccount,
+        walletConnectWallet,
+      ],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
+
+> Erinnerung: Die Reihenfolge des `wallets`-Arrays definiert die Reihenfolge, in der die Wallets in der Benutzeroberfläche angezeigt werden.
+
+#### Mehrere Gruppen
+
+Sie können den `groupName`-Schlüssel verwenden, um verschiedene Wallet-Gruppen zu benennen. Dies ist nützlich, wenn Sie Ihren Benutzern mitteilen möchten, welche Wallets Sie empfehlen sowie andere mögliche Wallets.
+
+Empfehlen Sie Rainbow und MetaMask, aber bieten Sie auch das Basis-Konto zusammen mit generischen Fallback-Wallets an.
+
+```tsx
+import { connectorsForWallets } from '@spectrumkit/spectrumkit';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  baseAccount,
+  walletConnectWallet,
+} from '@spectrumkit/spectrumkit/wallets';
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, metaMaskWallet],
+    },
+    {
+      groupName: 'Others',
+      wallets: [baseAccount, walletConnectWallet],
+    },
+  ],
+  { appName: 'RainbowKit App', projectId: 'YOUR_PROJECT_ID' },
+);
+```
