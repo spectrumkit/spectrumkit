@@ -16,34 +16,14 @@
 - **Tests:** 93/93 passing (factory now covers detect-vs-connect namespace)
 - **Typecheck:** clean (`pnpm --filter @spectrumkit/spectrumkit typecheck`)
 - **Build:** clean (`pnpm --filter @spectrumkit/spectrumkit build`)
-- **Dev + prod servers:** HTTP 200 but **example app never hydrates**.
-  - `Object.keys(document.getElementById('__next'))` shows zero
-    `__reactFiber*` / `__reactContainer*` — React's `hydrateRoot` never
-    attaches. All 30 JS chunks load, no network errors, no console
-    errors, no Next overlay.
-  - `/icons` route (which `_app.tsx` short-circuits *before* the providers
-    stack via `pagesWithoutProviders.includes(router.pathname)`) renders
-    73 buttons fine — confirms hydration WORKS for routes that take that
-    early-return branch.
-  - Bisected by replacing `_app.tsx`'s providers branch with literally
-    just `<HydrationDebugBoundary><div>hello</div></HydrationDebugBoundary>`
-    — STILL doesn't hydrate. Boundary's `componentDidCatch` never fires.
-  - So the throw is happening at **module evaluation time**, not during
-    React render. An `import` somewhere in the page bundle's eval chain
-    is throwing a sync error that kills the whole Next runtime before
-    React can call `hydrateRoot`. The error boundary can only catch
-    render errors; it can't catch eval errors.
-  - Reproduces in BOTH `pnpm dev` (turbopack) and `next start` of a
-    clean prod build. Confirmed pre-existing on `main` (Tier 6 cleanup
-    bisect). React/wagmi/react-query dedup symlinks confirmed intact
-    (same inodes top-level vs `.pnpm/`).
-  - **Likely next step:** open the page with React DevTools / Chrome
-    DevTools "Pause on caught exceptions" and watch which module
-    throws. Headless tools can't catch this; needs a human in front of
-    DevTools. Suspects (high → low): one of the wagmi connector
-    SDK module bodies (porto / metamask-sdk / base-org-account / safe);
-    a top-level call in `wagmi.ts` like `getDefaultConfig` doing
-    something that throws under Next 16's bundling.
+- **Dev server:** HTTP 200, example app hydrates and renders end-to-end.
+  Modal opens, wallet list renders. The "hydration broken" symptom we
+  chased was caused by the **Solflare browser extension** throwing in
+  its `inpage.js` injection script (`@solana/buffer-layout` instanceof
+  Uint8Array check failing under the page's Buffer polyfill realm). The
+  thrown error killed the runtime before React could call `hydrateRoot`.
+  Disabling Solflare (or testing in incognito) makes the demo work
+  immediately. Not a bug in our code.
 - **61 of ~73 wallets converted to `createWallet()` factory** (84%);
   factory now also handles detect-vs-connect namespace divergence (CTRL).
 - **Repo size:** ~13M of source after Tier 6 cleanup (was ~115M with `site/`
