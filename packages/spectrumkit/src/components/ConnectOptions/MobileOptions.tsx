@@ -1,23 +1,13 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { touchableStyles } from '../../css/touchableStyles';
-import { isIOS } from '../../utils/isMobile';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import {
   type WalletConnector,
   useWalletConnectors,
 } from '../../wallets/useWalletConnectors';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Box } from '../Box/Box';
-import { ActionButton } from '../Button/ActionButton';
 import { CloseButton } from '../CloseButton/CloseButton';
 import { DisclaimerLink } from '../Disclaimer/DisclaimerLink';
 import { DisclaimerText } from '../Disclaimer/DisclaimerText';
-import { BackIcon } from '../Icons/Back';
 import { AppContext } from '../SpectrumKitProvider/AppContext';
 import { I18nContext } from '../SpectrumKitProvider/I18nContext';
 import { setWalletConnectDeepLink } from '../SpectrumKitProvider/walletConnectDeepLink';
@@ -199,236 +189,18 @@ export function WalletButton({
   );
 }
 
-enum MobileWalletStep {
-  Connect = 'CONNECT',
-  Get = 'GET',
-}
-
 export function MobileOptions({ onClose }: { onClose: () => void }) {
   const titleId = 'rk_connect_title';
   const wallets = useWalletConnectors().filter(
     (wallet) => wallet.isSpectrumKitConnector,
   );
-  const { disclaimer: Disclaimer, learnMoreUrl } = useContext(AppContext);
-
-  let headerLabel = null;
-  let walletContent = null;
-  let headerBackgroundContrast = false;
-  let headerBackButtonLink: MobileWalletStep | null = null;
-
-  const [walletStep, setWalletStep] = useState<MobileWalletStep>(
-    MobileWalletStep.Connect,
-  );
-
+  const { disclaimer: Disclaimer } = useContext(AppContext);
   const { i18n } = useContext(I18nContext);
-
-  const ios = isIOS();
-
-  switch (walletStep) {
-    case MobileWalletStep.Connect: {
-      headerLabel = i18n.t('connect.title');
-      headerBackgroundContrast = true;
-      walletContent = (
-        <Box>
-          <Box
-            background="profileForeground"
-            className={styles.scroll}
-            display="flex"
-            paddingBottom="20"
-            paddingTop="6"
-            paddingX="20"
-            style={{
-              // Dynamic gap to show ~13px of 5th wallet as scroll hint
-              gap: 'calc((100% - 40px - 240px + 47px) / 4)',
-            }}
-          >
-            {wallets
-              .filter((wallet) => wallet.ready)
-              .map((wallet) => {
-                return (
-                  <Box key={wallet.id} width="60">
-                    <WalletButton onClose={onClose} wallet={wallet} />
-                  </Box>
-                );
-              })}
-          </Box>
-
-          <Box
-            background="generalBorder"
-            height="1"
-            marginBottom="32"
-            marginTop="-1"
-          />
-
-          <Box
-            alignItems="center"
-            display="flex"
-            flexDirection="column"
-            gap="32"
-            paddingX="32"
-            style={{ textAlign: 'center' }}
-          >
-            <Box
-              display="flex"
-              flexDirection="column"
-              gap="8"
-              textAlign="center"
-            >
-              <Text color="modalText" size="16" weight="bold">
-                {i18n.t('intro.title')}
-              </Text>
-              <Text color="modalTextSecondary" size="16">
-                {i18n.t('intro.description')}
-              </Text>
-            </Box>
-          </Box>
-
-          <Box paddingTop="32" paddingX="20">
-            <Box display="flex" gap="14" justifyContent="center">
-              <ActionButton
-                label={i18n.t('intro.get.label')}
-                onClick={() => setWalletStep(MobileWalletStep.Get)}
-                size="large"
-                type="secondary"
-              />
-              <ActionButton
-                href={learnMoreUrl}
-                label={i18n.t('intro.learn_more.label')}
-                size="large"
-                type="secondary"
-              />
-            </Box>
-          </Box>
-          {Disclaimer && (
-            <Box marginTop="28" marginX="32" textAlign="center">
-              <Disclaimer Link={DisclaimerLink} Text={DisclaimerText} />
-            </Box>
-          )}
-        </Box>
-      );
-      break;
-    }
-    case MobileWalletStep.Get: {
-      headerLabel = i18n.t('get.title');
-      headerBackButtonLink = MobileWalletStep.Connect;
-
-      const mobileWallets = wallets
-        ?.filter(
-          (wallet) =>
-            wallet.downloadUrls?.ios ||
-            wallet.downloadUrls?.android ||
-            wallet.downloadUrls?.mobile,
-        )
-        ?.splice(0, 3);
-
-      walletContent = (
-        <Box>
-          <Box
-            alignItems="center"
-            display="flex"
-            flexDirection="column"
-            height="full"
-            marginBottom="36"
-            marginTop="5"
-            paddingTop="12"
-            width="full"
-          >
-            {mobileWallets.map((wallet, index) => {
-              const { downloadUrls, iconBackground, iconUrl, name } = wallet;
-
-              if (
-                !downloadUrls?.ios &&
-                !downloadUrls?.android &&
-                !downloadUrls?.mobile
-              ) {
-                return null;
-              }
-
-              return (
-                <Box
-                  display="flex"
-                  gap="16"
-                  key={wallet.id}
-                  paddingX="20"
-                  width="full"
-                >
-                  <Box style={{ minHeight: 48, minWidth: 48 }}>
-                    <AsyncImage
-                      background={iconBackground}
-                      borderColor="generalBorder"
-                      borderRadius="10"
-                      height="48"
-                      src={iconUrl}
-                      width="48"
-                    />
-                  </Box>
-                  <Box display="flex" flexDirection="column" width="full">
-                    <Box alignItems="center" display="flex" height="48">
-                      <Box width="full">
-                        <Text color="modalText" size="18" weight="bold">
-                          {name}
-                        </Text>
-                      </Box>
-                      <ActionButton
-                        href={
-                          (ios ? downloadUrls?.ios : downloadUrls?.android) ||
-                          downloadUrls?.mobile
-                        }
-                        label={i18n.t('get.action.label')}
-                        size="small"
-                        type="secondary"
-                      />
-                    </Box>
-                    {index < mobileWallets.length - 1 && (
-                      <Box
-                        background="generalBorderDim"
-                        height="1"
-                        marginY="10"
-                        width="full"
-                      />
-                    )}
-                  </Box>
-                </Box>
-              );
-            })}
-          </Box>
-          {/* spacer */}
-          <Box style={{ marginBottom: '42px' }} />
-          <Box
-            alignItems="center"
-            display="flex"
-            flexDirection="column"
-            gap="36"
-            paddingX="36"
-            style={{ textAlign: 'center' }}
-          >
-            <Box
-              display="flex"
-              flexDirection="column"
-              gap="12"
-              textAlign="center"
-            >
-              <Text color="modalText" size="16" weight="bold">
-                {i18n.t('get.looking_for.title')}
-              </Text>
-              <Text color="modalTextSecondary" size="16">
-                {i18n.t('get.looking_for.mobile.description')}
-              </Text>
-            </Box>
-          </Box>
-        </Box>
-      );
-      break;
-    }
-  }
 
   return (
     <Box display="flex" flexDirection="column" paddingBottom="36">
-      {/* header section */}
       <Box
-        background={
-          headerBackgroundContrast ? 'profileForeground' : 'modalBackground'
-        }
+        background="profileForeground"
         display="flex"
         flexDirection="column"
         paddingBottom="4"
@@ -441,38 +213,6 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
           paddingX="20"
           position="relative"
         >
-          {headerBackButtonLink && (
-            <Box
-              display="flex"
-              position="absolute"
-              style={{
-                left: 0,
-                marginBottom: -20,
-                marginTop: -20,
-              }}
-            >
-              <Box
-                alignItems="center"
-                as="button"
-                className={touchableStyles({
-                  active: 'shrinkSm',
-                  hover: 'growLg',
-                })}
-                color="accentColor"
-                display="flex"
-                marginLeft="4"
-                marginTop="20"
-                onClick={() => setWalletStep(headerBackButtonLink!)}
-                padding="16"
-                style={{ height: 17, willChange: 'transform' }}
-                transition="default"
-                type="button"
-              >
-                <BackIcon />
-              </Box>
-            </Box>
-          )}
-
           <Box marginTop="4" textAlign="center" width="full">
             <Text
               as="h1"
@@ -481,10 +221,9 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
               size="20"
               weight="bold"
             >
-              {headerLabel}
+              {i18n.t('connect.title')}
             </Text>
           </Box>
-
           <Box
             alignItems="center"
             display="flex"
@@ -493,16 +232,38 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
             position="absolute"
             right="0"
           >
-            <Box
-              style={{ marginBottom: -20, marginTop: -20 }} // Vertical bleed
-            >
+            <Box style={{ marginBottom: -20, marginTop: -20 }}>
               <CloseButton onClose={onClose} />
             </Box>
           </Box>
         </Box>
       </Box>
       <Box display="flex" flexDirection="column">
-        {walletContent}
+        <Box
+          background="profileForeground"
+          className={styles.scroll}
+          display="flex"
+          paddingBottom="20"
+          paddingTop="6"
+          paddingX="20"
+          style={{
+            // Dynamic gap to show ~13px of 5th wallet as scroll hint
+            gap: 'calc((100% - 40px - 240px + 47px) / 4)',
+          }}
+        >
+          {wallets
+            .filter((wallet) => wallet.ready)
+            .map((wallet) => (
+              <Box key={wallet.id} width="60">
+                <WalletButton onClose={onClose} wallet={wallet} />
+              </Box>
+            ))}
+        </Box>
+        {Disclaimer && (
+          <Box marginTop="28" marginX="32" textAlign="center">
+            <Disclaimer Link={DisclaimerLink} Text={DisclaimerText} />
+          </Box>
+        )}
       </Box>
     </Box>
   );
