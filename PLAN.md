@@ -13,19 +13,29 @@
 
 ## Current numeric state — 2026-04-19
 
-- **Tests:** 92/92 passing (was 93/93 before `packages/rainbow-button/` was deleted)
+- **Tests:** 93/93 passing (factory now covers detect-vs-connect namespace)
 - **Typecheck:** clean (`pnpm --filter @spectrumkit/spectrumkit typecheck`)
 - **Build:** clean (`pnpm --filter @spectrumkit/spectrumkit build`)
-- **Dev server:** HTTP 200, but **example index.tsx never client-mounts**.
-  SSR renders the static heading wrappers (Custom buttons / Wallet buttons /
-  Custom wallet buttons) but no `useEffect` ever fires — `mounted` stays
-  false → the gated `{ready && (...)}` content never appears, no buttons
-  render, no console errors. Bisect confirmed this is **pre-existing in main**
-  (post-rename, not caused by Tier 6 cleanup). Production `next build && next
-  start` may behave differently — investigate next.
-- **60 of ~73 wallets converted to `createWallet()` factory** (82%)
+- **Dev + prod servers:** HTTP 200 but **example app never hydrates**.
+  Diagnosis: `Object.keys(document.getElementById('__next'))` shows zero
+  `__reactFiber*` / `__reactContainer*` properties — React's `hydrateRoot`
+  call never reaches the root, so `useEffect` never runs and the gated
+  `{ready && (...)}` content never appears. All 30 JS chunks load, no
+  network errors, no console errors, no Next overlay. The `/icons` route
+  (which `_app.tsx` short-circuits *before* the `<SessionProvider> →
+  <WagmiProvider> → <QueryClientProvider> → <RainbowKitSiweNextAuthProvider>
+  → <RainbowKitProvider>` stack) renders 73 buttons fine, so the failure
+  is somewhere inside that provider stack. Reproduces in BOTH `pnpm dev`
+  and `next start` of a clean prod build. Confirmed pre-existing on `main`
+  (bisect: stash my Tier 6 cleanup, dev still broken).
+  *Likely next step:* wrap each provider in an error boundary that
+  `console.error`s the caught error so the silent throw becomes visible.
+- **61 of ~73 wallets converted to `createWallet()` factory** (84%);
+  factory now also handles detect-vs-connect namespace divergence (CTRL).
 - **Repo size:** ~13M of source after Tier 6 cleanup (was ~115M with `site/`
   + 11 examples + 2 sibling packages).
+- **Locale chunks:** ~360KB cut via esbuild `charset:'utf8'` (raw UTF-8
+  output instead of `\uXXXX` escapes).
 
 ## How the duplicate-package blocker was resolved
 
