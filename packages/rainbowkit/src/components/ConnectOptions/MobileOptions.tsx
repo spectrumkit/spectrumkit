@@ -18,7 +18,7 @@ import { CloseButton } from '../CloseButton/CloseButton';
 import { DisclaimerLink } from '../Disclaimer/DisclaimerLink';
 import { DisclaimerText } from '../Disclaimer/DisclaimerText';
 import { BackIcon } from '../Icons/Back';
-import { AppContext } from '../RainbowKitProvider/AppContext';
+import { useAppInfo } from '../RainbowKitProvider/RainbowKitConfigContext';
 import { I18nContext } from '../RainbowKitProvider/I18nContext';
 import { setWalletConnectDeepLink } from '../RainbowKitProvider/walletConnectDeepLink';
 import { Text } from '../Text/Text';
@@ -209,7 +209,7 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
   const wallets = useWalletConnectors().filter(
     (wallet) => wallet.isRainbowKitConnector,
   );
-  const { disclaimer: Disclaimer, learnMoreUrl } = useContext(AppContext);
+  const { disclaimer: Disclaimer, learnMoreUrl } = useAppInfo();
 
   let headerLabel = null;
   let walletContent = null;

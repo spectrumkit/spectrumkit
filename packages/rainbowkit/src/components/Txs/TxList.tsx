@@ -6,7 +6,7 @@ import { useRecentTransactions } from '../../transactions/useRecentTransactions'
 import { isMobile } from '../../utils/isMobile';
 import { Box } from '../Box/Box';
 import { ExternalLinkIcon } from '../Icons/ExternalLink';
-import { AppContext } from '../RainbowKitProvider/AppContext';
+import { useAppInfo } from '../RainbowKitProvider/RainbowKitConfigContext';
 import { I18nContext } from '../RainbowKitProvider/I18nContext';
 import { Text } from '../Text/Text';
 import { TxItem } from './TxItem';
@@ -25,7 +25,7 @@ export function TxList({ address }: TxListProps) {
   const visibleTxs = recentTransactions.slice(0, NUMBER_OF_VISIBLE_TXS);
   const hasTransactions = visibleTxs.length > 0;
   const mobile = isMobile();
-  const { appName } = useContext(AppContext);
+  const { appName } = useAppInfo();
 
   const { i18n } = useContext(I18nContext);
 

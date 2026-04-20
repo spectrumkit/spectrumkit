@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box } from '../Box/Box';
 import { SpinnerIcon } from '../Icons/Spinner';
-import { AvatarContext } from '../RainbowKitProvider/AvatarContext';
+import { useAvatar } from '../RainbowKitProvider/RainbowKitConfigContext';
 
 interface AvatarProps {
   address: string;
@@ -11,7 +11,7 @@ interface AvatarProps {
 }
 
 export function Avatar({ address, imageUrl, loading, size }: AvatarProps) {
-  const AvatarComponent = useContext(AvatarContext);
+  const AvatarComponent = useAvatar();
 
   return (
     <Box
