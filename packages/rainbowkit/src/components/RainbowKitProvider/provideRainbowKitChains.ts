@@ -7,16 +7,12 @@ type ChainName =
   | 'apechain'
   | 'apechainCurtis'
   | 'arbitrum'
-  | 'arbitrumGoerli'
   | 'arbitrumSepolia'
   | 'avalanche'
   | 'avalancheFuji'
   | 'base'
-  | 'baseGoerli'
   | 'baseSepolia'
   | 'berachain'
-  | 'berachainArtio'
-  | 'berachainBArtio'
   | 'blast'
   | 'blastSepolia'
   | 'bsc'
@@ -26,10 +22,7 @@ type ChainName =
   | 'cronos'
   | 'cronosTestnet'
   | 'degen'
-  | 'flow'
-  | 'flowTestnet'
   | 'gnosis'
-  | 'goerli'
   | 'gravity'
   | 'gravitySepolia'
   | 'hardhat'
@@ -39,28 +32,20 @@ type ChainName =
   | 'inkSepolia'
   | 'kaia'
   | 'kairos'
-  | 'kovan'
   | 'linea'
-  | 'lineaGoerli'
   | 'lineaSepolia'
   | 'localhost'
   | 'mainnet'
   | 'manta'
   | 'mantaSepolia'
-  | 'mantaTestnet'
   | 'mantle'
   | 'mantleTestnet'
   | 'monadTestnet'
   | 'optimism'
-  | 'optimismGoerli'
-  | 'optimismKovan'
   | 'optimismSepolia'
   | 'polygon'
   | 'polygonAmoy'
-  | 'polygonMumbai'
-  | 'rinkeby'
   | 'ronin'
-  | 'ropsten'
   | 'sanko'
   | 'scroll'
   | 'scrollSepolia'
@@ -73,10 +58,8 @@ type ChainName =
   | 'zetachain'
   | 'zetachainAthensTestnet'
   | 'zkSync'
-  | 'zkSyncTestnet'
   | 'zora'
-  | 'zoraSepolia'
-  | 'zoraTestnet';
+  | 'zoraSepolia';
 
 type IconMetadata = {
   iconUrl: () => Promise<string>;
@@ -141,11 +124,6 @@ const degenIcon: IconMetadata = {
 const ethereumIcon: IconMetadata = {
   iconBackground: '#484c50',
   iconUrl: async () => (await import('./chainIcons/ethereum.svg')).default,
-};
-
-const flowIcon: IconMetadata = {
-  iconBackground: 'transparent',
-  iconUrl: async () => (await import('./chainIcons/flow.svg')).default,
 };
 
 const gnosisIcon: IconMetadata = {
@@ -257,20 +235,12 @@ const chainMetadataByName: Record<ChainName, ChainMetadata | null> = {
   apechain: { chainId: 33139, name: 'ApeChain', ...apeChainIcon },
   apechainCurtis: { chainId: 33_111, name: 'ApeChain Curtis', ...apeChainIcon },
   arbitrum: { chainId: 42_161, name: 'Arbitrum', ...arbitrumIcon },
-  arbitrumGoerli: { chainId: 421_613, ...arbitrumIcon },
   arbitrumSepolia: { chainId: 421_614, ...arbitrumIcon },
   avalanche: { chainId: 43_114, ...avalancheIcon },
   avalancheFuji: { chainId: 43_113, ...avalancheIcon },
   base: { chainId: 8453, name: 'Base', ...baseIcon },
-  baseGoerli: { chainId: 84531, ...baseIcon },
   baseSepolia: { chainId: 84532, ...baseIcon },
   berachain: { chainId: 80094, name: 'Berachain', ...berachainIcon },
-  berachainArtio: { chainId: 80085, name: 'Berachain Artio', ...berachainIcon },
-  berachainBArtio: {
-    chainId: 80084,
-    name: 'Berachain bArtio',
-    ...berachainIcon,
-  },
   blast: { chainId: 81457, name: 'Blast', ...blastIcon },
   blastSepolia: { chainId: 168_587_773, ...blastIcon },
   bsc: { chainId: 56, name: 'BSC', ...bscIcon },
@@ -280,10 +250,7 @@ const chainMetadataByName: Record<ChainName, ChainMetadata | null> = {
   cronos: { chainId: 25, ...cronosIcon },
   cronosTestnet: { chainId: 338, ...cronosIcon },
   degen: { chainId: 666666666, name: 'Degen', ...degenIcon },
-  flow: { chainId: 747, ...flowIcon },
-  flowTestnet: { chainId: 545, ...flowIcon },
   gnosis: { chainId: 100, name: 'Gnosis', ...gnosisIcon },
-  goerli: { chainId: 5, ...ethereumIcon },
   gravity: { chainId: 1625, name: 'Gravity', ...gravityIcon },
   gravitySepolia: { chainId: 13505, name: 'Gravity Sepolia', ...gravityIcon },
   hardhat: { chainId: 31_337, ...hardhatIcon },
@@ -293,28 +260,20 @@ const chainMetadataByName: Record<ChainName, ChainMetadata | null> = {
   inkSepolia: { chainId: 763373, ...inkIcon },
   kaia: { chainId: 8_217, name: 'Kaia', ...kaiaIcon },
   kairos: { chainId: 1_001, name: 'Kairos', ...kaiaIcon },
-  kovan: { chainId: 42, ...ethereumIcon },
   linea: { chainId: 59144, name: 'Linea', ...lineaIcon },
-  lineaGoerli: { chainId: 59140, name: 'Linea Goerli', ...lineaIcon },
   lineaSepolia: { chainId: 59141, name: 'Linea Sepolia', ...lineaIcon },
   localhost: { chainId: 1_337, ...ethereumIcon },
   mainnet: { chainId: 1, name: 'Ethereum', ...ethereumIcon },
   manta: { chainId: 169, name: 'Manta', ...mantaIcon },
   mantaSepolia: { chainId: 3_441_006, ...mantaIcon },
-  mantaTestnet: { chainId: 3_441_005, ...mantaIcon },
   mantle: { chainId: 5000, ...mantleIcon },
   mantleTestnet: { chainId: 5001, ...mantleIcon },
   monadTestnet: { chainId: 10_143, name: 'Monad Testnet', ...monadTestnetIcon },
   optimism: { chainId: 10, name: 'Optimism', ...optimismIcon },
-  optimismGoerli: { chainId: 420, ...optimismIcon },
-  optimismKovan: { chainId: 69, ...optimismIcon },
   optimismSepolia: { chainId: 11155420, ...optimismIcon },
   polygon: { chainId: 137, name: 'Polygon', ...polygonIcon },
   polygonAmoy: { chainId: 80002, ...polygonIcon },
-  polygonMumbai: { chainId: 80_001, ...polygonIcon },
-  rinkeby: { chainId: 4, ...ethereumIcon },
   ronin: { chainId: 2020, ...roninIcon },
-  ropsten: { chainId: 3, ...ethereumIcon },
   sanko: { chainId: 1996, name: 'Sanko', ...sankoIcon },
   scroll: { chainId: 534352, ...scrollIcon },
   scrollSepolia: { chainId: 534351, ...scrollIcon },
@@ -335,10 +294,8 @@ const chainMetadataByName: Record<ChainName, ChainMetadata | null> = {
     ...zetachainIcon,
   },
   zkSync: { chainId: 324, name: 'zkSync', ...zkSyncIcon },
-  zkSyncTestnet: { chainId: 280, ...zkSyncIcon },
   zora: { chainId: 7777777, name: 'Zora', ...zoraIcon },
   zoraSepolia: { chainId: 999999999, ...zoraIcon },
-  zoraTestnet: { chainId: 999, ...zoraIcon },
 };
 
 const chainMetadataById = Object.fromEntries(

@@ -65,7 +65,6 @@ import {
   zealWallet,
   zerionWallet,
   zilPayWallet,
-  universalProfilesWallet,
 } from '@spectrumkit/spectrumkit/wallets';
 import { publicActions } from 'viem';
 import {
@@ -264,7 +263,6 @@ export const config = getDefaultConfig({
         tokenaryWallet,
         trustWallet,
         uniswapWallet,
-        universalProfilesWallet,
         valoraWallet,
         wigwamWallet,
         ctrlWallet,
