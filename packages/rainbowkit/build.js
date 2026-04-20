@@ -29,6 +29,11 @@ const baseBuildConfig = (onEnd) => {
     bundle: true,
     format: 'esm',
     platform: 'browser',
+    // Emit non-ASCII characters as raw UTF-8 instead of \uXXXX escapes.
+    // Locale JSONs (loaded as text) contain Cyrillic / Hindi / Thai etc.,
+    // which would otherwise inflate ~3x in the JS output (each codepoint
+    // becomes 6 ASCII bytes "\u0410" instead of 2 UTF-8 bytes).
+    charset: 'utf8',
     loader: {
       '.png': 'dataurl',
       '.json': 'text',

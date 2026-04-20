@@ -158,8 +158,7 @@ export function createTransactionStore({
                 account,
                 chainId,
                 hash,
-                // @ts-ignore - types changed with viem@1.1.0
-                status === 0 || status === 'reverted' ? 'failed' : 'confirmed',
+                status === 'reverted' ? 'failed' : 'confirmed',
               );
 
               notifyTransactionListeners(status);

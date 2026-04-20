@@ -86,11 +86,10 @@ export function useWalletConnectors(
       await connectWallet(walletConnectModalConnector);
       setIsWalletConnectModalOpen(false);
     } catch (err) {
+      const e = err as { name?: string; message?: string };
       const isUserRejection =
-        // @ts-expect-error - Web3Modal v1 error name
-        err.name === 'UserRejectedRequestError' ||
-        // @ts-expect-error - Web3Modal v2 error message on desktop
-        err.message === 'Connection request reset. Please try again.';
+        e.name === 'UserRejectedRequestError' ||
+        e.message === 'Connection request reset. Please try again.';
 
       setIsWalletConnectModalOpen(false);
 
@@ -106,10 +105,11 @@ export function useWalletConnectors(
   ): Promise<string> => {
     const provider = await connector.getProvider();
 
+    type DisplayUriEmitter = {
+      once: (event: 'display_uri', cb: (uri: string) => void) => void;
+    };
     return new Promise<string>((resolve) =>
-      // wagmi doesn't strongly type the provider emitter surface.
-      // @ts-expect-error
-      provider.once('display_uri', (uri) => {
+      (provider as DisplayUriEmitter).once('display_uri', (uri) => {
         resolve(uriConverter(uri));
       }),
     );
