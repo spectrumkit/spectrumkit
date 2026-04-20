@@ -51,7 +51,7 @@ export default {
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['./packages/rainbowkit/test/setup.ts'],
+    setupFiles: ['./packages/spectrumkit/test/setup.ts'],
     watch: false,
     exclude: [
       '**/node_modules/**',

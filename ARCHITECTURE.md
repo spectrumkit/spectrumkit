@@ -107,7 +107,7 @@ Each phase is a testable checkpoint. Tests must be green at the end of each phas
 
 ## Session 1 net delta
 
-- **55 source files changed** in `packages/rainbowkit/src`
+- **55 source files changed** in `packages/spectrumkit/src`
 - **−2832 LoC** (3386 deletions, 554 insertions)
 - Bundle `dist/` with `MINIFY_CSS=true`: **5.9MB → 5.5MB** (−400KB, −7%)
 - `index.js`: **281KB → 271KB** (−10KB)

@@ -39,6 +39,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spectrumkit/spectrumkit.git",
-    "directory": "packages/rainbowkit-siwe-next-auth"
+    "directory": "packages/spectrumkit-siwe-next-auth"
   }
 }

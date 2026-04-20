@@ -64,17 +64,17 @@ re-run `node ./scripts/dedupReact.js` manually.
 ## What got done (keep)
 
 ### Surgical deletions (done, tested)
-- `packages/rainbowkit/src/core/network/` (enhancedProvider + rainbowFetch — Rainbow's proprietary API; dead unless you have their key)
-- `packages/rainbowkit/src/core/react-query/createQuery.ts`
-- `packages/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts`
-- `packages/rainbowkit/src/wallets/walletConnectors/coinbaseWallet/` (per user — Coinbase deprecated the standalone wallet)
+- `packages/spectrumkit/src/core/network/` (enhancedProvider + rainbowFetch — Rainbow's proprietary API; dead unless you have their key)
+- `packages/spectrumkit/src/core/react-query/createQuery.ts`
+- `packages/spectrumkit/src/components/RainbowKitProvider/useFingerprint.ts`
+- `packages/spectrumkit/src/wallets/walletConnectors/coinbaseWallet/` (per user — Coinbase deprecated the standalone wallet)
 - Dead `connector.id === 'coinbase'` branch in `useWalletConnectors.ts`
 - `coinbaseWalletExtension` type in `types/utils.ts`
 - Removed `esbuild-plugin-replace` + the `__buildVersion` / `__rainbowProviderApiKey` replace pass from `build.js`
 
 ### The `createWallet()` factory (done, tested)
-- `packages/rainbowkit/src/wallets/createWallet.ts` — the reusable factory that eats the wallet-connector boilerplate.
-- `packages/rainbowkit/src/wallets/createWallet.test.ts` — 4 lock-in tests covering: injected-only, hybrid (WC fallback), custom step sequence override, platform-split `detect` (Trust-style).
+- `packages/spectrumkit/src/wallets/createWallet.ts` — the reusable factory that eats the wallet-connector boilerplate.
+- `packages/spectrumkit/src/wallets/createWallet.test.ts` — 4 lock-in tests covering: injected-only, hybrid (WC fallback), custom step sequence override, platform-split `detect` (Trust-style).
 - Factory features supported:
   - `detect: { flag, namespace }` — simple injected detection
   - `detect: { mobile: {...}, desktop: {...} }` — Trust-style platform-split
@@ -95,7 +95,7 @@ Still hand-rolled (each has a reason documented in `ARCHITECTURE.md`):
 - universalProfilesWallet (literal English instruction strings, not i18n keys)
 
 ### SSR safety wrappers (added, but controversial)
-Added `useIsMounted()` hook at `packages/rainbowkit/src/components/RainbowKitProvider/useIsMounted.ts` and wrapped these with SSR-bail-out patterns:
+Added `useIsMounted()` hook at `packages/spectrumkit/src/components/RainbowKitProvider/useIsMounted.ts` and wrapped these with SSR-bail-out patterns:
 - `RainbowKitProvider` (splits off `WagmiEffects` child that only mounts client-side)
 - `RainbowKitChainProvider`
 - `ModalProvider`
@@ -150,7 +150,7 @@ ready to work on; verify paths still exist before acting on stale recs.
   `@wagmi/connectors` peer. Try removing — if nothing breaks, great.
 
 - [ ] **Move `useCoolMode` (207 LoC)** at
-  `packages/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts` to
+  `packages/spectrumkit/src/components/RainbowKitProvider/useCoolMode.ts` to
   an optional entry `@spectrumkit/spectrumkit/cool-mode` so consumers who don't
   use the emoji-confetti effect don't ship the code.
 
@@ -163,7 +163,7 @@ ready to work on; verify paths still exist before acting on stale recs.
   could be its own file.
 
 - [ ] **Collapse Desktop/Mobile options into one responsive component.**
-  `packages/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx` (594 LoC)
+  `packages/spectrumkit/src/components/ConnectOptions/DesktopOptions.tsx` (594 LoC)
   and `MobileOptions.tsx` (512 LoC) are ~80% the same state machine with
   different layout. Single component + media-query-driven CSS + one
   state machine. Est. −500 LoC. HIGH risk — needs browser QA.
@@ -186,7 +186,7 @@ ready to work on; verify paths still exist before acting on stale recs.
 - [ ] **Modernize `transactionStore.ts` (hand-rolled event emitter).** Swap
   `Set<() => void>` listeners pattern for zustand OR keep leaning on
   `useSyncExternalStore` (already done in `useRecentTransactions.ts`). The
-  store itself at `packages/rainbowkit/src/transactions/transactionStore.ts:69`
+  store itself at `packages/spectrumkit/src/transactions/transactionStore.ts:69`
   is still the old pattern.
 
 - [ ] **Make state machine explicit.** The 9-state `WalletStep` enum
@@ -209,7 +209,7 @@ opt-in entry.
 
 - [ ] **Strip i18n to BYO-translator hook.** 22 locale JSON files → keep
   `en_US.json` fallback only, let consumers pass their own translator
-  function. `packages/rainbowkit/src/locales/` is 1.3MB source, inflates
+  function. `packages/spectrumkit/src/locales/` is 1.3MB source, inflates
   ~3x in bundle chunks due to JSON unicode-escape bloat.
 
 - [ ] **Open the chain registry (`provideRainbowKitChains.ts`, 362 LoC).**
@@ -222,7 +222,7 @@ opt-in entry.
 ### Tier 4 — Design system overhaul (very high risk, highest payoff)
 
 - [ ] **Kill runtime `<Box>` prop-splitter.**
-  `packages/rainbowkit/src/components/Box/Box.ts` uses a runtime `for...in`
+  `packages/spectrumkit/src/components/Box/Box.ts` uses a runtime `for...in`
   loop over 20+ props at every render, called in 246 sites. Replace with
   compile-time classNames via codemod, or rip `<Box>` entirely and use CSS
   modules. ≥2 days of deep work with thorough browser QA.
@@ -233,7 +233,7 @@ opt-in entry.
   for theming.
 
 - [ ] **Simplify theming.** 3-theme (light/dark/midnight) × 7-accent-color
-  system is 320 LoC across 4 files in `packages/rainbowkit/src/themes/`.
+  system is 320 LoC across 4 files in `packages/spectrumkit/src/themes/`.
   Themes as CSS-variable overrides would be ~80 LoC + ~20 LoC runtime toggle.
 
 ### Tier 5 — Asset + bundle hygiene (low risk, easy)
@@ -243,7 +243,7 @@ opt-in entry.
     Has 919 `<stop>` elements — autogenerated, probably re-exportable cleaner.
   - Other big SVGs: `frameWallet.svg` (39KB), `mecoWallet.svg` (38KB),
     `oneInchWallet.svg` (31KB). Find with
-    `find packages/rainbowkit/src -name "*.svg" -size +10k`.
+    `find packages/spectrumkit/src -name "*.svg" -size +10k`.
 
 - [ ] **Fix 3x locale chunk bloat.** `ru_RU.json` source is 65KB but
   `ru_RU-*.js` in dist is 199KB — esbuild expands `\u` unicode escapes at
@@ -251,14 +251,14 @@ opt-in entry.
   JSON fetches.
 
 - [ ] **Bundle audit.** `pnpm --filter @spectrumkit/spectrumkit build &&
-  du -sh packages/rainbowkit/dist/**/*.js | sort -h | tail -20` to see
+  du -sh packages/spectrumkit/dist/**/*.js | sort -h | tail -20` to see
   what's eating bytes.
 
 ### Tier 6 — Repo-level cleanup (low risk)
 
 - [ ] **Delete unused sibling packages** (or document why kept):
   - `packages/rainbow-button/` — standalone button component
-  - `packages/rainbowkit-siwe-next-auth/` — only if SIWE extracted (Tier 3)
+  - `packages/spectrumkit-siwe-next-auth/` — only if SIWE extracted (Tier 3)
   - `packages/create-rainbowkit/` — scaffolder CLI, probably unused for a fork
   - `packages/example/` — keep 1 for smoke testing
   - `examples/*` — 13 example apps, keep 1–2, delete rest
@@ -266,7 +266,7 @@ opt-in entry.
 - [ ] **Remove `site/` docs.** Rainbow's own docs site is at rainbow.me —
   a fork doesn't need a duplicate docs site.
 
-- [ ] **Consolidate workspace layout.** Collapse `packages/rainbowkit/*` to
+- [ ] **Consolidate workspace layout.** Collapse `packages/spectrumkit/*` to
   single top-level package if siblings are dropped. Simpler mental model,
   fewer pnpm peer-dep-closure conflicts.
 
@@ -276,7 +276,7 @@ Do these before publishing anything. After publish = breaking.
 
 - [ ] **Rename package.** `@spectrumkit/spectrumkit` → `@greek/walletkit` or
   whatever matches the rest of `/Users/mla/_greek/`. Touch points:
-  - `packages/rainbowkit/package.json:2`
+  - `packages/spectrumkit/package.json:2`
   - All `workspace:*` refs
   - All `@spectrumkit/spectrumkit` imports in consumer code
   - `CLAUDE.md`, `ARCHITECTURE.md`, `PLAN.md`
@@ -298,7 +298,7 @@ Do these before publishing anything. After publish = breaking.
   copies of singleton packages to one canonical `.pnpm/` closure.
 - `vitest.config.ts` — react/react-dom alias to absolute `.pnpm` path,
   `resolve.dedupe`, and `test.server.deps.inline` for singletons.
-- `packages/rainbowkit/src/transactions/transactionStore.ts` — `getTransactions`
+- `packages/spectrumkit/src/transactions/transactionStore.ts` — `getTransactions`
   now returns a stable `EMPTY_TRANSACTIONS` constant when no txs exist,
   preventing the `useSyncExternalStore` infinite render loop.
 
@@ -311,9 +311,9 @@ Do these before publishing anything. After publish = breaking.
 ## Files of interest
 
 - `ARCHITECTURE.md` — the architectural vision + session log
-- `packages/rainbowkit/src/wallets/createWallet.ts` — the factory
-- `packages/rainbowkit/src/wallets/createWallet.test.ts` — factory tests
-- `packages/rainbowkit/src/components/RainbowKitProvider/useIsMounted.ts` — SSR guard hook
+- `packages/spectrumkit/src/wallets/createWallet.ts` — the factory
+- `packages/spectrumkit/src/wallets/createWallet.test.ts` — factory tests
+- `packages/spectrumkit/src/components/RainbowKitProvider/useIsMounted.ts` — SSR guard hook
 - Any file under `src/wallets/walletConnectors/*/` matching `grep -l "from '\.\./\.\./createWallet'"` — a factory-converted wallet
 
 ## Key references for new context

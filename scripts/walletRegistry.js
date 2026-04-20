@@ -33,7 +33,7 @@ async function fetchIcon(imageId, outputPath) {
 
 async function main() {
   const wallets = await fetchWallets();
-  const dir = 'packages/rainbowkit/assets/wallets';
+  const dir = 'packages/spectrumkit/assets/wallets';
   const iconsDir = `${dir}/icons`;
   await fs.mkdir(iconsDir, { recursive: true });
   const outputPath = `${dir}/registry.json`;

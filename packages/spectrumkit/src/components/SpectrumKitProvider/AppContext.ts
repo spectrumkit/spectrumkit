@@ -9,8 +9,9 @@ export type DisclaimerComponent = React.FunctionComponent<{
 export const defaultAppInfo = {
   appName: undefined,
   disclaimer: undefined,
-  learnMoreUrl:
-    'https://learn.rainbow.me/understanding-web3?utm_source=spectrumkit&utm_campaign=learnmore',
+  // Default empty — the modal's "Learn more" link is hidden when this is
+  // unset. Consumers can supply their own URL via RainbowKitProviderProps.
+  learnMoreUrl: undefined as string | undefined,
 };
 
 export const AppContext = createContext<{

@@ -27,18 +27,18 @@ import { WagmiProvider, useDisconnect } from 'wagmi';
 import type { AppContextProps } from '../lib/AppContextProps';
 import { config } from '../wagmi';
 
-const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
+const EXAMPLE_TERMS = 'https://example.com/terms';
 
 const demoAppInfo = {
-  appName: 'Rainbowkit Demo',
+  appName: 'SpectrumKit Demo',
 };
 
 const DisclaimerDemo: DisclaimerComponent = ({ Link, Text }) => {
   return (
     <Text>
       By connecting, you agree to this demo&apos;s{' '}
-      <Link href={RAINBOW_TERMS}>Terms of Service</Link> and acknowledge you
-      have read and understand our <Link href={RAINBOW_TERMS}>Disclaimer</Link>
+      <Link href={EXAMPLE_TERMS}>Terms of Service</Link> and acknowledge you
+      have read and understand our <Link href={EXAMPLE_TERMS}>Disclaimer</Link>
     </Text>
   );
 };
