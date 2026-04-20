@@ -173,7 +173,7 @@ export default function Icons() {
               <button
                 onClick={() =>
                   navigator.clipboard.writeText(
-                    `packages/rainbowkit/src/wallets/walletConnectors/${name}/${name}.svg`,
+                    `packages/spectrumkit/src/wallets/walletConnectors/${name}/${name}.svg`,
                   )
                 }
                 style={{

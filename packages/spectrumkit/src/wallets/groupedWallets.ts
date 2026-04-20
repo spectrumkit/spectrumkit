@@ -1,0 +1,49 @@
+import type { WalletInstance } from './Wallet';
+
+export const isRecentWallet = (
+  recentWallets: WalletInstance[],
+  walletId: string,
+) => {
+  return recentWallets.some((recentWallet) => recentWallet.id === walletId);
+};
+
+export const isSpectrumKitConnector = (wallet: WalletInstance) => {
+  return !!wallet.isSpectrumKitConnector;
+};
+
+export const isEIP6963Connector = (wallet: WalletInstance) => {
+  return !!(
+    !wallet.isSpectrumKitConnector &&
+    wallet.icon?.replace(/\n/g, '').startsWith('data:image') &&
+    wallet.uid &&
+    wallet.name
+  );
+};
+
+export const spectrumKitConnectorWithWalletConnect = (
+  wallet: WalletInstance,
+  walletConnectModalConnector: WalletInstance,
+) => {
+  // Check if we should use the walletConnectModalConnector for this instance
+  const shouldUseWalletConnectModal =
+    wallet.id === 'walletConnect' && walletConnectModalConnector;
+
+  // Include the walletConnectModalConnector in the result
+  return shouldUseWalletConnectModal
+    ? { ...wallet, walletConnectModalConnector }
+    : wallet;
+};
+interface ConnectorsWithWalletsParams {
+  wallets: WalletInstance[];
+  recentWallets: WalletInstance[];
+}
+
+export const connectorsWithRecentWallets = ({
+  wallets,
+  recentWallets,
+}: ConnectorsWithWalletsParams) => {
+  return [
+    ...recentWallets,
+    ...wallets.filter((wallet) => !isRecentWallet(recentWallets, wallet.id)),
+  ];
+};

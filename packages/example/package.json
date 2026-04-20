@@ -6,7 +6,6 @@
   "main": "index.js",
   "dependencies": {
     "@base-org/account": "~2.4.0",
-    "@spectrumkit/spectrum-button": "workspace:*",
     "@spectrumkit/spectrumkit": "workspace:*",
     "@spectrumkit/spectrumkit-siwe-next-auth": "workspace:*",
     "@tanstack/react-query": "^5.90.12",

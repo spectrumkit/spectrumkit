@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-// Simple 404 page that doesn't require wagmi/RainbowKit providers
+// Simple 404 page that doesn't require wagmi/SpectrumKit providers
 // This prevents SSG errors with wagmi v3 which requires hooks to be within WagmiProvider
 export default function Custom404() {
   return (

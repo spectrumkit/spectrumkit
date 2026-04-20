@@ -12,14 +12,14 @@ import {
   type AvatarComponent,
   type DisclaimerComponent,
   type Locale,
-  RainbowKitProvider,
+  SpectrumKitProvider,
   darkTheme,
   lightTheme,
   midnightTheme,
 } from '@spectrumkit/spectrumkit';
 import {
   type GetSiweMessageOptions,
-  RainbowKitSiweNextAuthProvider,
+  SpectrumKitSiweNextAuthProvider,
 } from '@spectrumkit/spectrumkit-siwe-next-auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, useDisconnect } from 'wagmi';
@@ -27,18 +27,18 @@ import { WagmiProvider, useDisconnect } from 'wagmi';
 import type { AppContextProps } from '../lib/AppContextProps';
 import { config } from '../wagmi';
 
-const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
+const EXAMPLE_TERMS = 'https://example.com/terms';
 
 const demoAppInfo = {
-  appName: 'Rainbowkit Demo',
+  appName: 'SpectrumKit Demo',
 };
 
 const DisclaimerDemo: DisclaimerComponent = ({ Link, Text }) => {
   return (
     <Text>
       By connecting, you agree to this demo&apos;s{' '}
-      <Link href={RAINBOW_TERMS}>Terms of Service</Link> and acknowledge you
-      have read and understand our <Link href={RAINBOW_TERMS}>Disclaimer</Link>
+      <Link href={EXAMPLE_TERMS}>Terms of Service</Link> and acknowledge you
+      have read and understand our <Link href={EXAMPLE_TERMS}>Disclaimer</Link>
     </Text>
   );
 };
@@ -62,7 +62,7 @@ const CustomAvatar: AvatarComponent = ({ size }) => {
 };
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: 'Sign in to the RainbowKit Demo',
+  statement: 'Sign in to the SpectrumKit Demo',
 });
 
 const themes = [
@@ -95,7 +95,7 @@ type OverlayBlur = (typeof overlayBlurs)[number];
 const modalSizes = ['wide', 'compact'] as const;
 type ModalSize = (typeof modalSizes)[number];
 
-function RainbowKitApp({
+function SpectrumKitApp({
   Component,
   pageProps,
 }: AppProps<{
@@ -112,7 +112,6 @@ function RainbowKitApp({
   const [selectedOverlayBlur, setOverlayBlur] = useState<OverlayBlur>('none');
   const [authEnabled, setAuthEnabled] = useState(pageProps.session !== null);
   const [showRecentTransactions, setShowRecentTransactions] = useState(true);
-  const [coolModeEnabled, setCoolModeEnabled] = useState(false);
   const [modalSize, setModalSize] = useState<ModalSize>('wide');
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [customAvatar, setCustomAvatar] = useState(false);
@@ -146,22 +145,21 @@ function RainbowKitApp({
 
   const locales = router.locales as Locale[];
 
-  // Note: Non-RainbowKit providers are wrapped around this component
+  // Note: Non-SpectrumKit providers are wrapped around this component
   // at the bottom of the file. This is so that our example app
   // component can use their corresponding Hooks.
   return (
-    <RainbowKitSiweNextAuthProvider
+    <SpectrumKitSiweNextAuthProvider
       enabled={authEnabled}
       getSiweMessageOptions={getSiweMessageOptions}
     >
-      <RainbowKitProvider
+      <SpectrumKitProvider
         appInfo={{
           ...demoAppInfo,
           ...(showDisclaimer && { disclaimer: DisclaimerDemo }),
         }}
         avatar={customAvatar ? CustomAvatar : undefined}
         locale={locale}
-        coolMode={coolModeEnabled}
         initialChain={selectedInitialChainId}
         modalSize={modalSize}
         showRecentTransactions={showRecentTransactions}
@@ -188,7 +186,7 @@ function RainbowKitApp({
                   fontFamily: 'sans-serif',
                 }}
               >
-                <h3>RainbowKitProvider props</h3>
+                <h3>SpectrumKitProvider props</h3>
                 <table cellSpacing={12}>
                   <tbody>
                     <tr>
@@ -239,25 +237,6 @@ function RainbowKitApp({
                           onChange={(e) =>
                             setShowRecentTransactions(e.target.checked)
                           }
-                          type="checkbox"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label
-                          htmlFor="coolModeEnabled"
-                          style={{ userSelect: 'none' }}
-                        >
-                          coolMode
-                        </label>
-                      </td>
-                      <td>
-                        <input
-                          checked={coolModeEnabled}
-                          id="coolModeEnabled"
-                          name="coolModeEnabled"
-                          onChange={(e) => setCoolModeEnabled(e.target.checked)}
                           type="checkbox"
                         />
                       </td>
@@ -504,8 +483,8 @@ function RainbowKitApp({
             </>
           )}
         </div>
-      </RainbowKitProvider>
-    </RainbowKitSiweNextAuthProvider>
+      </SpectrumKitProvider>
+    </SpectrumKitSiweNextAuthProvider>
   );
 }
 
@@ -518,14 +497,14 @@ export default function App(
 ) {
   const router = useRouter();
 
-  // Pages that don't need RainbowKit - render without providers to avoid SSG issues with wagmi v3
+  // Pages that don't need SpectrumKit - render without providers to avoid SSG issues with wagmi v3
   // Error pages (404, 500) must be excluded to prevent "useConfig must be used within WagmiProvider" errors during SSG
   const pagesWithoutProviders = ['/icons', '/providers', '/404', '/500'];
   if (pagesWithoutProviders.includes(router.pathname)) {
     return (
       <>
         <Head>
-          <title>RainbowKit Example</title>
+          <title>SpectrumKit Example</title>
           <link href="/favicon.ico" rel="icon" />
         </Head>
         <appProps.Component {...appProps.pageProps} />
@@ -536,14 +515,14 @@ export default function App(
   return (
     <>
       <Head>
-        <title>RainbowKit Example</title>
+        <title>SpectrumKit Example</title>
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
       <SessionProvider refetchInterval={0} session={appProps.pageProps.session}>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
-            <RainbowKitApp {...appProps} />
+            <SpectrumKitApp {...appProps} />
           </QueryClientProvider>
         </WagmiProvider>
       </SessionProvider>

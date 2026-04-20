@@ -7,7 +7,6 @@ import {
   bifrostWallet,
   binanceWallet,
   bitgetWallet,
-  bitskiWallet,
   bitverseWallet,
   bloomWallet,
   bybitWallet,
@@ -15,7 +14,6 @@ import {
   coin98Wallet,
   compassWallet,
   coreWallet,
-  dawnWallet,
   desigWallet,
   enkryptWallet,
   foxWallet,
@@ -25,11 +23,9 @@ import {
   imTokenWallet,
   iopayWallet,
   kaiaWallet,
-  kaikasWallet,
   krakenWallet,
   kresusWallet,
   ledgerWallet,
-  magicEdenWallet,
   metaMaskWallet,
   mewWallet,
   mecoWallet,
@@ -65,7 +61,6 @@ import {
   zealWallet,
   zerionWallet,
   zilPayWallet,
-  universalProfilesWallet,
 } from '@spectrumkit/spectrumkit/wallets';
 import { publicActions } from 'viem';
 import {
@@ -147,7 +142,7 @@ const avalanche = {
 } as const satisfies Chain;
 
 export const config = getDefaultConfig({
-  appName: 'RainbowKit Demo',
+  appName: 'SpectrumKit Demo',
   projectId,
   walletConnectParameters: {
     telemetryEnabled: false,
@@ -218,7 +213,6 @@ export const config = getDefaultConfig({
         bifrostWallet,
         binanceWallet,
         bitgetWallet,
-        bitskiWallet,
         bitverseWallet,
         bloomWallet,
         bybitWallet,
@@ -226,7 +220,6 @@ export const config = getDefaultConfig({
         coin98Wallet,
         compassWallet,
         coreWallet,
-        dawnWallet,
         desigWallet,
         enkryptWallet,
         foxWallet,
@@ -236,11 +229,9 @@ export const config = getDefaultConfig({
         imTokenWallet,
         iopayWallet,
         kaiaWallet,
-        kaikasWallet,
         krakenWallet,
         kresusWallet,
         ledgerWallet,
-        magicEdenWallet,
         mewWallet,
         mecoWallet,
         nestWallet,
@@ -264,7 +255,6 @@ export const config = getDefaultConfig({
         tokenaryWallet,
         trustWallet,
         uniswapWallet,
-        universalProfilesWallet,
         valoraWallet,
         wigwamWallet,
         ctrlWallet,

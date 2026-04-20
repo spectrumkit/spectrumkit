@@ -8,7 +8,7 @@ RainbowKit is a pnpm monorepo containing multiple packages:
 
 - **`packages/rainbowkit`** - Core library: React components and hooks for wallet connection UI
 - **`packages/rainbow-button`** - Standalone rainbow button component
-- **`packages/rainbowkit-siwe-next-auth`** - Sign-In with Ethereum integration with NextAuth.js
+- **`packages/spectrumkit-siwe-next-auth`** - Sign-In with Ethereum integration with NextAuth.js
 - **`packages/create-rainbowkit`** - CLI tool for scaffolding new RainbowKit projects
 - **`packages/example`** - Development example app (runs on localhost:3000)
 - **`site`** - Documentation site (runs on localhost:3001)
@@ -85,7 +85,7 @@ Environment variables required (`.env.local`):
 ### Testing
 
 - Framework: Vitest with jsdom environment
-- Setup: `packages/rainbowkit/test/setup.ts`
+- Setup: `packages/spectrumkit/test/setup.ts`
 - Config: Root `vitest.config.ts` with Vanilla Extract plugin
 - Tests located alongside source files (`.test.ts` / `.test.tsx`)
 
