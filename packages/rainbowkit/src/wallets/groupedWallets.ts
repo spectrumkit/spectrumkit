@@ -1,18 +1,5 @@
 import type { WalletInstance } from './Wallet';
 
-export const groupedWallets = (
-  recentWallets: WalletInstance[],
-  walletInstances: WalletInstance[],
-) => {
-  return [
-    ...recentWallets,
-    ...walletInstances.filter(
-      (walletInstance) =>
-        !recentWallets.some((wallet) => wallet.id === walletInstance.id),
-    ),
-  ];
-};
-
 export const isRecentWallet = (
   recentWallets: WalletInstance[],
   walletId: string,

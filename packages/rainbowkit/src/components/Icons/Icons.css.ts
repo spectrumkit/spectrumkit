@@ -1,9 +1,4 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import { sprinkles } from '../../css/sprinkles.css';
-
-export const CloseIconClassName = sprinkles({
-  marginLeft: '6',
-});
 
 const spin = keyframes({
   '0%': { transform: 'rotate(0deg)' },
