@@ -6,7 +6,7 @@ import { DisclaimerLink } from '../Disclaimer/DisclaimerLink';
 import { DisclaimerText } from '../Disclaimer/DisclaimerText';
 import { AssetsIcon } from '../Icons/Assets';
 import { LoginIcon } from '../Icons/Login';
-import { useAppInfo } from '../RainbowKitProvider/RainbowKitConfigContext';
+import { AppContext } from '../RainbowKitProvider/AppContext';
 import { I18nContext } from '../RainbowKitProvider/I18nContext';
 import { Text } from '../Text/Text';
 
@@ -17,7 +17,7 @@ export function ConnectModalIntro({
   compactModeEnabled?: boolean;
   getWallet: () => void;
 }) {
-  const { disclaimer: Disclaimer, learnMoreUrl } = useAppInfo();
+  const { disclaimer: Disclaimer, learnMoreUrl } = useContext(AppContext);
   const { i18n } = useContext(I18nContext);
 
   return (

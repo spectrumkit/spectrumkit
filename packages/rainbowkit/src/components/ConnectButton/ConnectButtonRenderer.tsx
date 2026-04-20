@@ -19,7 +19,7 @@ import {
 } from '../RainbowKitProvider/ModalContext';
 import { useRainbowKitChainsById } from '../RainbowKitProvider/RainbowKitChainContext';
 import { useShowBalance } from '../RainbowKitProvider/ShowBalanceContext';
-import { useShowRecentTransactions } from '../RainbowKitProvider/RainbowKitConfigContext';
+import { ShowRecentTransactionsContext } from '../RainbowKitProvider/ShowRecentTransactionsContext';
 import { abbreviateETHBalance } from './abbreviateETHBalance';
 import { formatAddress } from './formatAddress';
 import { formatENS } from './formatENS';
@@ -84,7 +84,7 @@ function ConnectButtonRendererClient({ children }: ConnectButtonRendererProps) {
   const chainIconBackground = rainbowKitChain?.iconBackground ?? undefined;
   const resolvedChainIconUrl = useAsyncImage(chainIconUrl);
 
-  const showRecentTransactions = useShowRecentTransactions();
+  const showRecentTransactions = useContext(ShowRecentTransactionsContext);
   const hasPendingTransactions =
     useRecentTransactions().some(({ status }) => status === 'pending') &&
     showRecentTransactions;

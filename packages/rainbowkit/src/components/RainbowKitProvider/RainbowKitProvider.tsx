@@ -1,4 +1,4 @@
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, createContext, useContext } from 'react';
 import { useConnectionEffect } from 'wagmi';
 import type { Chain } from 'wagmi/chains';
 import { useIsMounted } from './useIsMounted';
@@ -7,6 +7,16 @@ import type { ThemeVars } from '../../css/sprinkles.css';
 import type { Locale } from '../../locales';
 import { lightTheme } from '../../themes/lightTheme';
 import { TransactionStoreProvider } from '../../transactions/TransactionStoreContext';
+import {
+  AppContext,
+  type DisclaimerComponent,
+  defaultAppInfo,
+} from './AppContext';
+import {
+  type AvatarComponent,
+  AvatarContext,
+  defaultAvatar,
+} from './AvatarContext';
 import { composeProviders } from './composeProviders';
 import { I18nProvider } from './I18nContext';
 import { ModalProvider } from './ModalContext';
@@ -15,26 +25,14 @@ import {
   ModalSizeProvider,
   type ModalSizes,
 } from './ModalSizeContext';
-import {
-  type AppInfo,
-  type AvatarComponent,
-  type DisclaimerComponent,
-  type RainbowKitConfig,
-  RainbowKitConfigContext,
-  defaultAppInfo,
-  useThemeId,
-} from './RainbowKitConfigContext';
 import { RainbowKitChainProvider } from './RainbowKitChainContext';
 import { ShowBalanceProvider } from './ShowBalanceContext';
+import { ShowRecentTransactionsContext } from './ShowRecentTransactionsContext';
 import { WalletButtonProvider } from './WalletButtonContext';
 import { usePreloadImages } from './usePreloadImages';
 import { clearWalletConnectDeepLink } from './walletConnectDeepLink';
-import { EmojiAvatar } from '../Avatar/EmojiAvatar';
 
-export type {
-  DisclaimerComponent,
-  AvatarComponent,
-} from './RainbowKitConfigContext';
+const ThemeIdContext = createContext<string | undefined>(undefined);
 
 const attr = 'data-sk';
 
@@ -48,7 +46,10 @@ const createThemeRootSelector = (id: string | undefined) => {
   return id ? `[${attr}="${id}"]` : `[${attr}]`;
 };
 
-export const useThemeRootProps = () => createThemeRootProps(useThemeId());
+export const useThemeRootProps = () => {
+  const id = useContext(ThemeIdContext);
+  return createThemeRootProps(id);
+};
 
 export type Theme =
   | ThemeVars
@@ -63,7 +64,11 @@ export interface RainbowKitProviderProps {
   children: ReactNode;
   theme?: Theme | null;
   showRecentTransactions?: boolean;
-  appInfo?: AppInfo;
+  appInfo?: {
+    appName?: string;
+    learnMoreUrl?: string;
+    disclaimer?: DisclaimerComponent;
+  };
   avatar?: AvatarComponent;
   modalSize?: ModalSizes;
   locale?: Locale;
@@ -96,12 +101,12 @@ export function RainbowKitProvider({
 
   const selector = createThemeRootSelector(id);
 
-  const config: RainbowKitConfig = {
-    appInfo: { ...defaultAppInfo, ...appInfo },
-    avatar: avatar ?? EmojiAvatar,
-    showRecentTransactions,
-    themeId: id,
+  const appContext = {
+    ...defaultAppInfo,
+    ...appInfo,
   };
+
+  const avatarContext = avatar ?? defaultAvatar;
 
   // Provider order matters: ModalSizeProvider reads WalletButtonContext;
   // TransactionStoreProvider reads from RainbowKitChainProvider; etc. Don't
@@ -111,8 +116,11 @@ export function RainbowKitProvider({
     [WalletButtonProvider, {}],
     [I18nProvider, { locale }],
     [ModalSizeProvider, { modalSize }],
+    [ShowRecentTransactionsContext.Provider, { value: showRecentTransactions }],
     [TransactionStoreProvider, {}],
-    [RainbowKitConfigContext.Provider, { value: config }],
+    [AvatarContext.Provider, { value: avatarContext }],
+    [AppContext.Provider, { value: appContext }],
+    [ThemeIdContext.Provider, { value: id }],
     [ShowBalanceProvider, {}],
     [ModalProvider, {}],
   ] as const;

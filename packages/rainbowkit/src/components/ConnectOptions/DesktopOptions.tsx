@@ -20,7 +20,7 @@ import { DisclaimerText } from '../Disclaimer/DisclaimerText';
 import { BackIcon } from '../Icons/Back';
 import { InfoButton } from '../InfoButton/InfoButton';
 import { ModalSelection } from '../ModalSelection/ModalSelection';
-import { useAppInfo } from '../RainbowKitProvider/RainbowKitConfigContext';
+import { AppContext } from '../RainbowKitProvider/AppContext';
 import { I18nContext } from '../RainbowKitProvider/I18nContext';
 import {
   ModalSizeContext,
@@ -68,7 +68,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
   const [connectionError, setConnectionError] = useState(false);
   const modalSize = useContext(ModalSizeContext);
   const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
-  const { disclaimer: Disclaimer } = useAppInfo();
+  const { disclaimer: Disclaimer } = useContext(AppContext);
   const { i18n } = useContext(I18nContext);
   const safari = isSafari();
 

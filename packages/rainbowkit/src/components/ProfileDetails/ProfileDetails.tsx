@@ -14,7 +14,7 @@ import { CopiedIcon } from '../Icons/Copied';
 import { CopyIcon } from '../Icons/Copy';
 import { DisconnectIcon } from '../Icons/Disconnect';
 import { I18nContext } from '../RainbowKitProvider/I18nContext';
-import { useShowRecentTransactions } from '../RainbowKitProvider/RainbowKitConfigContext';
+import { ShowRecentTransactionsContext } from '../RainbowKitProvider/ShowRecentTransactionsContext';
 import { Text } from '../Text/Text';
 import { TxList } from '../Txs/TxList';
 import { ProfileDetailsAction } from './ProfileDetailsAction';
@@ -36,7 +36,7 @@ export function ProfileDetails({
   onClose,
   onDisconnect,
 }: ProfileDetailsProps) {
-  const showRecentTransactions = useShowRecentTransactions();
+  const showRecentTransactions = useContext(ShowRecentTransactionsContext);
 
   const [copiedAddress, setCopiedAddress] = useState(false);
   const copyAddressAction = useCallback(() => {
