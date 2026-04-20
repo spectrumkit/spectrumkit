@@ -3,7 +3,6 @@ import { useConnection } from 'wagmi';
 import { touchableStyles } from '../../css/touchableStyles';
 import { useClearRecentTransactions } from '../../transactions/useClearRecentTransactions';
 import { useRecentTransactions } from '../../transactions/useRecentTransactions';
-import { chainToExplorerUrl } from '../../utils/chainToExplorerUrl';
 import { isMobile } from '../../utils/isMobile';
 import { Box } from '../Box/Box';
 import { ExternalLinkIcon } from '../Icons/ExternalLink';
@@ -22,7 +21,7 @@ export function TxList({ address }: TxListProps) {
   const recentTransactions = useRecentTransactions();
   const clearRecentTransactions = useClearRecentTransactions();
   const { chain: activeChain } = useConnection();
-  const explorerLink = chainToExplorerUrl(activeChain);
+  const explorerLink = activeChain?.blockExplorers?.default?.url;
   const visibleTxs = recentTransactions.slice(0, NUMBER_OF_VISIBLE_TXS);
   const hasTransactions = visibleTxs.length > 0;
   const mobile = isMobile();

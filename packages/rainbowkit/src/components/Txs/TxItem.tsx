@@ -2,7 +2,6 @@ import React from 'react';
 import { useConnection } from 'wagmi';
 import { touchableStyles } from '../../css/touchableStyles';
 import type { Transaction } from '../../transactions/transactionStore';
-import { chainToExplorerUrl } from '../../utils/chainToExplorerUrl';
 import { isMobile } from '../../utils/isMobile';
 import { Box } from '../Box/Box';
 import { CancelIcon } from '../Icons/Cancel';
@@ -41,7 +40,7 @@ export function TxItem({ tx }: TxProps) {
         ? 'Failed'
         : 'Pending';
 
-  const explorerLink = chainToExplorerUrl(activeChain);
+  const explorerLink = activeChain?.blockExplorers?.default?.url;
 
   return (
     <>

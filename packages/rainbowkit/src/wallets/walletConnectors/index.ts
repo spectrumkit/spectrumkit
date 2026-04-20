@@ -1,4 +1,3 @@
-import { argentWallet } from './argentWallet/argentWallet';
 import { backpackWallet } from './backpackWallet/backpackWallet';
 import { baseAccount } from './baseAccount/baseAccount';
 import { berasigWallet } from './berasigWallet/berasigWallet';
@@ -6,7 +5,6 @@ import { bestWallet } from './bestWallet/bestWallet';
 import { bifrostWallet } from './bifrostWallet/bifrostWallet';
 import { binanceWallet } from './binanceWallet/binanceWallet';
 import { bitgetWallet } from './bitgetWallet/bitgetWallet';
-import { bitskiWallet } from './bitskiWallet/bitskiWallet';
 import { bitverseWallet } from './bitverseWallet/bitverseWallet';
 import { bloomWallet } from './bloomWallet/bloomWallet';
 import { braveWallet } from './braveWallet/braveWallet';
@@ -15,7 +13,6 @@ import { clvWallet } from './clvWallet/clvWallet';
 import { coin98Wallet } from './coin98Wallet/coin98Wallet';
 import { compassWallet } from './compassWallet/compassWallet';
 import { coreWallet } from './coreWallet/coreWallet';
-import { dawnWallet } from './dawnWallet/dawnWallet';
 import { desigWallet } from './desigWallet/desigWallet';
 import { enkryptWallet } from './enkryptWallet/enkryptWallet';
 import { foxWallet } from './foxWallet/foxWallet';
@@ -27,11 +24,9 @@ import { imTokenWallet } from './imTokenWallet/imTokenWallet';
 import { injectedWallet } from './injectedWallet/injectedWallet';
 import { iopayWallet } from './iopayWallet/iopayWallet';
 import { kaiaWallet } from './kaiaWallet/kaiaWallet';
-import { kaikasWallet } from './kaikasWallet/kaikasWallet';
 import { krakenWallet } from './krakenWallet/krakenWallet';
 import { kresusWallet } from './kresusWallet/kresusWallet';
 import { ledgerWallet } from './ledgerWallet/ledgerWallet';
-import { magicEdenWallet } from './magicEdenWallet/magicEdenWallet';
 import { metaMaskWallet } from './metaMaskWallet/metaMaskWallet';
 import { mewWallet } from './mewWallet/mewWallet';
 import { mecoWallet } from './mecoWallet/mecoWallet';
@@ -71,7 +66,6 @@ import { zerionWallet } from './zerionWallet/zerionWallet';
 import { zilPayWallet } from './ZilPayWallet/zilPayWallet';
 
 export {
-  argentWallet,
   backpackWallet,
   baseAccount,
   berasigWallet,
@@ -79,7 +73,6 @@ export {
   bifrostWallet,
   binanceWallet,
   bitgetWallet,
-  bitskiWallet,
   bitverseWallet,
   bloomWallet,
   braveWallet,
@@ -89,7 +82,6 @@ export {
   compassWallet,
   coreWallet,
   ctrlWallet,
-  dawnWallet,
   desigWallet,
   enkryptWallet,
   foxWallet,
@@ -101,11 +93,9 @@ export {
   injectedWallet,
   iopayWallet,
   kaiaWallet,
-  kaikasWallet,
   krakenWallet,
   kresusWallet,
   ledgerWallet,
-  magicEdenWallet,
   metaMaskWallet,
   mewWallet,
   mecoWallet,
