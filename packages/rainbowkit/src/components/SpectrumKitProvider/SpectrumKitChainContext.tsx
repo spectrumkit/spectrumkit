@@ -6,36 +6,36 @@ import React, {
 } from 'react';
 import { useConfig } from 'wagmi';
 import type { Chain } from 'wagmi/chains';
-import { provideRainbowKitChains } from './provideRainbowKitChains';
+import { provideSpectrumKitChains } from './provideSpectrumKitChains';
 import { useIsMounted } from './useIsMounted';
 
-export interface RainbowKitChain extends Chain {
+export interface SpectrumKitChain extends Chain {
   iconUrl?: string | (() => Promise<string>) | null;
   iconBackground?: string;
 }
 
-interface RainbowKitChainContextValue {
-  chains: RainbowKitChain[];
+interface SpectrumKitChainContextValue {
+  chains: SpectrumKitChain[];
   initialChainId?: number;
 }
 
-const RainbowKitChainContext = createContext<RainbowKitChainContextValue>({
+const SpectrumKitChainContext = createContext<SpectrumKitChainContextValue>({
   chains: [],
 });
 
-interface RainbowKitChainProviderProps {
+interface SpectrumKitChainProviderProps {
   initialChain?: Chain | number;
   children: ReactNode;
 }
 
-export function RainbowKitChainProvider(props: RainbowKitChainProviderProps) {
+export function SpectrumKitChainProvider(props: SpectrumKitChainProviderProps) {
   // useConfig() throws WagmiProviderNotFoundError on SSR. Serve default
   // (empty) chains on server + first hydration; swap in real chains once
   // the client is mounted.
   const mounted = useIsMounted();
   if (!mounted) {
     return (
-      <RainbowKitChainContext.Provider
+      <SpectrumKitChainContext.Provider
         value={{
           chains: [],
           initialChainId:
@@ -45,23 +45,23 @@ export function RainbowKitChainProvider(props: RainbowKitChainProviderProps) {
         }}
       >
         {props.children}
-      </RainbowKitChainContext.Provider>
+      </SpectrumKitChainContext.Provider>
     );
   }
-  return <RainbowKitChainProviderClient {...props} />;
+  return <SpectrumKitChainProviderClient {...props} />;
 }
 
-function RainbowKitChainProviderClient({
+function SpectrumKitChainProviderClient({
   children,
   initialChain,
-}: RainbowKitChainProviderProps) {
+}: SpectrumKitChainProviderProps) {
   const { chains } = useConfig();
 
   return (
-    <RainbowKitChainContext.Provider
+    <SpectrumKitChainContext.Provider
       value={useMemo(
         () => ({
-          chains: provideRainbowKitChains(chains),
+          chains: provideSpectrumKitChains(chains),
           initialChainId:
             typeof initialChain === 'number' ? initialChain : initialChain?.id,
         }),
@@ -69,26 +69,26 @@ function RainbowKitChainProviderClient({
       )}
     >
       {children}
-    </RainbowKitChainContext.Provider>
+    </SpectrumKitChainContext.Provider>
   );
 }
 
-export const useRainbowKitChains = () =>
-  useContext(RainbowKitChainContext).chains;
+export const useSpectrumKitChains = () =>
+  useContext(SpectrumKitChainContext).chains;
 
 export const useInitialChainId = () =>
-  useContext(RainbowKitChainContext).initialChainId;
+  useContext(SpectrumKitChainContext).initialChainId;
 
-export const useRainbowKitChainsById = () => {
-  const rainbowkitChains = useRainbowKitChains();
+export const useSpectrumKitChainsById = () => {
+  const spectrumkitChains = useSpectrumKitChains();
 
   return useMemo(() => {
-    const rainbowkitChainsById: Record<number, RainbowKitChain> = {};
+    const spectrumkitChainsById: Record<number, SpectrumKitChain> = {};
 
-    for (const rkChain of rainbowkitChains) {
-      rainbowkitChainsById[rkChain.id] = rkChain;
+    for (const rkChain of spectrumkitChains) {
+      spectrumkitChainsById[rkChain.id] = rkChain;
     }
 
-    return rainbowkitChainsById;
-  }, [rainbowkitChains]);
+    return spectrumkitChainsById;
+  }, [spectrumkitChains]);
 };

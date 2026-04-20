@@ -7,20 +7,20 @@ export const isRecentWallet = (
   return recentWallets.some((recentWallet) => recentWallet.id === walletId);
 };
 
-export const isRainbowKitConnector = (wallet: WalletInstance) => {
-  return !!wallet.isRainbowKitConnector;
+export const isSpectrumKitConnector = (wallet: WalletInstance) => {
+  return !!wallet.isSpectrumKitConnector;
 };
 
 export const isEIP6963Connector = (wallet: WalletInstance) => {
   return !!(
-    !wallet.isRainbowKitConnector &&
+    !wallet.isSpectrumKitConnector &&
     wallet.icon?.replace(/\n/g, '').startsWith('data:image') &&
     wallet.uid &&
     wallet.name
   );
 };
 
-export const rainbowKitConnectorWithWalletConnect = (
+export const spectrumKitConnectorWithWalletConnect = (
   wallet: WalletInstance,
   walletConnectModalConnector: WalletInstance,
 ) => {

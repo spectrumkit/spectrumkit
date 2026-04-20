@@ -10,7 +10,7 @@ export const defaultAppInfo = {
   appName: undefined,
   disclaimer: undefined,
   learnMoreUrl:
-    'https://learn.rainbow.me/understanding-web3?utm_source=rainbowkit&utm_campaign=learnmore',
+    'https://learn.rainbow.me/understanding-web3?utm_source=spectrumkit&utm_campaign=learnmore',
 };
 
 export const AppContext = createContext<{

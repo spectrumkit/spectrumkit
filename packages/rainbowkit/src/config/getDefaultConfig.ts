@@ -1,9 +1,9 @@
 import type { Transport } from 'viem';
 import { type Config, http, type CreateConfigParameters } from 'wagmi';
 import { createConfig } from 'wagmi';
-import type { RainbowKitChain } from '../components/RainbowKitProvider/RainbowKitChainContext';
+import type { SpectrumKitChain } from '../components/SpectrumKitProvider/SpectrumKitChainContext';
 import type {
-  RainbowKitWalletConnectParameters,
+  SpectrumKitWalletConnectParameters,
   WalletList,
 } from '../wallets/Wallet';
 import { computeWalletConnectMetaData } from '../wallets/computeWalletConnectMetaData';
@@ -16,7 +16,7 @@ import {
   walletConnectWallet,
 } from '../wallets/walletConnectors';
 
-export type _chains = readonly [RainbowKitChain, ...RainbowKitChain[]];
+export type _chains = readonly [SpectrumKitChain, ...SpectrumKitChain[]];
 
 // Define the '_transports' type as a Record
 // It maps each 'Chain' id to a 'Transport'
@@ -38,7 +38,7 @@ interface GetDefaultConfigParameters<
   appIcon?: string;
   wallets?: WalletList;
   projectId: string;
-  walletConnectParameters?: RainbowKitWalletConnectParameters;
+  walletConnectParameters?: SpectrumKitWalletConnectParameters;
 }
 
 const createDefaultTransports = <

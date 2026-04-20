@@ -11,10 +11,10 @@ import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Avatar } from '../Avatar/Avatar';
 import { Box } from '../Box/Box';
 import { DropdownIcon } from '../Icons/Dropdown';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
-import { useRainbowKitChains } from '../RainbowKitProvider/RainbowKitChainContext';
-import { useShowBalance } from '../RainbowKitProvider/ShowBalanceContext';
-import { useIsMounted } from '../RainbowKitProvider/useIsMounted';
+import { I18nContext } from '../SpectrumKitProvider/I18nContext';
+import { useSpectrumKitChains } from '../SpectrumKitProvider/SpectrumKitChainContext';
+import { useShowBalance } from '../SpectrumKitProvider/ShowBalanceContext';
+import { useIsMounted } from '../SpectrumKitProvider/useIsMounted';
 import { ConnectButtonRenderer } from './ConnectButtonRenderer';
 
 type AccountStatus = 'full' | 'avatar' | 'address';
@@ -49,7 +49,7 @@ function ConnectButtonClient({
   label = defaultProps.label,
   showBalance = defaultProps.showBalance,
 }: ConnectButtonProps) {
-  const chains = useRainbowKitChains();
+  const chains = useSpectrumKitChains();
   const connectionStatus = useConnectionStatus();
   const { setShowBalance } = useShowBalance();
   const [ready, setReady] = useState(false);

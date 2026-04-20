@@ -36,7 +36,7 @@ describe('connectorsForWallets', () => {
         ],
         {
           projectId: exampleProjectId,
-          appName: 'rainbowkit.com',
+          appName: 'spectrumkit.com',
         },
       );
 
@@ -63,7 +63,7 @@ describe('connectorsForWallets', () => {
         [{ groupName: 'Test Group 1', wallets: [customWallet] }],
         {
           projectId: exampleProjectId,
-          appName: 'rainbowkit.com',
+          appName: 'spectrumkit.com',
         },
       );
 
@@ -85,7 +85,7 @@ describe('connectorsForWallets', () => {
           ],
           {
             projectId: exampleProjectId,
-            appName: 'rainbowkit.com',
+            appName: 'spectrumkit.com',
           },
         );
       }).toThrow(

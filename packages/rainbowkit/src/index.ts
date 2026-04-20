@@ -1,6 +1,6 @@
 export { ConnectButton } from './components/ConnectButton/ConnectButton';
 export { WalletButton } from './components/WalletButton/WalletButton';
-export { RainbowKitProvider } from './components/RainbowKitProvider/RainbowKitProvider';
+export { SpectrumKitProvider } from './components/SpectrumKitProvider/SpectrumKitProvider';
 export { getDefaultConfig } from './config/getDefaultConfig';
 export { getDefaultWallets } from './wallets/getDefaultWallets';
 export { getWalletConnectConnector } from './wallets/getWalletConnectConnector';
@@ -9,27 +9,27 @@ export {
   useAccountModal,
   useChainModal,
   useConnectModal,
-} from './components/RainbowKitProvider/ModalContext';
+} from './components/SpectrumKitProvider/ModalContext';
 export { useAddRecentTransaction } from './transactions/useAddRecentTransaction';
 export {
-  RainbowKitAuthenticationProvider,
+  SpectrumKitAuthenticationProvider,
   createAuthenticationAdapter,
-} from './components/RainbowKitProvider/AuthenticationContext';
+} from './components/SpectrumKitProvider/AuthenticationContext';
 export type {
   Wallet,
   WalletList,
   WalletDetailsParams,
-  RainbowKitWalletConnectParameters,
+  SpectrumKitWalletConnectParameters,
 } from './wallets/Wallet';
-export type { Theme } from './components/RainbowKitProvider/RainbowKitProvider';
+export type { Theme } from './components/SpectrumKitProvider/SpectrumKitProvider';
 export type {
   AuthenticationStatus,
   AuthenticationConfig,
-} from './components/RainbowKitProvider/AuthenticationContext';
+} from './components/SpectrumKitProvider/AuthenticationContext';
 export type { Locale } from './locales/';
-export type { DisclaimerComponent } from './components/RainbowKitProvider/AppContext';
-export type { AvatarComponent } from './components/RainbowKitProvider/AvatarContext';
-export type { RainbowKitChain as Chain } from './components/RainbowKitProvider/RainbowKitChainContext';
+export type { DisclaimerComponent } from './components/SpectrumKitProvider/AppContext';
+export type { AvatarComponent } from './components/SpectrumKitProvider/AvatarContext';
+export type { SpectrumKitChain as Chain } from './components/SpectrumKitProvider/SpectrumKitChainContext';
 export { lightTheme } from './themes/lightTheme';
 export { darkTheme } from './themes/darkTheme';
 export { midnightTheme } from './themes/midnightTheme';

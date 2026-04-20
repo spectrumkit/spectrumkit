@@ -14,8 +14,8 @@ import {
   zora,
 } from 'wagmi/chains';
 import { mock } from 'wagmi/connectors';
-import type { RainbowKitProviderProps } from '../src/components/RainbowKitProvider/RainbowKitProvider';
-import { RainbowKitProvider } from '../src/components/RainbowKitProvider/RainbowKitProvider';
+import type { SpectrumKitProviderProps } from '../src/components/SpectrumKitProvider/SpectrumKitProvider';
+import { SpectrumKitProvider } from '../src/components/SpectrumKitProvider/SpectrumKitProvider';
 import type { WalletList } from '../src/wallets/Wallet';
 import { connectorsForWallets } from '../src/wallets/connectorsForWallets';
 import { mockedAccounts } from './mockWallet';
@@ -38,7 +38,7 @@ export function renderWithProviders(
   options?: {
     chains?: readonly [Chain, ...Chain[]];
     mockWallets?: WalletList;
-    props?: Omit<RainbowKitProviderProps, 'children'>;
+    props?: Omit<SpectrumKitProviderProps, 'children'>;
   },
 ) {
   const supportedChains = options?.chains || defaultChains;
@@ -47,7 +47,7 @@ export function renderWithProviders(
     chains: supportedChains,
     connectors: options?.mockWallets
       ? connectorsForWallets(options.mockWallets, {
-          appName: 'rainbowkit.com',
+          appName: 'spectrumkit.com',
           projectId: process.env.WALLETCONNECT_PROJECT_ID ?? 'YOUR_PROJECT_ID',
         })
       : [
@@ -71,9 +71,9 @@ export function renderWithProviders(
     wrapper: ({ children }) => (
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider {...options?.props}>
+          <SpectrumKitProvider {...options?.props}>
             {children}
-          </RainbowKitProvider>
+          </SpectrumKitProvider>
         </QueryClientProvider>
       </WagmiProvider>
     ),

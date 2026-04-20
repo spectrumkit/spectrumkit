@@ -18,9 +18,9 @@ import { CloseButton } from '../CloseButton/CloseButton';
 import { DisclaimerLink } from '../Disclaimer/DisclaimerLink';
 import { DisclaimerText } from '../Disclaimer/DisclaimerText';
 import { BackIcon } from '../Icons/Back';
-import { AppContext } from '../RainbowKitProvider/AppContext';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
-import { setWalletConnectDeepLink } from '../RainbowKitProvider/walletConnectDeepLink';
+import { AppContext } from '../SpectrumKitProvider/AppContext';
+import { I18nContext } from '../SpectrumKitProvider/I18nContext';
+import { setWalletConnectDeepLink } from '../SpectrumKitProvider/walletConnectDeepLink';
 import { Text } from '../Text/Text';
 import * as styles from './MobileOptions.css';
 
@@ -207,7 +207,7 @@ enum MobileWalletStep {
 export function MobileOptions({ onClose }: { onClose: () => void }) {
   const titleId = 'rk_connect_title';
   const wallets = useWalletConnectors().filter(
-    (wallet) => wallet.isRainbowKitConnector,
+    (wallet) => wallet.isSpectrumKitConnector,
   );
   const { disclaimer: Disclaimer, learnMoreUrl } = useContext(AppContext);
 

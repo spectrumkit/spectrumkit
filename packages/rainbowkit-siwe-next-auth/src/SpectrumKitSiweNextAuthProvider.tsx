@@ -1,5 +1,5 @@
 import {
-  RainbowKitAuthenticationProvider,
+  SpectrumKitAuthenticationProvider,
   createAuthenticationAdapter,
 } from '@spectrumkit/spectrumkit';
 import { getCsrfToken, signIn, signOut, useSession } from 'next-auth/react';
@@ -21,17 +21,17 @@ type ConfigurableMessageOptions = Partial<
 
 export type GetSiweMessageOptions = () => ConfigurableMessageOptions;
 
-interface RainbowKitSiweNextAuthProviderProps {
+interface SpectrumKitSiweNextAuthProviderProps {
   enabled?: boolean;
   getSiweMessageOptions?: GetSiweMessageOptions;
   children: ReactNode;
 }
 
-export function RainbowKitSiweNextAuthProvider({
+export function SpectrumKitSiweNextAuthProvider({
   children,
   enabled,
   getSiweMessageOptions,
-}: RainbowKitSiweNextAuthProviderProps) {
+}: SpectrumKitSiweNextAuthProviderProps) {
   const { status } = useSession() ?? { status: 'loading' as const };
   const adapter = useMemo(
     () =>
@@ -90,12 +90,12 @@ export function RainbowKitSiweNextAuthProvider({
   );
 
   return (
-    <RainbowKitAuthenticationProvider
+    <SpectrumKitAuthenticationProvider
       adapter={adapter}
       enabled={enabled}
       status={status}
     >
       {children}
-    </RainbowKitAuthenticationProvider>
+    </SpectrumKitAuthenticationProvider>
   );
 }

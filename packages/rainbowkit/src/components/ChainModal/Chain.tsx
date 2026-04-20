@@ -5,8 +5,8 @@ import { AsyncImage } from '../AsyncImage/AsyncImage';
 import type { AsyncImageSrc } from '../AsyncImage/useAsyncImage';
 import { Box, type BoxProps } from '../Box/Box';
 import { MenuButton } from '../MenuButton/MenuButton';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
-import { useRainbowKitChains } from '../RainbowKitProvider/RainbowKitChainContext';
+import { I18nContext } from '../SpectrumKitProvider/I18nContext';
+import { useSpectrumKitChains } from '../SpectrumKitProvider/SpectrumKitChainContext';
 import { Text } from '../Text/Text';
 
 interface ChainProps {
@@ -34,7 +34,7 @@ const Chain = ({
 }: ChainProps) => {
   const mobile = isMobile();
   const { i18n } = useContext(I18nContext);
-  const rainbowkitChains = useRainbowKitChains();
+  const spectrumkitChains = useSpectrumKitChains();
 
   const isCurrentChain = currentChainId === chainId;
 
@@ -118,7 +118,7 @@ const Chain = ({
           </Box>
         </Box>
       </MenuButton>
-      {mobile && idx < rainbowkitChains.length - 1 && (
+      {mobile && idx < spectrumkitChains.length - 1 && (
         <Box background="generalBorderDim" height="1" marginX="8" />
       )}
     </Fragment>

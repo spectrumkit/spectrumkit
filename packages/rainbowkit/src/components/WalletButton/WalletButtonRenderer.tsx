@@ -8,7 +8,7 @@ import React, {
 import { useConnection, useConnectionEffect } from 'wagmi';
 import { useConnectionStatus } from '../../hooks/useConnectionStatus';
 import { useIsMounted } from '../../hooks/useIsMounted';
-import { useIsMounted as useIsMountedSync } from '../RainbowKitProvider/useIsMounted';
+import { useIsMounted as useIsMountedSync } from '../SpectrumKitProvider/useIsMounted';
 import { isMobile } from '../../utils/isMobile';
 import {
   addLatestWalletId,
@@ -22,8 +22,8 @@ import {
 import {
   useConnectModal,
   useModalState,
-} from '../RainbowKitProvider/ModalContext';
-import { WalletButtonContext } from '../RainbowKitProvider/WalletButtonContext';
+} from '../SpectrumKitProvider/ModalContext';
+import { WalletButtonContext } from '../SpectrumKitProvider/WalletButtonContext';
 
 export interface WalletButtonRendererProps {
   wallet?: string;
@@ -55,8 +55,8 @@ function WalletButtonRendererClient({
   const { connectModalOpen } = useModalState();
   const { connector, setConnector } = useContext(WalletButtonContext);
   const [firstConnector] = useWalletConnectors()
-    .filter((wallet) => wallet.isRainbowKitConnector)
-    // rainbowkit / wagmi connectors can uppercase some letters on the `id` field.
+    .filter((wallet) => wallet.isSpectrumKitConnector)
+    // spectrumkit / wagmi connectors can uppercase some letters on the `id` field.
     // Id for metamask is `metaMask`, so instead we will make sure it's has lowercase comparison
     .filter((_wallet) => _wallet.id.toLowerCase() === wallet.toLowerCase())
     .sort((a, b) => a.groupIndex - b.groupIndex);
@@ -142,7 +142,7 @@ function WalletButtonRendererClient({
 
           // If openConnectModal is true and user is on mobile or
           // if user hasn't installed the connector then we prompt them
-          // to rainbowkit connect modal
+          // to spectrumkit connect modal
           if (mobile || isNotSupported) {
             openConnectModal?.();
             setConnector(firstConnector);

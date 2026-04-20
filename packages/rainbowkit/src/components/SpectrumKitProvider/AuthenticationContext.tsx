@@ -42,14 +42,14 @@ const AuthenticationContext = createContext<AuthenticationConfig<any> | null>(
   null,
 );
 
-interface RainbowKitAuthenticationProviderProps<Message>
+interface SpectrumKitAuthenticationProviderProps<Message>
   extends AuthenticationConfig<Message> {
   enabled?: boolean;
   children: ReactNode;
 }
 
-export function RainbowKitAuthenticationProvider<Message = unknown>(
-  props: RainbowKitAuthenticationProviderProps<Message>,
+export function SpectrumKitAuthenticationProvider<Message = unknown>(
+  props: SpectrumKitAuthenticationProviderProps<Message>,
 ) {
   // useConnection/useConnectionEffect require the WagmiProvider's Config
   // context, which is only populated on the client. Defer all wagmi-hook
@@ -77,7 +77,7 @@ function AuthenticationProviderClient<Message = unknown>({
   children,
   enabled = true,
   status,
-}: RainbowKitAuthenticationProviderProps<Message>) {
+}: SpectrumKitAuthenticationProviderProps<Message>) {
   // When the wallet is disconnected, we want to tell the auth
   // adapter that the user session is no longer active.
   const { connector } = useConnection();

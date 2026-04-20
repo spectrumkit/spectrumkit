@@ -7,27 +7,27 @@ import {
 } from 'wagmi/connectors';
 import type {
   CreateConnector,
-  RainbowKitDetails,
-  RainbowKitWalletConnectParameters,
+  SpectrumKitDetails,
+  SpectrumKitWalletConnectParameters,
   WalletDetailsParams,
 } from './Wallet';
 
 interface GetWalletConnectConnectorParams {
   projectId: string;
-  walletConnectParameters?: RainbowKitWalletConnectParameters;
+  walletConnectParameters?: SpectrumKitWalletConnectParameters;
 }
 
 interface CreateWalletConnectConnectorParams {
   projectId: string;
   walletDetails: WalletDetailsParams;
-  walletConnectParameters?: RainbowKitWalletConnectParameters;
+  walletConnectParameters?: SpectrumKitWalletConnectParameters;
 }
 
 interface GetOrCreateWalletConnectInstanceParams {
   projectId: string;
-  walletConnectParameters?: RainbowKitWalletConnectParameters;
-  rkDetailsShowQrModal?: RainbowKitDetails['showQrModal'];
-  rkDetailsIsWalletConnectModalConnector?: RainbowKitDetails['isWalletConnectModalConnector'];
+  walletConnectParameters?: SpectrumKitWalletConnectParameters;
+  rkDetailsShowQrModal?: SpectrumKitDetails['showQrModal'];
+  rkDetailsIsWalletConnectModalConnector?: SpectrumKitDetails['isWalletConnectModalConnector'];
 }
 
 const isServer = typeof window === 'undefined';
@@ -101,7 +101,7 @@ function createWalletConnectConnector({
       projectId,
       walletConnectParameters,
       // Used in `connectorsForWallets` to add another
-      // walletConnect wallet into rainbowkit with modal popup option
+      // walletConnect wallet into spectrumkit with modal popup option
       rkDetailsShowQrModal: walletDetails.rkDetails.showQrModal,
       rkDetailsIsWalletConnectModalConnector:
         walletDetails.rkDetails.isWalletConnectModalConnector,
@@ -122,7 +122,7 @@ export function getWalletConnectConnector({
 
   if (!projectId || projectId === '') {
     throw new Error(
-      'No projectId found. Every dApp must now provide a WalletConnect Cloud projectId to enable WalletConnect v2 https://www.rainbowkit.com/docs/installation#configure',
+      'No projectId found. Every dApp must now provide a WalletConnect Cloud projectId to enable WalletConnect v2 https://www.spectrumkit.com/docs/installation#configure',
     );
   }
 

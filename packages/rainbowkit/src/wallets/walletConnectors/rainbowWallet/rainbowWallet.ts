@@ -5,10 +5,10 @@ const getUri = (uri: string) =>
   isAndroid()
     ? uri
     : isIOS()
-      ? `rainbow://wc?uri=${encodeURIComponent(uri)}&connector=rainbowkit`
+      ? `rainbow://wc?uri=${encodeURIComponent(uri)}&connector=spectrumkit`
       : `https://rnbwapp.com/wc?uri=${encodeURIComponent(
           uri,
-        )}&connector=rainbowkit`;
+        )}&connector=spectrumkit`;
 
 export const rainbowWallet = createWallet({
   id: 'rainbow',
@@ -19,18 +19,18 @@ export const rainbowWallet = createWallet({
   detect: { flag: 'isRainbow' },
   downloadUrls: {
     android:
-      'https://play.google.com/store/apps/details?id=me.rainbow&referrer=utm_source%3Drainbowkit&utm_source=rainbowkit',
-    ios: 'https://apps.apple.com/app/apple-store/id1457119021?pt=119997837&ct=rainbowkit&mt=8',
-    mobile: 'https://rainbow.download?utm_source=rainbowkit',
-    qrCode: 'https://rainbow.download?utm_source=rainbowkit&utm_medium=qrcode',
-    browserExtension: 'https://rainbow.me/extension?utm_source=rainbowkit',
+      'https://play.google.com/store/apps/details?id=me.rainbow&referrer=utm_source%3Dspectrumkit&utm_source=spectrumkit',
+    ios: 'https://apps.apple.com/app/apple-store/id1457119021?pt=119997837&ct=spectrumkit&mt=8',
+    mobile: 'https://rainbow.download?utm_source=spectrumkit',
+    qrCode: 'https://rainbow.download?utm_source=spectrumkit&utm_medium=qrcode',
+    browserExtension: 'https://rainbow.me/extension?utm_source=spectrumkit',
   },
   mobileDeepLink: getUri,
   qrUriTransform: getUri,
   instructions: {
     qrCode: {
       learnMoreUrl:
-        'https://learn.rainbow.me/connect-to-a-website-or-app?utm_source=rainbowkit&utm_medium=connector&utm_campaign=learnmore',
+        'https://learn.rainbow.me/connect-to-a-website-or-app?utm_source=spectrumkit&utm_medium=connector&utm_campaign=learnmore',
     },
   },
 });

@@ -57,7 +57,7 @@ describe('<ChainModal />', () => {
     expect(mainnetOption).toBeDisabled();
   });
 
-  it('List chains from <RainbowKitProvider />', async () => {
+  it('List chains from <SpectrumKitProvider />', async () => {
     const modal = await renderChainModalWithConnectedWallet([
       mainnet,
       arbitrum,
@@ -121,7 +121,7 @@ describe('<ChainModal />', () => {
     expect(onCloseGotCalled).toBe(true);
   });
 
-  it('Custom chain metadata passed from <RainbowKitProvider>', async () => {
+  it('Custom chain metadata passed from <SpectrumKitProvider>', async () => {
     const modal = await renderChainModalWithConnectedWallet([mainnet]);
 
     const mainnetOption = await modal.findByTestId(

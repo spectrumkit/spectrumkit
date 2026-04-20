@@ -6,8 +6,8 @@ import { useRecentTransactions } from '../../transactions/useRecentTransactions'
 import { isMobile } from '../../utils/isMobile';
 import { Box } from '../Box/Box';
 import { ExternalLinkIcon } from '../Icons/ExternalLink';
-import { AppContext } from '../RainbowKitProvider/AppContext';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
+import { AppContext } from '../SpectrumKitProvider/AppContext';
+import { I18nContext } from '../SpectrumKitProvider/I18nContext';
 import { Text } from '../Text/Text';
 import { TxItem } from './TxItem';
 

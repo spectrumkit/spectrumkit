@@ -142,7 +142,7 @@ const avalanche = {
 } as const satisfies Chain;
 
 export const config = getDefaultConfig({
-  appName: 'RainbowKit Demo',
+  appName: 'SpectrumKit Demo',
   projectId,
   walletConnectParameters: {
     telemetryEnabled: false,

@@ -7,7 +7,7 @@ import React, { type ComponentType, type ReactNode } from 'react';
  * is equivalent to:
  *   <A {...}><B {...}><C {...}><Page /></C></B></A>
  *
- * Lets us avoid the 12-level JSX pyramid in RainbowKitProvider while
+ * Lets us avoid the 12-level JSX pyramid in SpectrumKitProvider while
  * preserving the exact same provider order (and dependencies — a later
  * provider can still useContext a value supplied by an earlier one).
  */

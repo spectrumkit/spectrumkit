@@ -1,2 +1,2 @@
-export { RainbowKitSiweNextAuthProvider } from './RainbowKitSiweNextAuthProvider';
-export type { GetSiweMessageOptions } from './RainbowKitSiweNextAuthProvider';
+export { SpectrumKitSiweNextAuthProvider } from './SpectrumKitSiweNextAuthProvider';
+export type { GetSiweMessageOptions } from './SpectrumKitSiweNextAuthProvider';

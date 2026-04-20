@@ -1,4 +1,4 @@
-import type { RainbowKitWalletConnectParameters } from './Wallet';
+import type { SpectrumKitWalletConnectParameters } from './Wallet';
 
 interface ComputeMetaDataParameters {
   appName: string;
@@ -12,7 +12,7 @@ export const computeWalletConnectMetaData = ({
   appDescription,
   appUrl,
   appIcon,
-}: ComputeMetaDataParameters): RainbowKitWalletConnectParameters['metadata'] => {
+}: ComputeMetaDataParameters): SpectrumKitWalletConnectParameters['metadata'] => {
   return {
     name: appName,
     description: appDescription ?? appName,

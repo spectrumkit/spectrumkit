@@ -7,8 +7,8 @@ import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Box } from '../Box/Box';
 import { ActionButton } from '../Button/ActionButton';
 import { CloseButton } from '../CloseButton/CloseButton';
-import { useAuthenticationAdapter } from '../RainbowKitProvider/AuthenticationContext';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
+import { useAuthenticationAdapter } from '../SpectrumKitProvider/AuthenticationContext';
+import { I18nContext } from '../SpectrumKitProvider/I18nContext';
 import { Text } from '../Text/Text';
 
 export const signInIcon = async () => (await import('./sign.png')).default;

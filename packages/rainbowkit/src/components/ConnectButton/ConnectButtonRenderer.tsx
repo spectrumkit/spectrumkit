@@ -2,7 +2,7 @@ import React, { type ReactNode, useContext } from 'react';
 import { useConnection, useConfig } from 'wagmi';
 import { normalizeResponsiveValue } from '../../css/sprinkles.css';
 import { useIsMounted } from '../../hooks/useIsMounted';
-import { useIsMounted as useIsMountedSync } from '../RainbowKitProvider/useIsMounted';
+import { useIsMounted as useIsMountedSync } from '../SpectrumKitProvider/useIsMounted';
 import { useProfile } from '../../hooks/useProfile';
 import { useRecentTransactions } from '../../transactions/useRecentTransactions';
 import { isMobile } from '../../utils/isMobile';
@@ -10,16 +10,16 @@ import { useAsyncImage } from '../AsyncImage/useAsyncImage';
 import {
   type AuthenticationStatus,
   useAuthenticationStatus,
-} from '../RainbowKitProvider/AuthenticationContext';
+} from '../SpectrumKitProvider/AuthenticationContext';
 import {
   useAccountModal,
   useChainModal,
   useConnectModal,
   useModalState,
-} from '../RainbowKitProvider/ModalContext';
-import { useRainbowKitChainsById } from '../RainbowKitProvider/RainbowKitChainContext';
-import { useShowBalance } from '../RainbowKitProvider/ShowBalanceContext';
-import { ShowRecentTransactionsContext } from '../RainbowKitProvider/ShowRecentTransactionsContext';
+} from '../SpectrumKitProvider/ModalContext';
+import { useSpectrumKitChainsById } from '../SpectrumKitProvider/SpectrumKitChainContext';
+import { useShowBalance } from '../SpectrumKitProvider/ShowBalanceContext';
+import { ShowRecentTransactionsContext } from '../SpectrumKitProvider/ShowRecentTransactionsContext';
 import { abbreviateETHBalance } from './abbreviateETHBalance';
 import { formatAddress } from './formatAddress';
 import { formatENS } from './formatENS';
@@ -76,12 +76,12 @@ function ConnectButtonRendererClient({ children }: ConnectButtonRendererProps) {
     (chain) => chain.id === chainId,
   );
 
-  const rainbowkitChainsById = useRainbowKitChainsById();
+  const spectrumkitChainsById = useSpectrumKitChainsById();
   const authenticationStatus = useAuthenticationStatus() ?? undefined;
-  const rainbowKitChain = chainId ? rainbowkitChainsById[chainId] : undefined;
-  const chainName = rainbowKitChain?.name ?? undefined;
-  const chainIconUrl = rainbowKitChain?.iconUrl ?? undefined;
-  const chainIconBackground = rainbowKitChain?.iconBackground ?? undefined;
+  const spectrumKitChain = chainId ? spectrumkitChainsById[chainId] : undefined;
+  const chainName = spectrumKitChain?.name ?? undefined;
+  const chainIconUrl = spectrumKitChain?.iconUrl ?? undefined;
+  const chainIconBackground = spectrumKitChain?.iconBackground ?? undefined;
   const resolvedChainIconUrl = useAsyncImage(chainIconUrl);
 
   const showRecentTransactions = useContext(ShowRecentTransactionsContext);

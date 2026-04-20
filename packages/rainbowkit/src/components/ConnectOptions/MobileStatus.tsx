@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Box } from '../Box/Box';
 import { CloseButton } from '../CloseButton/CloseButton';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
-import { WalletButtonContext } from '../RainbowKitProvider/WalletButtonContext';
+import { I18nContext } from '../SpectrumKitProvider/I18nContext';
+import { WalletButtonContext } from '../SpectrumKitProvider/WalletButtonContext';
 import { Text } from '../Text/Text';
 import { WalletButton } from './MobileOptions';
 

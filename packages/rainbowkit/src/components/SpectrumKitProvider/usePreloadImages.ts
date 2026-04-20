@@ -5,19 +5,19 @@ import { useWalletConnectors } from '../../wallets/useWalletConnectors';
 import { loadImages } from '../AsyncImage/useAsyncImage';
 import { preloadAssetsIcon } from '../Icons/Assets';
 import { preloadLoginIcon } from '../Icons/Login';
-import { useAuthenticationStatus } from '../RainbowKitProvider/AuthenticationContext';
+import { useAuthenticationStatus } from '../SpectrumKitProvider/AuthenticationContext';
 import { signInIcon } from './../SignIn/SignIn';
-import { useRainbowKitChains } from './RainbowKitChainContext';
+import { useSpectrumKitChains } from './SpectrumKitChainContext';
 
 export function usePreloadImages() {
-  const rainbowKitChains = useRainbowKitChains();
+  const spectrumKitChains = useSpectrumKitChains();
   const walletConnectors = useWalletConnectors();
   const isUnauthenticated = useAuthenticationStatus() === 'unauthenticated';
 
   const preloadImages = useCallback(() => {
     loadImages(
       ...walletConnectors.map((wallet) => wallet.iconUrl),
-      ...rainbowKitChains.map((chain) => chain.iconUrl).filter(isNotNullish),
+      ...spectrumKitChains.map((chain) => chain.iconUrl).filter(isNotNullish),
     );
 
     // Preload illustrations used on desktop
@@ -29,7 +29,7 @@ export function usePreloadImages() {
     if (isUnauthenticated) {
       loadImages(signInIcon);
     }
-  }, [walletConnectors, rainbowKitChains, isUnauthenticated]);
+  }, [walletConnectors, spectrumKitChains, isUnauthenticated]);
 
   useEffect(() => {
     preloadImages();

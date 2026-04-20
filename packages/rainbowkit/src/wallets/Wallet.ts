@@ -10,7 +10,7 @@ export type InstructionStepName =
   | 'connect'
   | 'refresh';
 
-type RainbowKitConnector = {
+type SpectrumKitConnector = {
   mobile?: {
     getUri?: (uri: string) => string;
   };
@@ -75,11 +75,11 @@ export type Wallet = {
   };
   hidden?: () => boolean;
   createConnector: (walletDetails: WalletDetailsParams) => CreateConnectorFn;
-} & RainbowKitConnector;
+} & SpectrumKitConnector;
 
 export interface DefaultWalletOptions {
   projectId: string;
-  walletConnectParameters?: RainbowKitWalletConnectParameters;
+  walletConnectParameters?: SpectrumKitWalletConnectParameters;
 }
 
 export type CreateWalletFn = (
@@ -96,39 +96,39 @@ export type WalletList = {
 }[];
 
 // We don't want users to pass in `showQrModal` or `projectId`.
-// Those two values are handled by rainbowkit. The rest of WalletConnect
+// Those two values are handled by spectrumkit. The rest of WalletConnect
 // parameters can be passed with no issue
-export type RainbowKitWalletConnectParameters = Omit<
+export type SpectrumKitWalletConnectParameters = Omit<
   WalletConnectParameters,
   'showQrModal' | 'projectId'
 >;
 
-export type RainbowKitDetails = Omit<Wallet, 'createConnector' | 'hidden'> & {
+export type SpectrumKitDetails = Omit<Wallet, 'createConnector' | 'hidden'> & {
   index: number;
   groupIndex: number;
   groupName: string;
   isWalletConnectModalConnector?: boolean;
-  isRainbowKitConnector: boolean;
+  isSpectrumKitConnector: boolean;
   walletConnectModalConnector?: Connector;
   // Used specifically in `connectorsForWallets` logic
-  // to make sure we can also get WalletConnect modal in rainbowkit
+  // to make sure we can also get WalletConnect modal in spectrumkit
   showQrModal?: true;
 };
 
-export type WalletDetailsParams = { rkDetails: RainbowKitDetails };
+export type WalletDetailsParams = { rkDetails: SpectrumKitDetails };
 
 export type CreateConnector = (walletDetails: {
-  rkDetails: RainbowKitDetails;
+  rkDetails: SpectrumKitDetails;
 }) => CreateConnectorFn;
 
 // This is the default connector you get at first from wagmi
-// "Connector" + rainbowkit details we inject into the connector
+// "Connector" + spectrumkit details we inject into the connector
 export type WagmiConnectorInstance = Connector & {
   // this is optional since we only get
-  // rkDetails if we use rainbowkit connectors
-  rkDetails?: RainbowKitDetails;
+  // rkDetails if we use spectrumkit connectors
+  rkDetails?: SpectrumKitDetails;
 };
 
 // This will be the wallet instance we will return
-// in the rainbowkit connect modal
-export type WalletInstance = Connector & RainbowKitDetails;
+// in the spectrumkit connect modal
+export type WalletInstance = Connector & SpectrumKitDetails;

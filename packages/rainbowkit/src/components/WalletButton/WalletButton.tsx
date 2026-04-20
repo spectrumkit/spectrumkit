@@ -3,7 +3,7 @@ import { touchableStyles } from '../../css/touchableStyles';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Box } from '../Box/Box';
 import { SpinnerIcon } from '../Icons/Spinner';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
+import { I18nContext } from '../SpectrumKitProvider/I18nContext';
 import * as styles from './WalletButton.css';
 import { WalletButtonRenderer } from './WalletButtonRenderer';
 

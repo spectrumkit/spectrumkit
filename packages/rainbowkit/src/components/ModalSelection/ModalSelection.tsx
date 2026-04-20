@@ -2,7 +2,7 @@ import React from 'react';
 import { touchableStyles } from '../../css/touchableStyles';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Box } from '../Box/Box';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
+import { I18nContext } from '../SpectrumKitProvider/I18nContext';
 import { Text } from '../Text/Text';
 import * as styles from './ModalSelection.css';
 
@@ -16,7 +16,7 @@ type Props = {
   iconUrl: string | (() => Promise<string>);
   iconBackground?: string;
   testId?: string;
-  isRainbowKitConnector?: boolean;
+  isSpectrumKitConnector?: boolean;
 };
 
 export const ModalSelection = ({
@@ -29,7 +29,7 @@ export const ModalSelection = ({
   ready,
   recent,
   testId,
-  isRainbowKitConnector,
+  isSpectrumKitConnector,
   ...urlProps
 }: Props) => {
   const [isMouseOver, setIsMouseOver] = React.useState<boolean>(false);
@@ -87,13 +87,13 @@ export const ModalSelection = ({
           <Box alignItems="center" display="flex" flexDirection="row" gap="12">
             <AsyncImage
               background={iconBackground}
-              {...(!isMouseOver && isRainbowKitConnector
+              {...(!isMouseOver && isSpectrumKitConnector
                 ? { borderColor: 'actionButtonBorder' }
                 : {})}
               // We want to use pure <img /> element
               // to avoid bugs with eip6963 icons as sometimes
               // background: url(...) does not work
-              useAsImage={!isRainbowKitConnector}
+              useAsImage={!isSpectrumKitConnector}
               borderRadius="6"
               height="28"
               src={iconUrl}

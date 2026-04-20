@@ -1,7 +1,7 @@
 /**
  * Connect Flow Tests
  *
- * Tests for Rainbow wallet connection flows through RainbowKit modal:
+ * Tests for Rainbow wallet connection flows through SpectrumKit modal:
  * - EIP-1193 (window.ethereum) provider detection and connection
  * - EIP-6963 provider discovery via browser events
  * - WalletConnect fallback when browser extension is not installed
@@ -12,12 +12,12 @@
  *
  * ## WalletConnect Implementation Differences from Wagmi:
  *
- * ### RainbowKit's Approach:
+ * ### SpectrumKit's Approach:
  * - Wraps Wagmi's walletConnect connector with additional features
  * - Manages WalletConnect instances with caching/deduplication
  * - Controls QR modal display (showQrModal flag)
  * - Adds custom storage prefixes for multi-connector support
- * - Injects RainbowKit-specific details (rkDetails) into connectors
+ * - Injects SpectrumKit-specific details (rkDetails) into connectors
  * - Provides automatic fallback when browser extension is not detected
  *
  * ### What We're Testing:
@@ -32,7 +32,7 @@
  * - QR code generation and scanning
  * - Deep WalletConnect protocol implementation
  *
- * Our tests focus on the RainbowKit layer that sits above Wagmi,
+ * Our tests focus on the SpectrumKit layer that sits above Wagmi,
  * ensuring proper wallet detection and connector selection logic.
  */
 

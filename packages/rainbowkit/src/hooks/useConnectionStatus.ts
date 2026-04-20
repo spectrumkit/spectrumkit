@@ -1,5 +1,5 @@
 import { useConnection } from 'wagmi';
-import { useAuthenticationStatus } from '../components/RainbowKitProvider/AuthenticationContext';
+import { useAuthenticationStatus } from '../components/SpectrumKitProvider/AuthenticationContext';
 
 export type ConnectionStatus =
   | 'disconnected'

@@ -25,7 +25,7 @@ import {
   ModalSizeProvider,
   type ModalSizes,
 } from './ModalSizeContext';
-import { RainbowKitChainProvider } from './RainbowKitChainContext';
+import { SpectrumKitChainProvider } from './SpectrumKitChainContext';
 import { ShowBalanceProvider } from './ShowBalanceContext';
 import { ShowRecentTransactionsContext } from './ShowRecentTransactionsContext';
 import { WalletButtonProvider } from './WalletButtonContext';
@@ -58,7 +58,7 @@ export type Theme =
       darkMode: ThemeVars;
     };
 
-export interface RainbowKitProviderProps {
+export interface SpectrumKitProviderProps {
   initialChain?: Chain | number;
   id?: string;
   children: ReactNode;
@@ -76,7 +76,7 @@ export interface RainbowKitProviderProps {
 
 const defaultTheme = lightTheme();
 
-export function RainbowKitProvider({
+export function SpectrumKitProvider({
   appInfo,
   avatar,
   children,
@@ -86,7 +86,7 @@ export function RainbowKitProvider({
   modalSize = ModalSizeOptions.WIDE,
   showRecentTransactions = false,
   theme = defaultTheme,
-}: RainbowKitProviderProps) {
+}: SpectrumKitProviderProps) {
   // Defer wagmi-dependent side effects (wallet icon preload + WC deep-link
   // clearing on disconnect) until after the first client render. Calling
   // these during SSR throws WagmiProviderNotFoundError because the
@@ -109,10 +109,10 @@ export function RainbowKitProvider({
   const avatarContext = avatar ?? defaultAvatar;
 
   // Provider order matters: ModalSizeProvider reads WalletButtonContext;
-  // TransactionStoreProvider reads from RainbowKitChainProvider; etc. Don't
+  // TransactionStoreProvider reads from SpectrumKitChainProvider; etc. Don't
   // reorder without verifying the inner providers' useContext dependencies.
   const providers = [
-    [RainbowKitChainProvider, { initialChain }],
+    [SpectrumKitChainProvider, { initialChain }],
     [WalletButtonProvider, {}],
     [I18nProvider, { locale }],
     [ModalSizeProvider, { modalSize }],

@@ -1,13 +1,13 @@
 import { mainnet } from 'wagmi/chains';
-import { useRainbowKitChains } from '../components/RainbowKitProvider/RainbowKitChainContext';
+import { useSpectrumKitChains } from '../components/SpectrumKitProvider/SpectrumKitChainContext';
 
 export function useIsMainnetConfigured() {
-  const rainbowKitChains = useRainbowKitChains();
+  const spectrumKitChains = useSpectrumKitChains();
 
   const chainId = mainnet.id;
 
-  const configured = rainbowKitChains.some(
-    (rainbowKitChain) => rainbowKitChain.id === chainId,
+  const configured = spectrumKitChains.some(
+    (spectrumKitChain) => spectrumKitChain.id === chainId,
   );
 
   return configured;
