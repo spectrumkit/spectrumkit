@@ -107,6 +107,14 @@ export interface CreateWalletConfig {
   detect?: DetectOption;
 
   /**
+   * Optional injected connector options used when CONNECTING. Defaults to
+   * whatever `detect` resolves to. Use this for wallets that detect on one
+   * namespace but expose their EIP-1193 provider under another (CTRL detects
+   * on `ctrl.ethereum` but injects under `xfi.ethereum`).
+   */
+  connect?: InjectedConnectorOptions;
+
+  /**
    * Optional hidden predicate (e.g. hide non-iOS-only wallets on desktop).
    */
   hidden?: () => boolean;
@@ -148,6 +156,7 @@ export function createWallet(config: CreateWalletConfig) {
     id,
     i18nId = id,
     detect,
+    connect,
     mobileDeepLink,
     desktopDeepLink,
     qrUriTransform,
@@ -156,6 +165,7 @@ export function createWallet(config: CreateWalletConfig) {
   } = config;
 
   const resolvedDetect = resolveDetect(detect);
+  const resolvedConnect = connect ?? resolvedDetect;
   const isInjected = resolvedDetect
     ? hasInjectedProvider(resolvedDetect)
     : false;
@@ -228,8 +238,8 @@ export function createWallet(config: CreateWalletConfig) {
         : undefined,
     createConnector: shouldUseWalletConnect
       ? getWalletConnectConnector({ projectId, walletConnectParameters })
-      : resolvedDetect
-        ? getInjectedConnector(resolvedDetect)
+      : resolvedConnect
+        ? getInjectedConnector(resolvedConnect)
         : getWalletConnectConnector({ projectId, walletConnectParameters }),
   });
 }

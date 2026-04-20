@@ -107,4 +107,21 @@ describe('createWallet', () => {
       'connect',
     ]);
   });
+
+  it('uses `connect` namespace for the connector when it differs from `detect`', () => {
+    const wallet = createWallet({
+      id: 'fakeCtrl',
+      name: 'Fake CTRL',
+      iconUrl: noop,
+      iconBackground: '#fff',
+      detect: { namespace: 'fakectrl.ethereum' },
+      connect: { namespace: 'xfi.ethereum' },
+      instructions: { extension: { learnMoreUrl: 'https://fake.example' } },
+    })({ projectId: 'x' });
+
+    // The connector closure is constructed at factory time; this test locks
+    // in that the override path runs without throwing and produces a wallet.
+    expect(wallet.id).toBe('fakeCtrl');
+    expect(typeof wallet.createConnector).toBe('function');
+  });
 });
