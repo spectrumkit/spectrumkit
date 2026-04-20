@@ -112,7 +112,6 @@ function RainbowKitApp({
   const [selectedOverlayBlur, setOverlayBlur] = useState<OverlayBlur>('none');
   const [authEnabled, setAuthEnabled] = useState(pageProps.session !== null);
   const [showRecentTransactions, setShowRecentTransactions] = useState(true);
-  const [coolModeEnabled, setCoolModeEnabled] = useState(false);
   const [modalSize, setModalSize] = useState<ModalSize>('wide');
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [customAvatar, setCustomAvatar] = useState(false);
@@ -161,7 +160,6 @@ function RainbowKitApp({
         }}
         avatar={customAvatar ? CustomAvatar : undefined}
         locale={locale}
-        coolMode={coolModeEnabled}
         initialChain={selectedInitialChainId}
         modalSize={modalSize}
         showRecentTransactions={showRecentTransactions}
@@ -239,25 +237,6 @@ function RainbowKitApp({
                           onChange={(e) =>
                             setShowRecentTransactions(e.target.checked)
                           }
-                          type="checkbox"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label
-                          htmlFor="coolModeEnabled"
-                          style={{ userSelect: 'none' }}
-                        >
-                          coolMode
-                        </label>
-                      </td>
-                      <td>
-                        <input
-                          checked={coolModeEnabled}
-                          id="coolModeEnabled"
-                          name="coolModeEnabled"
-                          onChange={(e) => setCoolModeEnabled(e.target.checked)}
                           type="checkbox"
                         />
                       </td>

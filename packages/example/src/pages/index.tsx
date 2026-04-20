@@ -1,4 +1,3 @@
-import { RainbowButton } from '@spectrumkit/spectrum-button';
 import {
   ConnectButton,
   WalletButton,
@@ -213,21 +212,6 @@ const Example = ({ authEnabled }: AppContextProps) => {
               );
             }}
           </ConnectButton.Custom>
-
-          <RainbowButton.Custom>
-            {({ ready, connect }) => {
-              return (
-                <button
-                  type="button"
-                  disabled={!ready}
-                  onClick={connect}
-                  style={{ marginLeft: '16px' }}
-                >
-                  Connect Rainbow
-                </button>
-              );
-            }}
-          </RainbowButton.Custom>
         </div>
       </div>
 
