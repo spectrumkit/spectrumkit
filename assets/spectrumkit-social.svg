@@ -1,0 +1,16 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="640" fill="#0d1117"/>
+  <!-- rounded icon -->
+  <clipPath id="ic"><rect x="150" y="160" width="320" height="320" rx="64"/></clipPath>
+  <g clip-path="url(#ic)">
+    <g transform="translate(150,160) scale(0.625)">
+      <polygon points="-1000.00,0 161.52,0 -134.08,512 -1000.00,512" fill="#E20C0C"/>
+      <polygon points="161.52,0 323.04,0 27.44,512 -134.08,512" fill="#FF6F00"/>
+      <polygon points="323.04,0 484.56,0 188.96,512 27.44,512" fill="#FAD000"/>
+      <polygon points="484.56,0 646.08,0 350.48,512 188.96,512" fill="#33D11A"/>
+      <polygon points="646.08,0 1512.00,0 1512.00,512 350.48,512" fill="#1518C9"/>
+    </g>
+  </g>
+  <text x="540" y="300" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="800" fill="#ffffff">SpectrumKit</text>
+  <text x="544" y="360" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="400" fill="#9ca3af">The best way to connect a wallet</text>
+</svg>

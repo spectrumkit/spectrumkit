@@ -1,0 +1,12 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SpectrumKit icon">
+  <title>SpectrumKit</title>
+  <clipPath id="sq"><rect x="0" y="0" width="512" height="512"/></clipPath>
+  <!-- Five 30° diagonal spectrum bars of equal perpendicular width, clipped to the square -->
+  <g clip-path="url(#sq)">
+    <polygon points="-1000.00,0 161.52,0 -134.08,512 -1000.00,512" fill="#E20C0C"/>
+    <polygon points="161.52,0 323.04,0 27.44,512 -134.08,512" fill="#FF6F00"/>
+    <polygon points="323.04,0 484.56,0 188.96,512 27.44,512" fill="#FAD000"/>
+    <polygon points="484.56,0 646.08,0 350.48,512 188.96,512" fill="#33D11A"/>
+    <polygon points="646.08,0 1512.00,0 1512.00,512 350.48,512" fill="#1518C9"/>
+  </g>
+</svg>
