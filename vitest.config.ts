@@ -55,13 +55,6 @@ export default {
   test: {
     environment: 'jsdom',
     globals: true,
-    // WalletConnect's relay client still emits an intermittent cross-realm
-    // `Event` rejection during teardown under jsdom, even with the WebSocket
-    // stub in test/mockWalletConnect.ts (the ws/EventTarget layer is captured
-    // at import time before the stub applies). All 88 assertions pass; this
-    // guard keeps the run deterministic rather than flaky. A full fix requires
-    // mocking @walletconnect/ethereum-provider itself.
-    dangerouslyIgnoreUnhandledErrors: true,
     setupFiles: ['./packages/spectrumkit/test/setup.ts'],
     watch: false,
     exclude: [
