@@ -8,10 +8,19 @@
     "wallets"
   ],
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./styles.css": "./dist/index.css",
-    "./wallets": "./dist/wallets/walletConnectors/index.js"
+    "./wallets": {
+      "types": "./dist/wallets/walletConnectors/index.d.ts",
+      "default": "./dist/wallets/walletConnectors/index.js"
+    }
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
