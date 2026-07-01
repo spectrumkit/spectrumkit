@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const CopiedIcon = () => (
   <svg
     fill="none"

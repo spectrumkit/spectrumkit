@@ -10,7 +10,6 @@
  */
 
 import type { Address } from 'viem';
-import { rainbowWallet } from '../src/wallets/walletConnectors/rainbowWallet/rainbowWallet';
 
 // Test accounts for Rainbow wallets
 export const rainbowTestAccounts: readonly [Address, ...Address[]] = [

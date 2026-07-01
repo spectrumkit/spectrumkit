@@ -1,4 +1,3 @@
-import React from 'react';
 import { useConnection, useDisconnect } from 'wagmi';
 import { useProfile } from '../../hooks/useProfile';
 import { Dialog } from '../Dialog/Dialog';

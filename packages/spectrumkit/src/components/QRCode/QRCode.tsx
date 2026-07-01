@@ -1,4 +1,3 @@
-import React from 'react';
 import { Cuer } from 'cuer';
 import { Box, type BoxProps } from '../Box/Box';
 import { useAsyncImage } from '../AsyncImage/useAsyncImage';

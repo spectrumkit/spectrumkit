@@ -1,4 +1,4 @@
-import React, { type ReactNode, createContext, useContext } from 'react';
+import { type ReactNode, createContext, useContext } from 'react';
 import { useConnectionEffect } from 'wagmi';
 import type { Chain } from 'wagmi/chains';
 import { useIsMounted } from './useIsMounted';

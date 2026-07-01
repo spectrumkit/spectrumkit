@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import type { GetEnsNameReturnType } from 'viem';
 import type { GetEnsAvatarReturnType } from 'viem/actions';
 import type { useConnection } from 'wagmi';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useConnection } from 'wagmi';
 import { touchableStyles } from '../../css/touchableStyles';
 import type { Transaction } from '../../transactions/transactionStore';

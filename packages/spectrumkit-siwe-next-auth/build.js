@@ -9,6 +9,7 @@ const mainBuildOptions = {
   bundle: true,
   entryPoints: ['src/index.ts'],
   format: 'esm',
+  jsx: 'automatic',
   outdir: 'dist',
   plugins: [
     {

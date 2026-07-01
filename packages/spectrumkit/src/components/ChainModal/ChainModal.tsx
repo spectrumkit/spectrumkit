@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useConnection, useDisconnect, useSwitchChain } from 'wagmi';
 import { useConfig } from 'wagmi';
 import { isMobile } from '../../utils/isMobile';

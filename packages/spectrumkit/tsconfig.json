@@ -6,7 +6,7 @@
     "preserveSymlinks": false,
     "declaration": true,
     "declarationDir": "dist",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "outDir": "dist"
   },
   "exclude": ["node_modules", "src/**/*.test.tsx", "src/**/*.test.ts"],

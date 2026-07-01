@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import type { JSX } from 'react';
 import { useCallback, useEffect, useRef } from 'react';
 
 const moveFocusWithin = (element: HTMLElement, position: 'start' | 'end') => {

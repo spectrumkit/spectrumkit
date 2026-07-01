@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import { useReducer } from 'react';
 import { isIOS } from '../../utils/isMobile';
 import { Box, type BoxProps } from '../Box/Box';
 import { type AsyncImageSrc, useAsyncImage } from './useAsyncImage';
