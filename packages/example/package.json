@@ -5,18 +5,18 @@
   "private": true,
   "main": "index.js",
   "dependencies": {
-    "@base-org/account": "~2.4.0",
+    "@base-org/account": "~2.5.7",
     "@spectrumkit/spectrumkit": "workspace:*",
     "@spectrumkit/spectrumkit-siwe-next-auth": "workspace:*",
-    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query": "5.101.2",
     "cuer": "^0.0.3",
     "mipd": "^0.0.7",
-    "next": "^16.1.5",
-    "next-auth": "4.24.11",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "viem": "2.38.0",
-    "wagmi": "^3.1.0"
+    "next": "^16.2.9",
+    "next-auth": "4.24.14",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "viem": "2.53.1",
+    "wagmi": "3.6.21"
   },
   "scripts": {
     "dev": "next dev",
