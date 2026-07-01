@@ -10,7 +10,7 @@ export const defaultAppInfo = {
   appName: undefined,
   disclaimer: undefined,
   // Default empty — the modal's "Learn more" link is hidden when this is
-  // unset. Consumers can supply their own URL via RainbowKitProviderProps.
+  // unset. Consumers can supply their own URL via SpectrumKitProviderProps.
   learnMoreUrl: undefined as string | undefined,
 };
 

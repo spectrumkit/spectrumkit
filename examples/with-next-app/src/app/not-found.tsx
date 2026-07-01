@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-// Simple not-found page that doesn't require wagmi/RainbowKit providers
+// Simple not-found page that doesn't require wagmi/SpectrumKit providers
 // This prevents SSG errors with wagmi v3 which requires hooks to be within WagmiProvider
 export default function NotFound() {
   return (

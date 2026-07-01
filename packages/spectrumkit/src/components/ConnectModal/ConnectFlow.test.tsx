@@ -17,7 +17,7 @@
  * - Manages WalletConnect instances with caching/deduplication
  * - Controls QR modal display (showQrModal flag)
  * - Adds custom storage prefixes for multi-connector support
- * - Injects SpectrumKit-specific details (rkDetails) into connectors
+ * - Injects SpectrumKit-specific details (skDetails) into connectors
  * - Provides automatic fallback when browser extension is not detected
  *
  * ### What We're Testing:

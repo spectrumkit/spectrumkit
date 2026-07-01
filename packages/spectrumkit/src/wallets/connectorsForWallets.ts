@@ -130,12 +130,12 @@ export const connectorsForWallets = (
     const walletMetaData = (
       // For now we should only use these as the additional parameters
       additionalRkParams?: Pick<
-        WalletDetailsParams['rkDetails'],
+        WalletDetailsParams['skDetails'],
         'isWalletConnectModalConnector' | 'showQrModal'
       >,
     ) => {
       return {
-        rkDetails: omitUndefinedValues({
+        skDetails: omitUndefinedValues({
           ...walletMeta,
           groupIndex,
           groupName,

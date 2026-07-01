@@ -1,5 +1,5 @@
 # The readme is copied from the root before release
-packages/rainbowkit/README.md
+packages/spectrumkit/README.md
 
 # Logs
 logs
@@ -115,3 +115,4 @@ dist
 # Others
 .DS_Store
 node-compile-cache/
+.claude/
