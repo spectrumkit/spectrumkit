@@ -57,13 +57,13 @@
     "@vanilla-extract/css-utils": "0.1.6",
     "@vanilla-extract/private": "1.0.9",
     "autoprefixer": "^10.5.2",
-    "dotenv": "^16.4.5",
-    "jsdom": "^25.0.0",
+    "dotenv": "^17.4.2",
+    "jsdom": "^29.1.1",
     "msw": "^2.14.6",
-    "nock": "^13.4.0",
+    "nock": "^14.0.16",
     "postcss": "^8.5.16",
     "react": "^19.2.7",
-    "vitest": "2.1.9"
+    "vitest": "4.1.9"
   },
   "dependencies": {
     "@base-org/account": "~2.5.7",
@@ -79,7 +79,7 @@
     "cuer": "0.0.3",
     "porto": "~0.2.37",
     "react-remove-scroll": "2.7.2",
-    "ua-parser-js": "^1.0.37"
+    "ua-parser-js": "^2.0.10"
   },
   "repository": {
     "type": "git",

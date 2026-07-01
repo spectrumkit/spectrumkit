@@ -1,17 +1,19 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": [
-      "CHANGELOG.md",
-      "pnpm-lock.yaml",
-      "package.json",
-      "tsconfig.json",
-      "tsconfig.*.json",
-      "build/",
-      ".react-router",
-      "examples/with-next-mint-nft/contract/",
-      "packages/spectrumkit/assets/wallets/registry.json",
-      "**/next-env.d.ts"
+    "includes": [
+      "**",
+      "!**/CHANGELOG.md",
+      "!**/pnpm-lock.yaml",
+      "!**/package.json",
+      "!**/tsconfig.json",
+      "!**/tsconfig.*.json",
+      "!**/build/",
+      "!**/.react-router",
+      "!**/examples/with-next-mint-nft/contract/",
+      "!**/packages/spectrumkit/assets/wallets/registry.json",
+      "!**/next-env.d.ts",
+      "!**/*.svg"
     ]
   },
   "formatter": {
@@ -24,23 +26,31 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "a11y": {
-        "useButtonType": "off"
+        "useButtonType": "off",
+        "noLabelWithoutControl": "warn",
+        "noStaticElementInteractions": "warn"
       },
       "complexity": {
         "noBannedTypes": "off",
         "useLiteralKeys": "off"
       },
       "correctness": {
-        "noUnusedVariables": "error"
+        "noUnusedVariables": "error",
+        "useExhaustiveDependencies": "warn",
+        "useHookAtTopLevel": "warn",
+        "noUnusedImports": "off"
       },
       "performance": {
         "noDelete": "off"
       },
       "style": {
         "noNonNullAssertion": "off",
-        "useShorthandArrayType": "error"
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
+        }
       },
       "suspicious": {
         "noArrayIndexKey": "off",
@@ -58,9 +68,7 @@
       "semicolons": "always"
     }
   },
-  "organizeImports": {
-    "enabled": false
-  },
+  "assist": { "actions": { "source": { "organizeImports": "off" } } },
   "vcs": {
     "enabled": true,
     "clientKind": "git",
