@@ -55,6 +55,8 @@ export function ProfileDetails({
     }
   }, [copiedAddress]);
 
+  const { i18n } = useContext(I18nContext);
+
   if (!address) {
     return null;
   }
@@ -67,103 +69,99 @@ export function ProfileDetails({
   const titleId = 'rk_profile_title';
   const mobile = isMobile();
 
-  const { i18n } = useContext(I18nContext);
-
   return (
-    <>
-      <Box display="flex" flexDirection="column">
-        <Box background="profileForeground" padding="16">
+    <Box display="flex" flexDirection="column">
+      <Box background="profileForeground" padding="16">
+        <Box
+          alignItems="center"
+          display="flex"
+          flexDirection="column"
+          gap={mobile ? '16' : '12'}
+          justifyContent="center"
+          margin="8"
+          style={{ textAlign: 'center' }}
+        >
           <Box
-            alignItems="center"
+            style={{
+              position: 'absolute',
+              right: 16,
+              top: 16,
+              willChange: 'transform',
+            }}
+          >
+            <CloseButton onClose={onClose} />
+          </Box>{' '}
+          <Box marginTop={mobile ? '24' : '0'}>
+            <Avatar
+              address={address}
+              imageUrl={ensAvatar}
+              size={mobile ? 82 : 74}
+            />
+          </Box>
+          <Box
             display="flex"
             flexDirection="column"
-            gap={mobile ? '16' : '12'}
-            justifyContent="center"
-            margin="8"
-            style={{ textAlign: 'center' }}
+            gap={mobile ? '4' : '0'}
+            textAlign="center"
           >
-            <Box
-              style={{
-                position: 'absolute',
-                right: 16,
-                top: 16,
-                willChange: 'transform',
-              }}
-            >
-              <CloseButton onClose={onClose} />
-            </Box>{' '}
-            <Box marginTop={mobile ? '24' : '0'}>
-              <Avatar
-                address={address}
-                imageUrl={ensAvatar}
-                size={mobile ? 82 : 74}
-              />
+            <Box textAlign="center">
+              <Text
+                as="h1"
+                color="modalText"
+                id={titleId}
+                size={mobile ? '20' : '18'}
+                weight="heavy"
+              >
+                {accountName}
+              </Text>
             </Box>
-            <Box
-              display="flex"
-              flexDirection="column"
-              gap={mobile ? '4' : '0'}
-              textAlign="center"
-            >
+            {!!balance && (
               <Box textAlign="center">
                 <Text
                   as="h1"
-                  color="modalText"
+                  color="modalTextSecondary"
                   id={titleId}
-                  size={mobile ? '20' : '18'}
-                  weight="heavy"
+                  size={mobile ? '16' : '14'}
+                  weight="semibold"
                 >
-                  {accountName}
+                  {displayBalance} {balance.symbol}
                 </Text>
               </Box>
-              {!!balance && (
-                <Box textAlign="center">
-                  <Text
-                    as="h1"
-                    color="modalTextSecondary"
-                    id={titleId}
-                    size={mobile ? '16' : '14'}
-                    weight="semibold"
-                  >
-                    {displayBalance} {balance.symbol}
-                  </Text>
-                </Box>
-              )}
-            </Box>
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="row"
-            gap="8"
-            margin="2"
-            marginTop="16"
-          >
-            <ProfileDetailsAction
-              action={copyAddressAction}
-              icon={copiedAddress ? <CopiedIcon /> : <CopyIcon />}
-              label={
-                copiedAddress
-                  ? i18n.t('profile.copy_address.copied')
-                  : i18n.t('profile.copy_address.label')
-              }
-            />
-            <ProfileDetailsAction
-              action={onDisconnect}
-              icon={<DisconnectIcon />}
-              label={i18n.t('profile.disconnect.label')}
-              testId="disconnect-button"
-            />
+            )}
           </Box>
         </Box>
-        {showRecentTransactions && (
-          <>
-            <Box background="generalBorder" height="1" marginTop="-1" />
-            <Box>
-              <TxList address={address} />
-            </Box>
-          </>
-        )}
+        <Box
+          display="flex"
+          flexDirection="row"
+          gap="8"
+          margin="2"
+          marginTop="16"
+        >
+          <ProfileDetailsAction
+            action={copyAddressAction}
+            icon={copiedAddress ? <CopiedIcon /> : <CopyIcon />}
+            label={
+              copiedAddress
+                ? i18n.t('profile.copy_address.copied')
+                : i18n.t('profile.copy_address.label')
+            }
+          />
+          <ProfileDetailsAction
+            action={onDisconnect}
+            icon={<DisconnectIcon />}
+            label={i18n.t('profile.disconnect.label')}
+            testId="disconnect-button"
+          />
+        </Box>
       </Box>
-    </>
+      {showRecentTransactions && (
+        <>
+          <Box background="generalBorder" height="1" marginTop="-1" />
+          <Box>
+            <TxList address={address} />
+          </Box>
+        </>
+      )}
+    </Box>
   );
 }

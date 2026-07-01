@@ -111,6 +111,34 @@ export const setupLocalStorage = () => {
 };
 
 /**
+ * Stub the global WebSocket with an inert implementation.
+ *
+ * WalletConnect's relay client opens a real `wss://relay.walletconnect.org`
+ * socket that MSW's HTTP handlers can't intercept. In jsdom that connection
+ * fails asynchronously *after* the test resolves (a cross-realm Event / crypto
+ * error), which Vitest 4 reports as an unhandled error and fails the run.
+ * A no-op socket that never opens, errors, or emits keeps the relay quiet.
+ */
+class InertWebSocket {
+  static readonly CONNECTING = 0;
+  static readonly OPEN = 1;
+  static readonly CLOSING = 2;
+  static readonly CLOSED = 3;
+  readyState = InertWebSocket.CONNECTING;
+  send() {}
+  close() {}
+  addEventListener() {}
+  removeEventListener() {}
+  dispatchEvent() {
+    return false;
+  }
+}
+
+export const setupWebSocketStub = () => {
+  vi.stubGlobal('WebSocket', InertWebSocket);
+};
+
+/**
  * Setup all WalletConnect mocks for testing
  * Convenience function to setup all required mocks at once
  */
@@ -120,6 +148,7 @@ export const setupWalletConnectMocks = () => {
   });
   setupMatchMedia();
   setupLocalStorage();
+  setupWebSocketStub();
 };
 
 /**

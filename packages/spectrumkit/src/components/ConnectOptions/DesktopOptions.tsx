@@ -86,6 +86,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
   }, [walletStep, selectedWallet]);
 
   // Auto-advance to Connect step when invoked via the WalletButton API.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: run once when connector is first provided (guarded by initialized ref)
   useEffect(() => {
     if (connector && !initialized.current) {
       setWalletStep(WalletStep.Connect);

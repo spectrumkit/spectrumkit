@@ -56,7 +56,7 @@ function ConnectButtonClient({
 
   const { i18n } = useContext(I18nContext);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: run-once init; must not re-run when `ready` flips
   useEffect(() => {
     setShowBalance(showBalance);
     if (!ready) setReady(true);
@@ -300,9 +300,7 @@ function ConnectButtonClient({
         );
       }}
     </ConnectButtonRenderer>
-  ) : (
-    <></>
-  );
+  ) : null;
 }
 
 ConnectButton.__defaultProps = defaultProps;

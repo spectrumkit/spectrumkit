@@ -43,9 +43,7 @@ const PACKAGES = [
 ];
 
 function pickClosure({ re, exclude }) {
-  const matches = pnpmEntries.filter(
-    (n) => re.test(n) && (!exclude || !exclude.test(n)),
-  );
+  const matches = pnpmEntries.filter((n) => re.test(n) && !exclude?.test(n));
   if (matches.length === 0) return null;
   // Pick longest name — that's the closure with the most resolved peers,
   // so other code paths that need any of those peers can still resolve them.

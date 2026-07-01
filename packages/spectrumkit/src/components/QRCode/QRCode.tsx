@@ -18,7 +18,7 @@ interface Props {
 export function QRCode({
   ecc = 'medium',
   logoBackground,
-  // biome-ignore lint/correctness/noUnusedVariables: API compatibility
+  // biome-ignore lint/correctness/noUnusedFunctionParameters: kept for API compatibility
   logoSize = 50,
   logoUrl,
   size: sizeProp = 200,

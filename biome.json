@@ -28,9 +28,7 @@
     "rules": {
       "preset": "recommended",
       "a11y": {
-        "useButtonType": "off",
-        "noLabelWithoutControl": "warn",
-        "noStaticElementInteractions": "warn"
+        "useButtonType": "off"
       },
       "complexity": {
         "noBannedTypes": "off",
@@ -38,8 +36,6 @@
       },
       "correctness": {
         "noUnusedVariables": "error",
-        "useExhaustiveDependencies": "warn",
-        "useHookAtTopLevel": "warn",
         "noUnusedImports": "off"
       },
       "performance": {
@@ -68,6 +64,18 @@
       "semicolons": "always"
     }
   },
+  "overrides": [
+    {
+      "includes": ["packages/example/**"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noImgElement": "off"
+          }
+        }
+      }
+    }
+  ],
   "assist": { "actions": { "source": { "organizeImports": "off" } } },
   "vcs": {
     "enabled": true,
