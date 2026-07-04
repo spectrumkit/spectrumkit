@@ -5,6 +5,7 @@
     "target": "es2019",
     "declaration": true,
     "declarationDir": "dist",
+    "rootDir": "src",
     "jsx": "react-jsx",
     "outDir": "dist"
   },

@@ -3,7 +3,7 @@
     "module": "esnext",
     "target": "es2019",
     "preserveSymlinks": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "isolatedModules": true,
     "declaration": true,

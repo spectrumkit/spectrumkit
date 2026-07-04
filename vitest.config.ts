@@ -3,28 +3,19 @@ import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
-// Force every `react` / `react-dom` import to resolve to the .pnpm-canonical
-// physical copy. pnpm with `node-linker = hoisted` creates BOTH a top-level
-// node_modules/react AND a .pnpm/react@x/node_modules/react as separate
-// physical files. CJS modules under .pnpm always resolve to the .pnpm copy;
-// without the alias, Vite resolves bare `react` to the hoisted copy → two
-// React module instances → "Cannot read properties of null (reading 'useRef')".
-const pnpmDir = path.resolve(process.cwd(), 'node_modules/.pnpm');
-const reactDirName = fs
-  .readdirSync(pnpmDir)
-  .find((name) => /^react@\d/.test(name));
-const reactDomDirName = fs
-  .readdirSync(pnpmDir)
-  .find((name) => /^react-dom@\d.*_react@/.test(name));
-if (!reactDirName || !reactDomDirName) {
-  throw new Error(`Could not find react/react-dom under ${pnpmDir}`);
+// Force every `react` / `react-dom` import to resolve to the single hoisted
+// physical copy. The repo pins `node-linker = hoisted` (see .npmrc), which
+// flattens one canonical node_modules/react into the workspace root. Aliasing
+// bare `react`/`react-dom` to it keeps every consumer on one module instance,
+// avoiding "Cannot read properties of null (reading 'useRef')" from duplicate
+// React copies.
+const reactRoot = path.resolve(process.cwd(), 'node_modules/react');
+const reactDomRoot = path.resolve(process.cwd(), 'node_modules/react-dom');
+if (!fs.existsSync(reactRoot) || !fs.existsSync(reactDomRoot)) {
+  throw new Error(
+    `Could not find hoisted react/react-dom under ${process.cwd()}/node_modules`,
+  );
 }
-const reactRoot = path.join(pnpmDir, reactDirName, 'node_modules/react');
-const reactDomRoot = path.join(
-  pnpmDir,
-  reactDomDirName,
-  'node_modules/react-dom',
-);
 
 // Custom loader for JSON files
 function customJsonLoader() {

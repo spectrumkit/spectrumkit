@@ -116,3 +116,7 @@ dist
 .DS_Store
 node-compile-cache/
 .claude/
+
+# Security-scan tool output (transient)
+.supply-chain-risk-auditor/
+static_analysis_semgrep_1/

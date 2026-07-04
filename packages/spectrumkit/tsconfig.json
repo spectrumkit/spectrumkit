@@ -6,6 +6,7 @@
     "preserveSymlinks": false,
     "declaration": true,
     "declarationDir": "dist",
+    "rootDir": "src",
     "jsx": "react-jsx",
     "outDir": "dist"
   },

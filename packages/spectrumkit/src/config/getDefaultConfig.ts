@@ -1,5 +1,9 @@
-import type { Transport } from 'viem';
-import { type Config, http, type CreateConfigParameters } from 'wagmi';
+import {
+  type Config,
+  type CreateConfigParameters,
+  type Transport,
+  http,
+} from 'wagmi';
 import { createConfig } from 'wagmi';
 import type { SpectrumKitChain } from '../components/SpectrumKitProvider/SpectrumKitChainContext';
 import type {
@@ -24,7 +28,7 @@ export type _transports = Record<_chains[number]['id'], Transport>;
 
 interface GetDefaultConfigParameters<
   chains extends _chains,
-  transports extends _transports,
+  transports extends Record<chains[number]['id'], Transport>,
 > extends Omit<
     CreateConfigParameters<chains, transports>,
     // If you use 'client' you can't use 'transports' (we force to use 'transports')
@@ -43,7 +47,7 @@ interface GetDefaultConfigParameters<
 
 const createDefaultTransports = <
   chains extends _chains,
-  transports extends _transports,
+  transports extends Record<chains[number]['id'], Transport>,
 >(
   chains: chains,
 ): transports => {
@@ -58,7 +62,7 @@ const createDefaultTransports = <
 
 export const getDefaultConfig = <
   chains extends _chains,
-  transports extends _transports,
+  transports extends Record<chains[number]['id'], Transport>,
 >({
   appName,
   appDescription,

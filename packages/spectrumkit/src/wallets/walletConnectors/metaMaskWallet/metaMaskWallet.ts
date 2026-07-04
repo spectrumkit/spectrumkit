@@ -189,7 +189,6 @@ export const metaMaskWallet: MetaMaskWallet = ({
           return createConnector((config) => {
             const metamaskConnector = metaMask({
               dappMetadata: {
-                connector: 'spectrumkit',
                 name: walletConnectParameters?.metadata?.name,
                 iconUrl: walletConnectParameters?.metadata?.icons[0],
                 url: walletConnectParameters?.metadata?.url,
