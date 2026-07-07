@@ -9,7 +9,6 @@ import {
 import type { GetServerSideProps } from 'next';
 import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
-import type React from 'react';
 import { type ComponentProps, useEffect, useState } from 'react';
 import { type Address, parseEther } from 'viem';
 import {

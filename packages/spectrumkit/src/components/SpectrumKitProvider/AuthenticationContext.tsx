@@ -1,4 +1,4 @@
-import React, {
+import {
   type ReactNode,
   createContext,
   useContext,
@@ -107,7 +107,7 @@ function AuthenticationProviderClient<Message = unknown>({
   // Wait for user authentication before listening to "change" event.
   // Avoid listening immediately after wallet connection due to potential SIWE authentication delay.
   // Ensure to turn off the "change" event listener for cleanup.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-subscribe only on emitter/status change, not when handleChangedAccount identity changes
   useEffect(() => {
     // Wagmi renders emitter's partially on page load. We wanna make sure
     // the event emitters gets updated before proceeding
@@ -128,7 +128,7 @@ function AuthenticationProviderClient<Message = unknown>({
     }
   }, [connector?.emitter, status]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: adapter is a stable ref from context; intentionally excluded
   useEffect(() => {
     if (
       currentConnectorUid &&

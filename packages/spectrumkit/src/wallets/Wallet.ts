@@ -115,18 +115,18 @@ export type SpectrumKitDetails = Omit<Wallet, 'createConnector' | 'hidden'> & {
   showQrModal?: true;
 };
 
-export type WalletDetailsParams = { rkDetails: SpectrumKitDetails };
+export type WalletDetailsParams = { skDetails: SpectrumKitDetails };
 
 export type CreateConnector = (walletDetails: {
-  rkDetails: SpectrumKitDetails;
+  skDetails: SpectrumKitDetails;
 }) => CreateConnectorFn;
 
 // This is the default connector you get at first from wagmi
 // "Connector" + spectrumkit details we inject into the connector
 export type WagmiConnectorInstance = Connector & {
   // this is optional since we only get
-  // rkDetails if we use spectrumkit connectors
-  rkDetails?: SpectrumKitDetails;
+  // skDetails if we use spectrumkit connectors
+  skDetails?: SpectrumKitDetails;
 };
 
 // This will be the wallet instance we will return

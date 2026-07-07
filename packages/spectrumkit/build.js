@@ -28,6 +28,7 @@ const baseBuildConfig = (onEnd) => {
     },
     bundle: true,
     format: 'esm',
+    jsx: 'automatic',
     platform: 'browser',
     // Emit non-ASCII characters as raw UTF-8 instead of \uXXXX escapes.
     // Locale JSONs (loaded as text) contain Cyrillic / Hindi / Thai etc.,

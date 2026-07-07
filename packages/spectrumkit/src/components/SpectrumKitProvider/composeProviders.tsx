@@ -13,7 +13,6 @@ import React, { type ComponentType, type ReactNode } from 'react';
  */
 // Each provider has its own prop shape; we widen to ComponentType<any> so a
 // heterogeneous provider list can be expressed in one array.
-// biome-ignore lint/suspicious/noExplicitAny: heterogeneous prop shapes
 type AnyProvider = ComponentType<any>;
 type ProviderEntry = readonly [AnyProvider, Record<string, unknown>];
 

@@ -13,11 +13,7 @@ export type MetaMaskWalletOptions = DefaultWalletOptions;
 
 type AcceptedMetaMaskParameters = Omit<
   MetaMaskParameters,
-  | 'checkInstallationImmediately'
-  | 'connectWith'
-  | 'dappMetadata'
-  | 'headless'
-  | 'preferDesktop'
+  'connectWith' | 'dappMetadata' | 'headless'
 >;
 
 interface MetaMaskWallet extends AcceptedMetaMaskParameters {
@@ -189,21 +185,23 @@ export const metaMaskWallet: MetaMaskWallet = ({
           return createConnector((config) => {
             const metamaskConnector = metaMask({
               dappMetadata: {
-                connector: 'spectrumkit',
                 name: walletConnectParameters?.metadata?.name,
                 iconUrl: walletConnectParameters?.metadata?.icons[0],
                 url: walletConnectParameters?.metadata?.url,
               },
-              headless: true,
-              checkInstallationImmediately: false,
-              enableAnalytics: false, // Disable analytics by default
+              // wagmi 8 / @metamask/connect-evm API: `headless` moved under
+              // `ui`, analytics is opted out via `analytics.enabled`, and the
+              // removed `checkInstallationImmediately` flag is unnecessary —
+              // `ui.headless` already suppresses the install modal.
+              ui: { headless: true },
+              analytics: { enabled: false }, // Disable analytics by default
               ...optionalConfig,
             })(config);
 
             /**
              * Override getChainId to avoid metamask error
              *
-             * @see https://github.com/rainbow-me/rainbowkit/blob/cdcaa25d66b522119852502f71c8efc02b1abdd9/packages/spectrumkit/src/wallets/useWalletConnectors.ts#L57
+             * @see https://github.com/rainbow-me/rainbowkit/blob/cdcaa25d66b522119852502f71c8efc02b1abdd9/packages/rainbowkit/src/wallets/useWalletConnectors.ts#L57
              * And @see https://github.com/wevm/wagmi/blob/275cccb51437908a2d7d3dab0549c6050b6340d3/packages/connectors/src/metaMask.ts#L154
              */
             return {

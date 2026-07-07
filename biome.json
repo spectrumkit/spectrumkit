@@ -1,18 +1,19 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": [
-      "CHANGELOG.md",
-      "pnpm-lock.yaml",
-      "package.json",
-      "tsconfig.json",
-      "tsconfig.*.json",
-      "./packages/create-rainbowkit/generated-test-app/",
-      "build/",
-      ".react-router",
-      "examples/with-next-mint-nft/contract/",
-      "packages/spectrumkit/assets/wallets/registry.json",
-      "**/next-env.d.ts"
+    "includes": [
+      "**",
+      "!**/CHANGELOG.md",
+      "!**/pnpm-lock.yaml",
+      "!**/package.json",
+      "!**/tsconfig.json",
+      "!**/tsconfig.*.json",
+      "!**/build/",
+      "!**/.react-router",
+      "!**/examples/with-next-mint-nft/contract/",
+      "!**/packages/spectrumkit/assets/wallets/registry.json",
+      "!**/next-env.d.ts",
+      "!**/*.svg"
     ]
   },
   "formatter": {
@@ -25,7 +26,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "a11y": {
         "useButtonType": "off"
       },
@@ -34,14 +35,18 @@
         "useLiteralKeys": "off"
       },
       "correctness": {
-        "noUnusedVariables": "error"
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error"
       },
       "performance": {
         "noDelete": "off"
       },
       "style": {
         "noNonNullAssertion": "off",
-        "useShorthandArrayType": "error"
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
+        }
       },
       "suspicious": {
         "noArrayIndexKey": "off",
@@ -59,9 +64,19 @@
       "semicolons": "always"
     }
   },
-  "organizeImports": {
-    "enabled": false
-  },
+  "overrides": [
+    {
+      "includes": ["packages/example/**"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noImgElement": "off"
+          }
+        }
+      }
+    }
+  ],
+  "assist": { "actions": { "source": { "organizeImports": "off" } } },
   "vcs": {
     "enabled": true,
     "clientKind": "git",

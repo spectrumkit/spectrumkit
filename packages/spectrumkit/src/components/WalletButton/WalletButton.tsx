@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { touchableStyles } from '../../css/touchableStyles';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Box } from '../Box/Box';
@@ -8,11 +8,11 @@ import * as styles from './WalletButton.css';
 import { WalletButtonRenderer } from './WalletButtonRenderer';
 
 export const WalletButton = ({ wallet }: { wallet?: string }) => {
+  const { i18n } = useContext(I18nContext);
   return (
     <WalletButtonRenderer wallet={wallet}>
       {({ ready, connect, connected, mounted, connector, loading }) => {
         const isDisabled = !ready || loading;
-        const { i18n } = useContext(I18nContext);
         const connectorName = connector?.name || '';
 
         // SSR mismatch issue in next.js:

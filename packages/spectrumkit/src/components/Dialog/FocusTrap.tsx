@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import type { JSX } from 'react';
 import { useCallback, useEffect, useRef } from 'react';
 
 const moveFocusWithin = (element: HTMLElement, position: 'start' | 'end') => {
@@ -38,6 +38,7 @@ export function FocusTrap(props: JSX.IntrinsicElements['div']) {
 
   return (
     <>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: focus-trap sentinel */}
       <div
         onFocus={useCallback(
           () =>
@@ -53,6 +54,7 @@ export function FocusTrap(props: JSX.IntrinsicElements['div']) {
         tabIndex={-1}
         {...props}
       />
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: focus-trap sentinel */}
       <div
         onFocus={useCallback(
           () =>

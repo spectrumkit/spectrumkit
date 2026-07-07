@@ -1,9 +1,4 @@
-import React, {
-  type ReactNode,
-  createContext,
-  useContext,
-  useMemo,
-} from 'react';
+import { type ReactNode, createContext, useContext, useMemo } from 'react';
 import { useConfig } from 'wagmi';
 import type { Chain } from 'wagmi/chains';
 import { provideSpectrumKitChains } from './provideSpectrumKitChains';

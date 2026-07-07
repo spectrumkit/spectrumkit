@@ -1,13 +1,19 @@
 {
   "name": "@spectrumkit/spectrumkit-siwe-next-auth",
-  "version": "0.5.0",
-  "description": "RainbowKit authentication adapter for Sign-In with Ethereum and NextAuth",
+  "version": "0.0.1",
+  "description": "SpectrumKit authentication adapter for Sign-In with Ethereum and NextAuth",
   "files": [
     "dist"
   ],
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -29,7 +35,7 @@
   "author": "Rainbow",
   "license": "MIT",
   "peerDependencies": {
-    "@spectrumkit/spectrumkit": "2.2.x",
+    "@spectrumkit/spectrumkit": "0.0.x",
     "next-auth": ">=4.21.0 <5",
     "react": ">=18"
   },

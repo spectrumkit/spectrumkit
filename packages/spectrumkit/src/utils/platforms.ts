@@ -1,8 +1,3 @@
-import { UAParser } from 'ua-parser-js';
-
-const ua = UAParser();
-const { os } = ua;
-
 export enum PlatformType {
   Windows = 'Windows',
   MacOS = 'macOS',
@@ -10,18 +5,36 @@ export enum PlatformType {
   Desktop = 'Desktop',
 }
 
+function getUserAgent(): string {
+  if (typeof navigator === 'undefined') return '';
+  return navigator.userAgent ?? '';
+}
+
+function isAndroid(ua: string): boolean {
+  return ua.includes('Android');
+}
+
+function isIOS(ua: string): boolean {
+  return /iPhone|iPad|iPod/.test(ua);
+}
+
 export function isWindows(): boolean {
-  return os.name === 'Windows';
+  return getUserAgent().includes('Windows');
 }
 
 export function isMacOS(): boolean {
-  return os.name === 'Mac OS';
+  const ua = getUserAgent();
+  // iOS user agents contain "Mac OS X" (e.g. "like Mac OS X"), so they must be
+  // excluded to avoid being classified as macOS.
+  if (isIOS(ua)) return false;
+  return ua.includes('Macintosh') || ua.includes('Mac OS X');
 }
 
 export function isLinux(): boolean {
-  return ['Ubuntu', 'Mint', 'Fedora', 'Debian', 'Arch', 'Linux'].includes(
-    os.name!,
-  );
+  const ua = getUserAgent();
+  // Android user agents contain "Linux" but must not be treated as Linux.
+  if (isAndroid(ua)) return false;
+  return ua.includes('Linux') || ua.includes('X11');
 }
 
 export function getPlatform(): PlatformType {

@@ -26,8 +26,8 @@ interface CreateWalletConnectConnectorParams {
 interface GetOrCreateWalletConnectInstanceParams {
   projectId: string;
   walletConnectParameters?: SpectrumKitWalletConnectParameters;
-  rkDetailsShowQrModal?: SpectrumKitDetails['showQrModal'];
-  rkDetailsIsWalletConnectModalConnector?: SpectrumKitDetails['isWalletConnectModalConnector'];
+  skDetailsShowQrModal?: SpectrumKitDetails['showQrModal'];
+  skDetailsIsWalletConnectModalConnector?: SpectrumKitDetails['isWalletConnectModalConnector'];
 }
 
 const isServer = typeof window === 'undefined';
@@ -41,8 +41,8 @@ const walletConnectInstances = new Map<
 const getOrCreateWalletConnectInstance = ({
   projectId,
   walletConnectParameters,
-  rkDetailsShowQrModal,
-  rkDetailsIsWalletConnectModalConnector,
+  skDetailsShowQrModal,
+  skDetailsIsWalletConnectModalConnector,
 }: GetOrCreateWalletConnectInstanceParams): CreateConnectorFn => {
   // Return mock connector on server-side to avoid SSR errors
   // WalletConnect relies on browser-only APIs that aren't available during SSR
@@ -58,8 +58,8 @@ const getOrCreateWalletConnectInstance = ({
     showQrModal: false, // Required. Otherwise WalletConnect modal (Web3Modal) will popup during time of connection for a wallet
   };
 
-  // `rkDetailsShowQrModal` should always be `true`
-  if (rkDetailsShowQrModal) {
+  // `skDetailsShowQrModal` should always be `true`
+  if (skDetailsShowQrModal) {
     config = { ...config, showQrModal: true };
   }
 
@@ -67,7 +67,7 @@ const getOrCreateWalletConnectInstance = ({
   if (!('customStoragePrefix' in config)) {
     config = {
       ...config,
-      customStoragePrefix: rkDetailsIsWalletConnectModalConnector
+      customStoragePrefix: skDetailsIsWalletConnectModalConnector
         ? 'clientOne'
         : 'clientTwo',
     };
@@ -102,9 +102,9 @@ function createWalletConnectConnector({
       walletConnectParameters,
       // Used in `connectorsForWallets` to add another
       // walletConnect wallet into spectrumkit with modal popup option
-      rkDetailsShowQrModal: walletDetails.rkDetails.showQrModal,
-      rkDetailsIsWalletConnectModalConnector:
-        walletDetails.rkDetails.isWalletConnectModalConnector,
+      skDetailsShowQrModal: walletDetails.skDetails.showQrModal,
+      skDetailsIsWalletConnectModalConnector:
+        walletDetails.skDetails.isWalletConnectModalConnector,
     })(config),
     ...walletDetails,
   }));

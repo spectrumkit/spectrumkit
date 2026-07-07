@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const DropdownIcon = () => (
   <svg fill="none" height="7" width="14" xmlns="http://www.w3.org/2000/svg">
     <title>Dropdown</title>

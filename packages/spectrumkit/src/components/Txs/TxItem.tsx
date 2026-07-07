@@ -1,4 +1,3 @@
-import React from 'react';
 import { useConnection } from 'wagmi';
 import { touchableStyles } from '../../css/touchableStyles';
 import type { Transaction } from '../../transactions/transactionStore';
@@ -43,65 +42,63 @@ export function TxItem({ tx }: TxProps) {
   const explorerLink = activeChain?.blockExplorers?.default?.url;
 
   return (
-    <>
+    <Box
+      {...(explorerLink
+        ? {
+            as: 'a',
+            background: { hover: 'profileForeground' },
+            borderRadius: 'menuButton',
+            className: touchableStyles({ active: 'shrink' }),
+            href: `${explorerLink}/tx/${tx.hash}`,
+            rel: 'noreferrer noopener',
+            target: '_blank',
+            transition: 'default',
+          }
+        : {})}
+      color="modalText"
+      display="flex"
+      flexDirection="row"
+      justifyContent="space-between"
+      padding="8"
+      width="full"
+    >
       <Box
-        {...(explorerLink
-          ? {
-              as: 'a',
-              background: { hover: 'profileForeground' },
-              borderRadius: 'menuButton',
-              className: touchableStyles({ active: 'shrink' }),
-              href: `${explorerLink}/tx/${tx.hash}`,
-              rel: 'noreferrer noopener',
-              target: '_blank',
-              transition: 'default',
-            }
-          : {})}
-        color="modalText"
+        alignItems="center"
         display="flex"
         flexDirection="row"
-        justifyContent="space-between"
-        padding="8"
-        width="full"
+        gap={mobile ? '16' : '14'}
       >
-        <Box
-          alignItems="center"
-          display="flex"
-          flexDirection="row"
-          gap={mobile ? '16' : '14'}
-        >
-          <Box color={color}>
-            <Icon />
+        <Box color={color}>
+          <Icon />
+        </Box>
+        <Box display="flex" flexDirection="column" gap={mobile ? '3' : '1'}>
+          <Box>
+            <Text
+              color="modalText"
+              font="body"
+              size={mobile ? '16' : '14'}
+              weight="bold"
+            >
+              {tx?.description}
+            </Text>
           </Box>
-          <Box display="flex" flexDirection="column" gap={mobile ? '3' : '1'}>
-            <Box>
-              <Text
-                color="modalText"
-                font="body"
-                size={mobile ? '16' : '14'}
-                weight="bold"
-              >
-                {tx?.description}
-              </Text>
-            </Box>
-            <Box>
-              <Text
-                color={tx.status === 'pending' ? 'modalTextSecondary' : color}
-                font="body"
-                size="14"
-                weight={mobile ? 'medium' : 'regular'}
-              >
-                {confirmationStatus}
-              </Text>
-            </Box>
+          <Box>
+            <Text
+              color={tx.status === 'pending' ? 'modalTextSecondary' : color}
+              font="body"
+              size="14"
+              weight={mobile ? 'medium' : 'regular'}
+            >
+              {confirmationStatus}
+            </Text>
           </Box>
         </Box>
-        {explorerLink && (
-          <Box alignItems="center" color="modalTextDim" display="flex">
-            <ExternalLinkIcon />
-          </Box>
-        )}
       </Box>
-    </>
+      {explorerLink && (
+        <Box alignItems="center" color="modalTextDim" display="flex">
+          <ExternalLinkIcon />
+        </Box>
+      )}
+    </Box>
   );
 }

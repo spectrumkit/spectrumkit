@@ -3,7 +3,7 @@ import {
   createAuthenticationAdapter,
 } from '@spectrumkit/spectrumkit';
 import { getCsrfToken, signIn, signOut, useSession } from 'next-auth/react';
-import React, { type ReactNode, useMemo } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import type { Address } from 'viem';
 import { type SiweMessage, createSiweMessage } from 'viem/siwe';
 

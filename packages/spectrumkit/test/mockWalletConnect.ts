@@ -112,7 +112,10 @@ export const setupLocalStorage = () => {
 
 /**
  * Setup all WalletConnect mocks for testing
- * Convenience function to setup all required mocks at once
+ * Convenience function to setup all required mocks at once.
+ *
+ * Note: the global WebSocket is made inert in test/setup.ts so the relay
+ * client never opens a real socket (see the note there).
  */
 export const setupWalletConnectMocks = () => {
   walletConnectServer.listen({

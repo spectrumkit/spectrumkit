@@ -27,10 +27,9 @@ export function abbreviateETHBalance(number: number): string {
     const size = 10 ** ((i + 1) * 3);
 
     if (size <= number) {
-      // biome-ignore lint/style/noParameterAssign: TODO
-      number = (number * decimalsDivisor) / size / decimalsDivisor;
+      const scaled = (number * decimalsDivisor) / size / decimalsDivisor;
 
-      result = toPrecision(number, 1) + units[i];
+      result = toPrecision(scaled, 1) + units[i];
 
       break;
     }

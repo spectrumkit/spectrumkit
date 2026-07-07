@@ -1,8 +1,9 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import {
   type WalletConnector,
   useWalletConnectors,
 } from '../../wallets/useWalletConnectors';
+import { isSafeDeepLink } from '../../utils/isSafeDeepLink';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Box } from '../Box/Box';
 import { CloseButton } from '../CloseButton/CloseButton';
@@ -74,11 +75,9 @@ export function WalletButton({
     const onMobileUri = async () => {
       const mobileUri = await getMobileUri?.();
 
-      if (!mobileUri) return;
+      if (!isSafeDeepLink(mobileUri)) return;
 
-      if (mobileUri) {
-        setWalletConnectDeepLink({ mobileUri, name });
-      }
+      setWalletConnectDeepLink({ mobileUri, name });
 
       if (mobileUri.startsWith('http')) {
         // Workaround for https://github.com/rainbow-me/rainbowkit/issues/524.

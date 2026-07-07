@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { isSafari } from '../../utils/browsers';
+import { isSafeDeepLink } from '../../utils/isSafeDeepLink';
 import type { WalletConnector } from '../../wallets/useWalletConnectors';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Box, type BoxProps } from '../Box/Box';
@@ -55,7 +56,7 @@ export function ConnectDetail({
 
   const onDesktopUri = async () => {
     const uri = await getDesktopUri?.();
-    window.open(uri, safari ? '_blank' : '_self');
+    if (isSafeDeepLink(uri)) window.open(uri, safari ? '_blank' : '_self');
   };
 
   const wcModalAction = showWalletConnectModal

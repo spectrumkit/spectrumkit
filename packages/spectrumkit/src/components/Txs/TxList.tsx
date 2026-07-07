@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useConnection } from 'wagmi';
 import { touchableStyles } from '../../css/touchableStyles';
 import { useClearRecentTransactions } from '../../transactions/useClearRecentTransactions';

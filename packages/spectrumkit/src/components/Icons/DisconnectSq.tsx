@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const DisconnectSqIcon = ({ size }: { size: number }) => (
   <svg
     fill="none"

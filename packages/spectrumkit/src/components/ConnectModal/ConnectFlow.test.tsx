@@ -17,7 +17,7 @@
  * - Manages WalletConnect instances with caching/deduplication
  * - Controls QR modal display (showQrModal flag)
  * - Adds custom storage prefixes for multi-connector support
- * - Injects SpectrumKit-specific details (rkDetails) into connectors
+ * - Injects SpectrumKit-specific details (skDetails) into connectors
  * - Provides automatic fallback when browser extension is not detected
  *
  * ### What We're Testing:
@@ -37,7 +37,6 @@
  */
 
 import { screen, waitFor, fireEvent } from '@testing-library/react';
-import React from 'react';
 import {
   describe,
   expect,
@@ -50,13 +49,7 @@ import {
 } from 'vitest';
 import { mainnet } from 'wagmi/chains';
 import { renderWithProviders } from '../../../test';
-import {
-  rainbowWallet,
-  mockWallet,
-  mockRainbow1193Provider,
-  mockRainbow6963Provider,
-  rainbowTestAccounts,
-} from '../../../test/mockRainbow';
+import { rainbowWallet, mockWallet } from '../../../test/mockRainbow';
 import {
   walletConnectServer,
   setupMatchMedia,
