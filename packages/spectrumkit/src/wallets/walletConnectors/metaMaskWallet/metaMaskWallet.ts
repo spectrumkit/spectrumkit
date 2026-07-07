@@ -13,11 +13,7 @@ export type MetaMaskWalletOptions = DefaultWalletOptions;
 
 type AcceptedMetaMaskParameters = Omit<
   MetaMaskParameters,
-  | 'checkInstallationImmediately'
-  | 'connectWith'
-  | 'dappMetadata'
-  | 'headless'
-  | 'preferDesktop'
+  'connectWith' | 'dappMetadata' | 'headless'
 >;
 
 interface MetaMaskWallet extends AcceptedMetaMaskParameters {
@@ -193,9 +189,12 @@ export const metaMaskWallet: MetaMaskWallet = ({
                 iconUrl: walletConnectParameters?.metadata?.icons[0],
                 url: walletConnectParameters?.metadata?.url,
               },
-              headless: true,
-              checkInstallationImmediately: false,
-              enableAnalytics: false, // Disable analytics by default
+              // wagmi 8 / @metamask/connect-evm API: `headless` moved under
+              // `ui`, analytics is opted out via `analytics.enabled`, and the
+              // removed `checkInstallationImmediately` flag is unnecessary —
+              // `ui.headless` already suppresses the install modal.
+              ui: { headless: true },
+              analytics: { enabled: false }, // Disable analytics by default
               ...optionalConfig,
             })(config);
 

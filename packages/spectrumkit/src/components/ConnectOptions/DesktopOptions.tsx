@@ -2,6 +2,7 @@ import { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { touchableStyles } from '../../css/touchableStyles';
 import { isSafari } from '../../utils/browsers';
 import { groupBy } from '../../utils/groupBy';
+import { isSafeDeepLink } from '../../utils/isSafeDeepLink';
 import {
   type WalletConnector,
   useWalletConnectors,
@@ -101,7 +102,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
     if (!sWallet?.getDesktopUri) return;
     setTimeout(async () => {
       const uri = await sWallet?.getDesktopUri?.();
-      if (uri) window.open(uri, safari ? '_blank' : '_self');
+      if (isSafeDeepLink(uri)) window.open(uri, safari ? '_blank' : '_self');
     }, 0);
   };
 

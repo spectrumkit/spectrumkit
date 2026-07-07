@@ -119,7 +119,7 @@ baseAccount.preference = {
 };
 
 // Configure MetaMask analytics
-metaMaskWallet.enableAnalytics = false;
+metaMaskWallet.analytics = { enabled: false };
 
 const avalanche = {
   id: 43_114,

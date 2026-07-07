@@ -62,7 +62,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@types/ua-parser-js": "^0.7.39",
     "@vanilla-extract/css-utils": "0.1.6",
     "@vanilla-extract/private": "1.0.9",
     "autoprefixer": "^10.5.2",
@@ -77,7 +76,7 @@
   "dependencies": {
     "@base-org/account": "~2.5.7",
     "@gemini-wallet/core": "~0.3.1",
-    "@metamask/sdk": "~0.34.0",
+    "@metamask/connect-evm": "^2.1.0",
     "@safe-global/safe-apps-provider": "~0.18.6",
     "@safe-global/safe-apps-sdk": "~9.1.0",
     "@vanilla-extract/css": "1.21.1",
@@ -87,8 +86,7 @@
     "clsx": "2.1.1",
     "cuer": "0.0.3",
     "porto": "~0.2.37",
-    "react-remove-scroll": "2.7.2",
-    "ua-parser-js": "^2.0.10"
+    "react-remove-scroll": "2.7.2"
   },
   "repository": {
     "type": "git",
