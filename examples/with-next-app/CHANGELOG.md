@@ -1,5 +1,14 @@
 # with-next-app
 
+## 0.0.56
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [fdda1a0]
+- Updated dependencies
+  - @spectrumkit/spectrumkit@0.0.2
+
 ## 0.0.55
 
 ### Patch Changes

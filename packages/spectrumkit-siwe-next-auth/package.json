@@ -1,6 +1,6 @@
 {
   "name": "@spectrumkit/spectrumkit-siwe-next-auth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "SpectrumKit authentication adapter for Sign-In with Ethereum and NextAuth",
   "files": [
     "dist"

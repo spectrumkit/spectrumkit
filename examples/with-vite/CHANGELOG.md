@@ -1,5 +1,14 @@
 # with-vite
 
+## 0.0.96
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [fdda1a0]
+- Updated dependencies
+  - @spectrumkit/spectrumkit@0.0.2
+
 ## 0.0.95
 
 ### Patch Changes
