@@ -1,3 +1,4 @@
 {
-  "main": "../dist/wallets/walletConnectors/index.js"
+  "main": "../dist/wallets/walletConnectors/index.js",
+  "types": "../dist/wallets/walletConnectors/index.d.ts"
 }
