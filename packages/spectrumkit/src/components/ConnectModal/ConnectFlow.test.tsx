@@ -1,42 +1,48 @@
 /**
  * Connect Flow Tests
  *
- * Tests for Rainbow wallet connection flows through SpectrumKit modal:
- * - EIP-1193 (window.ethereum) provider detection and connection
+ * Tests for Rainbow wallet connection flows through the SpectrumKit modal:
+ * - EIP-1193 (window.ethereum) provider detection and connector selection
  * - EIP-6963 provider discovery via browser events
- * - WalletConnect fallback when browser extension is not installed
- * - Modal interactions and user flows
+ * - WalletConnect fallback when no browser extension is detected
+ * - Modal interactions and wallet-list state
  *
  * We mock only the browser window providers while using the actual
  * rainbowWallet connector implementation from the source code.
  *
- * ## WalletConnect Implementation Differences from Wagmi:
+ * ## Environment constraints these tests are written against
  *
- * ### SpectrumKit's Approach:
- * - Wraps Wagmi's walletConnect connector with additional features
- * - Manages WalletConnect instances with caching/deduplication
- * - Controls QR modal display (showQrModal flag)
- * - Adds custom storage prefixes for multi-connector support
- * - Injects SpectrumKit-specific details (skDetails) into connectors
- * - Provides automatic fallback when browser extension is not detected
+ * Two properties of this jsdom setup shape what can be asserted. Both were
+ * established empirically; ignoring them produces tests that cannot fail.
  *
- * ### What We're Testing:
- * - Browser extension detection (EIP-1193 and EIP-6963)
- * - Automatic WalletConnect fallback when no extension is found
- * - Proper connector selection based on availability
- * - Modal UI interactions and state management
+ * 1. **Injected-provider detection is frozen at module-import time.**
+ *    `createWallet()` calls `hasInjectedProvider()` in its own body, which runs
+ *    when `rainbowWallet.ts` is first imported. Setting `window.ethereum` in a
+ *    `beforeEach` therefore has *no effect* on a statically imported wallet —
+ *    it is always resolved as "not injected". To genuinely exercise detection,
+ *    the EIP-1193 tests below inject the provider and then re-import the wallet
+ *    module via `vi.resetModules()` + dynamic `import()`.
  *
- * ### What We're NOT Testing (unlike Wagmi):
- * - Network requests to WalletConnect relay (no MSW mocking needed)
+ * 2. **WalletConnect can never establish a session.** `test/setup.ts` replaces
+ *    the global WebSocket with an inert stub, so the relay never connects and
+ *    `display_uri` never fires. `getQrCodeUri()` returns a promise that never
+ *    resolves, so `DesktopOptions.onQrCode` awaits forever and the Connect pane
+ *    never opens for a WC-backed wallet. Anything downstream of a live WC
+ *    session — QR rendering, the `Scan with Rainbow` header, session storage —
+ *    is unobservable here and is asserted at the connector level instead.
+ *
+ * Note also that `test/mockWalletConnect.ts` installs a closure-backed
+ * localStorage mock, so `Object.keys(localStorage)` only ever returns the
+ * mock's method names. Storage must be read through `getItem`.
+ *
+ * ## What we're NOT testing (unlike Wagmi):
+ * - Network requests to the WalletConnect relay
  * - WalletConnect pairing/session management
  * - QR code generation and scanning
  * - Deep WalletConnect protocol implementation
- *
- * Our tests focus on the SpectrumKit layer that sits above Wagmi,
- * ensuring proper wallet detection and connector selection logic.
  */
 
-import { screen, waitFor, fireEvent } from '@testing-library/react';
+import { screen, waitFor, fireEvent, within } from '@testing-library/react';
 import {
   describe,
   expect,
@@ -55,241 +61,190 @@ import {
   setupMatchMedia,
   setupLocalStorage,
 } from '../../../test/mockWalletConnect';
-import { ConnectModal } from './ConnectModal';
+import { metaMaskWallet } from '../../wallets/walletConnectors/metaMaskWallet/metaMaskWallet';
+import type { Wallet } from '../../wallets/Wallet';
 import { ConnectButton } from '../ConnectButton/ConnectButton';
+import { ConnectModal } from './ConnectModal';
+
+const RAINBOW_OPTION = 'rk-wallet-option-rainbow';
+// EIP-6963 connectors are keyed by rdns, not by the SpectrumKit wallet id.
+const RAINBOW_6963_OPTION = 'rk-wallet-option-me.rainbow';
+
+const renderModal = (wallets: Wallet[] = [rainbowWallet]) =>
+  renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
+    chains: [mainnet],
+    mockWallets: [{ groupName: 'Popular', wallets }],
+  });
+
+const waitForModal = () =>
+  waitFor(() =>
+    expect(screen.getByTestId('rk-connect-header-label')).toBeDefined(),
+  );
+
+/**
+ * Re-import the Rainbow wallet so that its injected-provider detection runs
+ * against the `window.ethereum` currently in place. See note 1 in the header.
+ */
+const importFreshRainbowWallet = async () => {
+  vi.resetModules();
+  const mod = await import(
+    '../../wallets/walletConnectors/rainbowWallet/rainbowWallet'
+  );
+  return mod.rainbowWallet;
+};
+
+/** Announce an EIP-6963 provider, both immediately and on future requests. */
+const announceProvider = (detail: {
+  info: { uuid: string; name: string; icon: string; rdns: string };
+  provider: unknown;
+}) => {
+  const announce = () =>
+    window.dispatchEvent(
+      new CustomEvent('eip6963:announceProvider', { detail }),
+    );
+  announce();
+  window.addEventListener('eip6963:requestProvider', announce);
+  const w = window as unknown as { __eip6963Listeners?: (() => void)[] };
+  w.__eip6963Listeners = w.__eip6963Listeners || [];
+  w.__eip6963Listeners.push(announce);
+};
+
+const requestProviders = () =>
+  window.dispatchEvent(new Event('eip6963:requestProvider'));
 
 describe('Connect Flow Tests', () => {
   beforeAll(() => {
-    // Start MSW server for WalletConnect mocking
-    walletConnectServer.listen({
-      onUnhandledRequest: 'warn',
-    });
-
-    // Setup browser environment mocks
+    walletConnectServer.listen({ onUnhandledRequest: 'warn' });
     setupMatchMedia();
     setupLocalStorage();
   });
 
   beforeEach(() => {
-    // Clean up any existing providers
     mockWallet.cleanup();
   });
 
   afterEach(() => {
-    // Clean up mocked providers
     mockWallet.cleanup();
-    // Reset MSW handlers
     walletConnectServer.resetHandlers();
-    // Clear localStorage
     localStorage.clear();
+    // Drop any wallet module re-imported against a mocked window.ethereum.
+    vi.resetModules();
   });
 
   afterAll(() => {
-    // Close MSW server
     walletConnectServer.close();
-    // Restore globals
     vi.unstubAllGlobals();
   });
 
-  describe('Rainbow EIP-1193 Wallet Connection', () => {
-    it('should detect and display Rainbow wallet when injected (EIP-1193)', async () => {
-      // Setup Rainbow EIP-1193 provider
-      mockWallet.setupEIP1193();
+  describe('Wallet list rendering', () => {
+    it('should list each configured wallet under its group heading', async () => {
+      renderModal();
+      await waitForModal();
 
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
-
-      // Wait for wallet list to render
-      await waitFor(() => {
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-      });
-
-      // Check if Rainbow wallet is displayed
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-        expect(rainbowButton).toBeDefined();
-      });
+      const option = await screen.findByTestId(RAINBOW_OPTION);
+      expect(option).toHaveTextContent('Rainbow');
+      // `Popular` is the group name passed to connectorsForWallets, rendered
+      // through the `connector_group.popular` i18n key.
+      expect(screen.getByText('Popular')).toBeInTheDocument();
     });
 
-    it('should connect to Rainbow wallet via EIP-1193', async () => {
-      // Setup Rainbow EIP-1193 provider
-      mockWallet.setupEIP1193();
+    it('should record the latest wallet id and mark the option selected on click', async () => {
+      renderModal();
+      await waitForModal();
 
-      const onCloseMock = vi.fn();
+      const option = await screen.findByTestId(RAINBOW_OPTION);
+      expect(option).not.toBeDisabled();
+      expect(localStorage.getItem('rk-latest-id')).toBeNull();
 
-      renderWithProviders(<ConnectModal onClose={onCloseMock} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
+      fireEvent.click(option);
 
-      // Wait for wallet list and click Rainbow
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-        expect(rainbowButton).toBeDefined();
-
-        if (rainbowButton) {
-          fireEvent.click(rainbowButton);
-        }
-      });
-
-      // Verify connection attempt was made
-      await waitFor(() => {
-        // The modal should attempt to connect
-        // In a real scenario, this would trigger the wallet connection
-        expect((window as any).ethereum?.request).toBeDefined();
-      });
-    });
-
-    it('should handle connection errors gracefully for EIP-1193', async () => {
-      // Setup Rainbow EIP-1193 provider that rejects
-      const provider = {
-        isRainbow: true,
-        request: vi.fn().mockRejectedValue(new Error('User rejected')),
-        on: vi.fn(),
-        removeListener: vi.fn(),
-        emit: vi.fn(),
-      };
-      (window as any).ethereum = provider;
-
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
-
-      // Wait for wallet list
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-        expect(rainbowButton).toBeDefined();
-      });
-    });
-
-    it('should show installed badge for Rainbow EIP-1193 wallet', async () => {
-      // Setup Rainbow EIP-1193 provider
-      mockWallet.setupEIP1193();
-
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
-
-      // Check for installed indicator
-      await waitFor(() => {
-        // The installed wallet should have some visual indicator
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-        expect(rainbowButton).toBeDefined();
-        // In the actual implementation, check for installed badge/indicator
-      });
+      expect(localStorage.getItem('rk-latest-id')).toBe('rainbow');
+      await waitFor(() =>
+        expect(screen.getByTestId(RAINBOW_OPTION)).toBeDisabled(),
+      );
     });
   });
 
-  describe('Rainbow EIP-6963 Wallet Connection', () => {
-    it('should detect Rainbow wallet via EIP-6963 announcement', async () => {
-      // Setup EIP-6963 provider
-      mockWallet.setupEIP6963();
+  describe('Injected provider detection (EIP-1193)', () => {
+    it('should select the injected connector when window.ethereum sets the wallet flag', async () => {
+      mockWallet.setupEIP1193(); // sets window.ethereum.isRainbow = true
+      const freshRainbow = await importFreshRainbowWallet();
 
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
+      const wallet = freshRainbow({ projectId: 'test' });
 
-      // Trigger EIP-6963 discovery
-      if (typeof window !== 'undefined') {
-        const requestEvent = new Event('eip6963:requestProvider');
-        window.dispatchEvent(requestEvent);
-      }
-
-      // Wait for wallet to appear
-      await waitFor(() => {
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-      });
+      // Detected as installed, so no WalletConnect fallback is wired up.
+      expect(wallet.installed).toBe(true);
+      expect(wallet.qrCode).toBeUndefined();
+      expect(wallet.mobile?.getUri).toBeUndefined();
     });
 
-    it('should connect to Rainbow wallet via EIP-6963', async () => {
-      const onCloseMock = vi.fn();
+    it('should fall back to WalletConnect when no injected provider is present', async () => {
+      // No window.ethereum at import time.
+      const freshRainbow = await importFreshRainbowWallet();
 
-      // Setup EIP-6963 provider
-      mockWallet.setupEIP6963();
+      const wallet = freshRainbow({ projectId: 'test' });
 
-      renderWithProviders(<ConnectModal onClose={onCloseMock} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
-
-      // Trigger EIP-6963 discovery
-      if (typeof window !== 'undefined') {
-        const requestEvent = new Event('eip6963:requestProvider');
-        window.dispatchEvent(requestEvent);
-      }
-
-      // Wait and click Rainbow wallet
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-
-        if (rainbowButton) {
-          fireEvent.click(rainbowButton);
-        }
-      });
-
-      // Verify provider details were used
-      await waitFor(() => {
-        // Provider should be set up and available
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-      });
+      // `installed` stays undefined so the UI treats it as WC-connectable
+      // rather than "not installed", and the QR/mobile URIs are wired up.
+      expect(wallet.installed).toBeUndefined();
+      expect(wallet.qrCode?.getUri).toBeDefined();
+      expect(wallet.mobile?.getUri).toBeDefined();
     });
 
-    it('should handle multiple EIP-6963 wallet announcements', async () => {
-      // Setup Rainbow EIP-6963
+    it('should open the connect pane when an injected wallet is selected', async () => {
+      mockWallet.setupEIP1193();
+      const freshRainbow = await importFreshRainbowWallet();
+
+      renderModal([freshRainbow]);
+      await waitForModal();
+
+      fireEvent.click(await screen.findByTestId(RAINBOW_OPTION));
+
+      // An injected wallet has no QR URI to await, so DesktopOptions advances
+      // straight to the Connect pane. (A WC-backed wallet never gets here —
+      // see note 2 in the header.)
+      expect(await screen.findByText('Opening Rainbow...')).toBeInTheDocument();
+      expect(
+        screen.getByText('Confirm connection in the extension'),
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe('EIP-6963 provider discovery', () => {
+    it('should list an announced provider under the Installed group', async () => {
       mockWallet.setupEIP6963();
 
-      // Setup another wallet's EIP-6963 announcement
-      const otherProviderDetail = {
+      renderModal();
+      requestProviders();
+      await waitForModal();
+
+      const option = await screen.findByTestId(RAINBOW_6963_OPTION);
+      expect(option).toHaveTextContent('Rainbow');
+      // EIP-6963 connectors are forced into the `Installed` group.
+      expect(screen.getByText('Installed')).toBeInTheDocument();
+      expect(screen.queryByText('Popular')).not.toBeInTheDocument();
+    });
+
+    it('should replace the SpectrumKit connector when an announced provider matches its rdns', async () => {
+      mockWallet.setupEIP6963(); // announces rdns "me.rainbow"
+
+      renderModal();
+      requestProviders();
+      await waitForModal();
+
+      // rainbowWallet declares rdns "me.rainbow", so useWalletConnectors drops
+      // the SpectrumKit connector in favour of the announced one — Rainbow must
+      // appear exactly once, via the EIP-6963 entry.
+      expect(
+        await screen.findByTestId(RAINBOW_6963_OPTION),
+      ).toBeInTheDocument();
+      expect(screen.queryByTestId(RAINBOW_OPTION)).not.toBeInTheDocument();
+      expect(screen.getAllByText('Rainbow')).toHaveLength(1);
+    });
+
+    it('should list every announced provider', async () => {
+      mockWallet.setupEIP6963();
+      announceProvider({
         info: {
           uuid: 'other-wallet-uuid',
           name: 'Other Wallet',
@@ -302,332 +257,104 @@ describe('Connect Flow Tests', () => {
           removeListener: vi.fn(),
           emit: vi.fn(),
         },
-      };
-
-      if (typeof window !== 'undefined') {
-        const listener = () => {
-          const event = new CustomEvent('eip6963:announceProvider', {
-            detail: otherProviderDetail,
-          });
-          window.dispatchEvent(event);
-        };
-        window.addEventListener('eip6963:requestProvider', listener);
-        (window as any).__eip6963Listeners =
-          (window as any).__eip6963Listeners || [];
-        (window as any).__eip6963Listeners.push(listener);
-      }
-
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
       });
 
-      // Trigger discovery
-      if (typeof window !== 'undefined') {
-        const requestEvent = new Event('eip6963:requestProvider');
-        window.dispatchEvent(requestEvent);
-      }
+      renderModal();
+      requestProviders();
+      await waitForModal();
 
-      // Both wallets should be detectable
-      await waitFor(() => {
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-      });
+      expect(
+        await screen.findByTestId(RAINBOW_6963_OPTION),
+      ).toBeInTheDocument();
+      const other = await screen.findByTestId(
+        'rk-wallet-option-com.other.wallet',
+      );
+      expect(other).toHaveTextContent('Other Wallet');
     });
 
-    it('should prefer EIP-6963 over EIP-1193 when both are available', async () => {
-      // Setup both EIP-1193 and EIP-6963
-      mockWallet.setupEIP1193();
+    it('should open the connect pane when an announced provider is selected', async () => {
       mockWallet.setupEIP6963();
 
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
+      renderModal();
+      requestProviders();
+      await waitForModal();
 
-      // Trigger EIP-6963 discovery
-      if (typeof window !== 'undefined') {
-        const requestEvent = new Event('eip6963:requestProvider');
-        window.dispatchEvent(requestEvent);
-      }
+      fireEvent.click(await screen.findByTestId(RAINBOW_6963_OPTION));
 
-      // Should use EIP-6963 provider
-      await waitFor(() => {
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-        // Verify EIP-6963 is being used (would need to check connector type in real impl)
-      });
-    });
-  });
-
-  describe('Rainbow WalletConnect Fallback', () => {
-    it('should show QR code when Rainbow is not installed', async () => {
-      // No injected provider
-      mockWallet.cleanup();
-
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
-
-      // Click on Rainbow wallet
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-
-        if (rainbowButton) {
-          fireEvent.click(rainbowButton);
-          // Should show QR code or mobile connection options
-        }
-      });
-    });
-
-    it('should display download links when wallet is not installed', async () => {
-      mockWallet.cleanup();
-
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
-
-      // Should show download options
-      await waitFor(() => {
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-      });
-    });
-
-    it('should handle WalletConnect URI generation', async () => {
-      // No injected provider
-      mockWallet.cleanup();
-
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
-
-      // Click on Rainbow wallet to trigger WalletConnect
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-
-        if (rainbowButton) {
-          fireEvent.click(rainbowButton);
-        }
-      });
-
-      // WalletConnect should initialize and attempt connection
-      // The MSW handlers will intercept the relay requests
-      await waitFor(() => {
-        // Check that WalletConnect data is stored
-        const wcData = Object.keys(localStorage).filter((key) =>
-          key.includes('wc@'),
-        );
-        // WalletConnect should have created storage entries
-        expect(wcData.length).toBeGreaterThanOrEqual(0);
-      });
-    });
-
-    it('should properly handle WalletConnect session', async () => {
-      // No injected provider - force WalletConnect usage
-      mockWallet.cleanup();
-
-      const onCloseMock = vi.fn();
-
-      renderWithProviders(<ConnectModal onClose={onCloseMock} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
-
-      // Click Rainbow wallet
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-        expect(rainbowButton).toBeDefined();
-
-        if (rainbowButton) {
-          fireEvent.click(rainbowButton);
-        }
-      });
-
-      // Verify that WalletConnect flow is initiated
-      // The MSW server will handle the relay requests
-      await waitFor(
-        () => {
-          // Should show connection UI (QR code or instructions)
-          const modalContent = screen.getByTestId('rk-connect-header-label');
-          expect(modalContent).toBeDefined();
-        },
-        { timeout: 2000 },
-      );
+      // The announced provider is keyed by rdns, so that is what gets recorded.
+      expect(localStorage.getItem('rk-latest-id')).toBe('me.rainbow');
+      expect(await screen.findByText('Opening Rainbow...')).toBeInTheDocument();
     });
   });
 
   describe('Connect Button Integration', () => {
-    it('should open modal and connect with Rainbow EIP-1193', async () => {
-      // Setup Rainbow EIP-1193
-      mockWallet.setupEIP1193();
-
+    it('should open the connect modal when the connect button is clicked', async () => {
       renderWithProviders(<ConnectButton />, {
         chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
+        mockWallets: [{ groupName: 'Popular', wallets: [rainbowWallet] }],
       });
 
-      // Click connect button
-      const connectButton = screen.getByRole('button', {
-        name: /connect wallet/i,
-      });
-      fireEvent.click(connectButton);
+      expect(screen.queryByTestId('rk-connect-header-label')).toBeNull();
 
-      // Modal should open
-      await waitFor(() => {
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-      });
+      fireEvent.click(screen.getByRole('button', { name: /connect wallet/i }));
 
-      // Click Rainbow wallet
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-
-        if (rainbowButton) {
-          fireEvent.click(rainbowButton);
-        }
-      });
+      await waitForModal();
+      expect(await screen.findByTestId(RAINBOW_OPTION)).toBeInTheDocument();
     });
 
-    it('should open modal and connect with Rainbow EIP-6963', async () => {
-      // Setup EIP-6963
+    it('should list announced providers in the modal it opens', async () => {
       mockWallet.setupEIP6963();
 
       renderWithProviders(<ConnectButton />, {
         chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
+        mockWallets: [{ groupName: 'Popular', wallets: [rainbowWallet] }],
       });
 
-      // Click connect button
-      const connectButton = screen.getByRole('button', {
-        name: /connect wallet/i,
-      });
-      fireEvent.click(connectButton);
+      fireEvent.click(screen.getByRole('button', { name: /connect wallet/i }));
+      requestProviders();
+      await waitForModal();
 
-      // Trigger EIP-6963 discovery
-      if (typeof window !== 'undefined') {
-        const requestEvent = new Event('eip6963:requestProvider');
-        window.dispatchEvent(requestEvent);
-      }
-
-      // Modal should open
-      await waitFor(() => {
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-      });
-
-      // Click Rainbow wallet
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
-
-        if (rainbowButton) {
-          fireEvent.click(rainbowButton);
-        }
-      });
+      fireEvent.click(await screen.findByTestId(RAINBOW_6963_OPTION));
+      expect(localStorage.getItem('rk-latest-id')).toBe('me.rainbow');
     });
   });
 
   describe('Recent Wallets', () => {
-    it('should remember and prioritize recently used Rainbow wallet', async () => {
-      mockWallet.setupEIP1193();
+    it('should badge a wallet held in recent storage as Recent', async () => {
+      localStorage.setItem('rk-recent', JSON.stringify(['rainbow']));
 
-      // First render and connect
-      const { unmount } = renderWithProviders(
-        <ConnectModal onClose={() => {}} open={true} />,
-        {
-          chains: [mainnet],
-          mockWallets: [
-            {
-              groupName: 'Popular',
-              wallets: [rainbowWallet],
-            },
-          ],
-        },
-      );
+      renderModal();
+      await waitForModal();
 
-      // Connect to Rainbow
-      await waitFor(() => {
-        const walletButtons = screen.getAllByRole('button');
-        const rainbowButton = walletButtons.find((button) =>
-          button.textContent?.includes('Rainbow'),
-        );
+      const option = await screen.findByTestId(RAINBOW_OPTION);
+      expect(within(option).getByText('Recent')).toBeInTheDocument();
+    });
 
-        if (rainbowButton) {
-          fireEvent.click(rainbowButton);
-        }
-      });
+    it('should list recent wallets ahead of the rest', async () => {
+      localStorage.setItem('rk-recent', JSON.stringify(['metaMask']));
 
-      unmount();
+      renderModal([rainbowWallet, metaMaskWallet]);
+      await waitForModal();
 
-      // Second render should show Rainbow as recent
-      renderWithProviders(<ConnectModal onClose={() => {}} open={true} />, {
-        chains: [mainnet],
-        mockWallets: [
-          {
-            groupName: 'Popular',
-            wallets: [rainbowWallet],
-          },
-        ],
-      });
+      await screen.findByTestId('rk-wallet-option-metaMask');
+      const options = screen
+        .getAllByTestId(/^rk-wallet-option-/)
+        .map((el) => el.getAttribute('data-testid'));
 
-      // Rainbow should appear in recent section
-      await waitFor(() => {
-        expect(screen.getByTestId('rk-connect-header-label')).toBeDefined();
-        // Check for recent wallet indicator
-      });
+      // MetaMask is declared second but is recent, so it must be hoisted above
+      // Rainbow. Only the recent one carries the badge.
+      expect(options).toEqual([
+        'rk-wallet-option-metaMask',
+        'rk-wallet-option-rainbow',
+      ]);
+      expect(
+        within(screen.getByTestId('rk-wallet-option-metaMask')).getByText(
+          'Recent',
+        ),
+      ).toBeInTheDocument();
+      expect(
+        within(screen.getByTestId(RAINBOW_OPTION)).queryByText('Recent'),
+      ).toBeNull();
     });
   });
 });
