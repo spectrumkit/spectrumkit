@@ -5,24 +5,6 @@
       "label": "Rangkaian salah"
     }
   },
-  "intro": {
-    "title": "Apa itu Dompet?",
-    "description": "Dompet digunakan untuk menghantar, menerima, menyimpan, dan memaparkan aset digital. Ia juga cara baru untuk log masuk, tanpa perlu mencipta akaun dan kata laluan baru pada setiap laman web.",
-    "digital_asset": {
-      "title": "Rumah untuk Aset Digital Anda",
-      "description": "Dompet digunakan untuk menghantar, menerima, menyimpan, dan memaparkan aset digital seperti Ethereum dan NFT."
-    },
-    "login": {
-      "title": "Cara Baru untuk Log Masuk",
-      "description": "Daripada mencipta akaun dan kata laluan baru pada setiap laman web, cuma sambungkan dompet anda."
-    },
-    "get": {
-      "label": "Dapatkan Dompet"
-    },
-    "learn_more": {
-      "label": "Ketahui Lebih Lanjut"
-    }
-  },
   "sign_in": {
     "label": "Sahkan akaun anda",
     "description": "Untuk melengkapkan sambungan, anda mesti menandatangani mesej dalam dompet anda untuk mengesahkan bahawa anda adalah pemilik akaun ini.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "Sambung",
     "title": "Sambungkan Dompet",
-    "new_to_ethereum": {
-      "description": "Baru dalam dompet Ethereum?",
-      "learn_more": {
-        "label": "Ketahui Lebih Lanjut"
-      }
-    },
-    "learn_more": {
-      "label": "Ketahui lebih lanjut"
-    },
     "recent": "Terkini",
     "status": {
       "opening": "Membuka %{wallet}...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "Terima permintaan sambungan dalam dompet"
     },
     "secondary_action": {
-      "get": {
-        "description": "Tiada %{wallet}?",
-        "label": "DAPATKAN"
-      },
       "install": {
         "label": "PASANG"
       },
@@ -96,98 +65,10 @@
     "more": "Lainnya",
     "others": "Lain-lain"
   },
-  "get": {
-    "title": "Dapatkan Dompet",
-    "action": {
-      "label": "DAPATKAN"
-    },
-    "mobile": {
-      "description": "Dompet Mobil"
-    },
-    "extension": {
-      "description": "Sambungan Pelayar"
-    },
-    "mobile_and_extension": {
-      "description": "Dompet Mudah Alih dan Sambungan"
-    },
-    "mobile_and_desktop": {
-      "description": "Wallet Mudah Alih dan Desktop"
-    },
-    "looking_for": {
-      "title": "Bukan apa yang anda cari?",
-      "mobile": {
-        "description": "Pilih dompet pada skrin utama untuk memulakan dengan penyedia dompet yang berbeza."
-      },
-      "desktop": {
-        "compact_description": "Pilih dompet pada skrin utama untuk memulakan dengan penyedia dompet yang berbeza.",
-        "wide_description": "Pilih dompet di kiri untuk memulakan dengan penyedia dompet yang berbeza."
-      }
-    }
-  },
-  "get_options": {
-    "title": "Mula dengan %{wallet}",
-    "short_title": "Dapatkan %{wallet}",
-    "mobile": {
-      "title": "%{wallet} untuk Mudah Alih",
-      "description": "Gunakan dompet mudah alih untuk meneroka dunia Ethereum.",
-      "download": {
-        "label": "Dapatkan aplikasi"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} untuk %{browser}",
-      "description": "Akses dompet anda terus dari pelayar web kegemaran anda.",
-      "download": {
-        "label": "Tambah ke %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} untuk %{platform}",
-      "description": "Akses dompet anda secara asli dari desktop yang kuat.",
-      "download": {
-        "label": "Tambah ke %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "Pasang %{wallet}",
-    "description": "Imbas dengan telefon anda untuk memuat turun pada iOS atau Android",
-    "continue": {
-      "label": "Teruskan"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "Sambung"
-      },
-      "learn_more": {
-        "label": "Ketahui Lebih Lanjut"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "Segarkan"
-      },
-      "learn_more": {
-        "label": "Ketahui Lebih Lanjut"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "Sambung"
-      },
-      "learn_more": {
-        "label": "Ketahui Lebih Lanjut"
-      }
-    }
-  },
   "chains": {
     "title": "Tukar Rangkaian",
     "wrong_network": "Rangkaian yang salah dikesan, tukar atau putuskan untuk meneruskan.",
     "confirm": "Sahkan dalam Dompet",
-    "switching_not_supported": "Dompet anda tidak menyokong pertukaran rangkaian dari %{appName}. Cuba tukar rangkaian dari dalam dompet anda sebaliknya.",
-    "switching_not_supported_fallback": "Dompet anda tidak menyokong pertukaran rangkaian daripada aplikasi ini. Cuba tukar rangkaian dari dalam dompet anda sebaliknya.",
     "disconnect": "Putuskan Sambungan",
     "connected": "Disambung"
   },

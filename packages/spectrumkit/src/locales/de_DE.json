@@ -5,24 +5,6 @@
       "label": "Falsches Netzwerk"
     }
   },
-  "intro": {
-    "title": "Was ist ein Wallet?",
-    "description": "Ein Wallet wird verwendet, um digitale Assets zu senden, empfangen, speichern und anzeigen. Es ist auch eine neue Möglichkeit, sich anzumelden, ohne auf jeder Website neue Konten und Passwörter erstellen zu müssen.",
-    "digital_asset": {
-      "title": "Ein Zuhause für Ihre digitalen Vermögenswerte",
-      "description": "Wallets werden verwendet, um digitale Assets wie Ethereum und NFTs zu senden, empfangen, speichern und anzeigen."
-    },
-    "login": {
-      "title": "Eine neue Möglichkeit, sich anzumelden",
-      "description": "Anstatt auf jeder Website neue Konten und Passwörter zu erstellen, verbinden Sie einfach Ihr Wallet."
-    },
-    "get": {
-      "label": "Ein Wallet holen"
-    },
-    "learn_more": {
-      "label": "Mehr erfahren"
-    }
-  },
   "sign_in": {
     "label": "Verifizieren Sie Ihr Konto",
     "description": "Um die Verbindung abzuschließen, müssen Sie eine Nachricht in Ihrem Wallet signieren, um zu verifizieren, dass Sie der Inhaber dieses Kontos sind.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "Verbinden",
     "title": "Ein Wallet verbinden",
-    "new_to_ethereum": {
-      "description": "Neu bei Ethereum-Wallets?",
-      "learn_more": {
-        "label": "Mehr erfahren"
-      }
-    },
-    "learn_more": {
-      "label": "Mehr erfahren"
-    },
     "recent": "Zuletzt",
     "status": {
       "opening": "%{wallet} wird geöffnet...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "Akzeptieren Sie die Verbindungsanfrage im Wallet"
     },
     "secondary_action": {
-      "get": {
-        "description": "Haben Sie kein %{wallet}?",
-        "label": "HOLEN"
-      },
       "install": {
         "label": "INSTALLIEREN"
       },
@@ -96,98 +65,10 @@
     "more": "Mehr",
     "others": "Andere"
   },
-  "get": {
-    "title": "Ein Wallet holen",
-    "action": {
-      "label": "HOLEN"
-    },
-    "mobile": {
-      "description": "Mobiles Wallet"
-    },
-    "extension": {
-      "description": "Browser-Erweiterung"
-    },
-    "mobile_and_extension": {
-      "description": "Mobiles Wallet und Erweiterung"
-    },
-    "mobile_and_desktop": {
-      "description": "Mobile und Desktop Wallet"
-    },
-    "looking_for": {
-      "title": "Nicht das, wonach Sie suchen?",
-      "mobile": {
-        "description": "Wählen Sie auf dem Hauptbildschirm ein Wallet aus, um mit einem anderen Wallet-Anbieter zu beginnen."
-      },
-      "desktop": {
-        "compact_description": "Wählen Sie auf dem Hauptbildschirm ein Wallet aus, um mit einem anderen Wallet-Anbieter zu beginnen.",
-        "wide_description": "Wählen Sie links ein Wallet aus, um mit einem anderen Wallet-Anbieter zu beginnen."
-      }
-    }
-  },
-  "get_options": {
-    "title": "Beginnen Sie mit %{wallet}",
-    "short_title": "%{wallet} besorgen",
-    "mobile": {
-      "title": "%{wallet} für Mobilgeräte",
-      "description": "Verwenden Sie das mobile Wallet, um die Welt von Ethereum zu erkunden.",
-      "download": {
-        "label": "App herunterladen"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} für %{browser}",
-      "description": "Greifen Sie direkt von Ihrem bevorzugten Webbrowser auf Ihr Wallet zu.",
-      "download": {
-        "label": "Zu %{browser} hinzufügen"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} für %{platform}",
-      "description": "Greifen Sie nativ von Ihrem leistungsstarken Desktop auf Ihr Wallet zu.",
-      "download": {
-        "label": "Hinzufügen zu %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "%{wallet} installieren",
-    "description": "Scannen Sie mit Ihrem Telefon, um auf iOS oder Android herunterzuladen",
-    "continue": {
-      "label": "Fortfahren"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "Verbinden"
-      },
-      "learn_more": {
-        "label": "Mehr erfahren"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "Aktualisieren"
-      },
-      "learn_more": {
-        "label": "Mehr erfahren"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "Verbinden"
-      },
-      "learn_more": {
-        "label": "Mehr erfahren"
-      }
-    }
-  },
   "chains": {
     "title": "Netzwerke wechseln",
     "wrong_network": "Falsches Netzwerk erkannt, wechseln oder trennen Sie die Verbindung, um fortzufahren.",
     "confirm": "Im Wallet bestätigen",
-    "switching_not_supported": "Ihr Wallet unterstützt das Wechseln von Netzwerken von %{appName} aus nicht. Versuchen Sie stattdessen, innerhalb Ihres Wallets die Netzwerke zu wechseln.",
-    "switching_not_supported_fallback": "Ihr Wallet unterstützt das Wechseln von Netzwerken von dieser App aus nicht. Versuchen Sie stattdessen, innerhalb Ihres Wallets die Netzwerke zu wechseln.",
     "disconnect": "Trennen",
     "connected": "Verbunden"
   },

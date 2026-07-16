@@ -5,24 +5,6 @@
       "label": "Mạng sai"
     }
   },
-  "intro": {
-    "title": "Ví là gì?",
-    "description": "Một chiếc ví được sử dụng để gửi, nhận, lưu trữ và hiển thị tài sản số. Nó cũng là một cách mới để đăng nhập, mà không cần tạo tài khoản và mật khẩu mới trên mỗi trang web.",
-    "digital_asset": {
-      "title": "Ngôi nhà cho tài sản số của bạn",
-      "description": "Ví được sử dụng để gửi, nhận, lưu trữ và hiển thị các tài sản số như Ethereum và NFT."
-    },
-    "login": {
-      "title": "Một cách mới để đăng nhập",
-      "description": "Thay vì tạo tài khoản và mật khẩu mới trên mỗi trang web, chỉ cần kết nối ví của bạn."
-    },
-    "get": {
-      "label": "Lấy một chiếc ví"
-    },
-    "learn_more": {
-      "label": "Tìm hiểu thêm"
-    }
-  },
   "sign_in": {
     "label": "Xác minh tài khoản của bạn",
     "description": "Để hoàn thành kết nối, bạn phải ký một thông điệp trong ví của bạn để xác minh rằng bạn là chủ sở hữu của tài khoản này.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "Kết nối",
     "title": "Kết nối một chiếc ví",
-    "new_to_ethereum": {
-      "description": "Mới sử dụng ví Ethereum?",
-      "learn_more": {
-        "label": "Tìm hiểu thêm"
-      }
-    },
-    "learn_more": {
-      "label": "Tìm hiểu thêm"
-    },
     "recent": "Gần đây",
     "status": {
       "opening": "Đang mở %{wallet}...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "Chấp nhận yêu cầu kết nối trong ví"
     },
     "secondary_action": {
-      "get": {
-        "description": "Không có %{wallet}?",
-        "label": "LẤY"
-      },
       "install": {
         "label": "CÀI ĐẶT"
       },
@@ -96,98 +65,10 @@
     "more": "Thêm",
     "others": "Khác"
   },
-  "get": {
-    "title": "Lấy một chiếc ví",
-    "action": {
-      "label": "LẤY"
-    },
-    "mobile": {
-      "description": "Ví di động"
-    },
-    "extension": {
-      "description": "Tiện ích mở rộng trình duyệt"
-    },
-    "mobile_and_extension": {
-      "description": "Ví di động và Tiện ích mở rộng"
-    },
-    "mobile_and_desktop": {
-      "description": "Ví di động và máy tính để bàn"
-    },
-    "looking_for": {
-      "title": "Không phải cái bạn đang tìm kiếm?",
-      "mobile": {
-        "description": "Chọn một chiếc ví trên màn hình chính để bắt đầu với một nhà cung cấp ví khác."
-      },
-      "desktop": {
-        "compact_description": "Chọn một chiếc ví trên màn hình chính để bắt đầu với một nhà cung cấp ví khác.",
-        "wide_description": "Chọn một chiếc ví bên trái để bắt đầu với một nhà cung cấp ví khác."
-      }
-    }
-  },
-  "get_options": {
-    "title": "Bắt đầu với %{wallet}",
-    "short_title": "Lấy %{wallet}",
-    "mobile": {
-      "title": "%{wallet} cho di động",
-      "description": "Sử dụng ví di động để khám phá thế giới của Ethereum.",
-      "download": {
-        "label": "Tải ứng dụng"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} cho %{browser}",
-      "description": "Truy cập ví của bạn ngay từ trình duyệt web yêu thích của bạn.",
-      "download": {
-        "label": "Thêm vào %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} cho %{platform}",
-      "description": "Truy cập ví của bạn natively từ máy tính để bàn mạnh mẽ của bạn.",
-      "download": {
-        "label": "Thêm vào %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "Cài đặt %{wallet}",
-    "description": "Quét bằng điện thoại của bạn để tải về trên iOS hoặc Android",
-    "continue": {
-      "label": "Tiếp tục"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "Kết nối"
-      },
-      "learn_more": {
-        "label": "Tìm hiểu thêm"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "Làm mới"
-      },
-      "learn_more": {
-        "label": "Tìm hiểu thêm"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "Kết nối"
-      },
-      "learn_more": {
-        "label": "Tìm hiểu thêm"
-      }
-    }
-  },
   "chains": {
     "title": "Chuyển đổi Mạng",
     "wrong_network": "Phát hiện mạng sai, chuyển đổi hoặc ngắt kết nối để tiếp tục.",
     "confirm": "Xác nhận trong Ví",
-    "switching_not_supported": "Ví của bạn không hỗ trợ chuyển đổi mạng từ %{appName}. Thử chuyển đổi mạng từ trong ví của bạn thay vì.",
-    "switching_not_supported_fallback": "Ví của bạn không hỗ trợ chuyển đổi mạng từ ứng dụng này. Thử chuyển đổi mạng từ trong ví của bạn thay vì.",
     "disconnect": "Ngắt kết nối",
     "connected": "Đã kết nối"
   },

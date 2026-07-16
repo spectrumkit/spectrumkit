@@ -5,24 +5,6 @@
       "label": "Yanlış ağ"
     }
   },
-  "intro": {
-    "title": "Cüzdan nedir?",
-    "description": "Bir cüzdan, dijital varlıkları göndermek, almak, saklamak ve görüntülemek için kullanılır. Aynı zamanda her web sitesinde yeni hesaplar ve şifreler oluşturmanıza gerek kalmadan oturum açmanın yeni bir yoludur.",
-    "digital_asset": {
-      "title": "Dijital Varlıklarınız İçin Bir Ev",
-      "description": "Cüzdanlar, Ethereum ve NFT'ler gibi dijital varlıkları göndermek, almak, depolamak ve görüntülemek için kullanılır."
-    },
-    "login": {
-      "title": "Yeni Bir Giriş Yolu",
-      "description": "Her web sitesinde yeni hesap ve parolalar oluşturmak yerine, sadece cüzdanınızı bağlayın."
-    },
-    "get": {
-      "label": "Bir Cüzdan Edinin"
-    },
-    "learn_more": {
-      "label": "Daha fazla bilgi edinin"
-    }
-  },
   "sign_in": {
     "label": "Hesabınızı doğrulayın",
     "description": "Bağlantıyı tamamlamak için, bu hesabın sahibi olduğunuzu doğrulamak için cüzdanınızdaki bir mesaja imza atmalısınız.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "Bağlan",
     "title": "Bir Cüzdanı Bağla",
-    "new_to_ethereum": {
-      "description": "Ethereum cüzdanlarına yeni misiniz?",
-      "learn_more": {
-        "label": "Daha fazla bilgi edinin"
-      }
-    },
-    "learn_more": {
-      "label": "Daha fazla bilgi edinin"
-    },
     "recent": "Son",
     "status": {
       "opening": "%{wallet}açılıyor...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "Cüzdanında bağlantı isteğini kabul et"
     },
     "secondary_action": {
-      "get": {
-        "description": "%{wallet}yok mu?",
-        "label": "AL"
-      },
       "install": {
         "label": "YÜKLE"
       },
@@ -96,98 +65,10 @@
     "more": "Daha Fazla",
     "others": "Diğerleri"
   },
-  "get": {
-    "title": "Bir Cüzdan Edinin",
-    "action": {
-      "label": "AL"
-    },
-    "mobile": {
-      "description": "Mobil Cüzdan"
-    },
-    "extension": {
-      "description": "Tarayıcı Eklentisi"
-    },
-    "mobile_and_extension": {
-      "description": "Mobil Cüzdan ve Eklenti"
-    },
-    "mobile_and_desktop": {
-      "description": "Mobil ve Masaüstü Cüzdan"
-    },
-    "looking_for": {
-      "title": "Aradığınız şey bu değil mi?",
-      "mobile": {
-        "description": "Ana ekranda başka bir cüzdan sağlayıcısıyla başlamak için bir cüzdan seçin."
-      },
-      "desktop": {
-        "compact_description": "Ana ekranda başka bir cüzdan sağlayıcısıyla başlamak için bir cüzdan seçin.",
-        "wide_description": "Başka bir cüzdan sağlayıcısıyla başlamak için sol tarafta bir cüzdan seçin."
-      }
-    }
-  },
-  "get_options": {
-    "title": "%{wallet}ile başlayın",
-    "short_title": "%{wallet}Edinin",
-    "mobile": {
-      "title": "%{wallet} Mobil İçin",
-      "description": "Mobil cüzdanı kullanarak Ethereum dünyasını keşfedin.",
-      "download": {
-        "label": "Uygulamayı alın"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} için %{browser}",
-      "description": "Cüzdanınıza favori web tarayıcınızdan doğrudan erişin.",
-      "download": {
-        "label": "%{browser}'e ekle"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} için %{platform}",
-      "description": "Güçlü masaüstünüzden cüzdanınıza yerel olarak erişin.",
-      "download": {
-        "label": "%{platform}ekleyin"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "%{wallet}'i yükleyin",
-    "description": "iOS veya Android'de indirmek için telefonunuzla tarayın",
-    "continue": {
-      "label": "Devam et"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "Bağlan"
-      },
-      "learn_more": {
-        "label": "Daha fazla bilgi edinin"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "Yenile"
-      },
-      "learn_more": {
-        "label": "Daha fazla bilgi edinin"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "Bağlan"
-      },
-      "learn_more": {
-        "label": "Daha fazla bilgi edinin"
-      }
-    }
-  },
   "chains": {
     "title": "Ağları Değiştir",
     "wrong_network": "Yanlış ağ algılandı, devam etmek için bağlantıyı kesin veya değiştirin.",
     "confirm": "Cüzdanında Onayla",
-    "switching_not_supported": "Cüzdanınız %{appName}. ağları değiştirmeyi desteklemiyor. Bunun yerine cüzdanınızdan ağları değiştirmeyi deneyin.",
-    "switching_not_supported_fallback": "Cüzdanınız bu uygulamadan ağları değiştirmeyi desteklemiyor. Bunun yerine cüzdanınızdaki ağları değiştirmeyi deneyin.",
     "disconnect": "Bağlantıyı Kes",
     "connected": "Bağlı"
   },

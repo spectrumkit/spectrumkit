@@ -3,7 +3,7 @@ import { createWallet } from '../../createWallet';
 export const bitverseWallet = createWallet({
   id: 'bitverse',
   name: 'Bitverse Wallet',
-  iconUrl: () => import('./bitverseWallet.svg').then((m) => m.default),
+  iconUrl: () => import('./bitverseWallet.png').then((m) => m.default),
   iconBackground: '#171728',
   downloadUrls: {
     android:

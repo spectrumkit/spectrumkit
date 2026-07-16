@@ -5,24 +5,6 @@
       "label": "잘못된 네트워크"
     }
   },
-  "intro": {
-    "title": "지갑이란 무엇인가요?",
-    "description": "지갑은 디지털 자산을 보내고, 받고, 저장하고, 표시하는 데 사용됩니다. 또한, 모든 웹 사이트에서 새 계정과 비밀번호를 생성할 필요 없이 로그인하는 새로운 방법입니다.",
-    "digital_asset": {
-      "title": "당신의 디지털 자산을 위한 집",
-      "description": "지갑은 이더리움 및 NFT와 같은 디지털 자산을 보내고, 받고, 저장하고, 표시하는데 사용됩니다."
-    },
-    "login": {
-      "title": "새로운 로그인 방식",
-      "description": "모든 웹사이트에서 새 계정과 비밀번호를 생성하는 대신, 당신의 지갑을 연결하기만 하면 됩니다."
-    },
-    "get": {
-      "label": "지갑 가져오기"
-    },
-    "learn_more": {
-      "label": "더 알아보기"
-    }
-  },
   "sign_in": {
     "label": "계정을 확인하세요",
     "description": "연결을 완료하려면 이 계정의 소유자임을 확인하기 위해 지갑에 메시지에 서명해야 합니다.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "연결",
     "title": "지갑 연결",
-    "new_to_ethereum": {
-      "description": "이더리움 지갑에 처음 접하시나요?",
-      "learn_more": {
-        "label": "더 알아보기"
-      }
-    },
-    "learn_more": {
-      "label": "더 알아보기"
-    },
     "recent": "최근",
     "status": {
       "opening": "%{wallet}열기 ...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "지갑에서 연결 요청을 수락하십시오"
     },
     "secondary_action": {
-      "get": {
-        "description": "%{wallet}가 없나요?",
-        "label": "GET"
-      },
       "install": {
         "label": "설치"
       },
@@ -96,98 +65,10 @@
     "more": "더 보기",
     "others": "다른 지갑들"
   },
-  "get": {
-    "title": "월렛 받기",
-    "action": {
-      "label": "받기"
-    },
-    "mobile": {
-      "description": "모바일 월렛"
-    },
-    "extension": {
-      "description": "브라우저 확장 프로그램"
-    },
-    "mobile_and_extension": {
-      "description": "모바일 지갑 및 확장 프로그램"
-    },
-    "mobile_and_desktop": {
-      "description": "모바일 및 데스크톱 지갑"
-    },
-    "looking_for": {
-      "title": "찾고 계신 것이 아닌가요?",
-      "mobile": {
-        "description": "메인 화면에서 다른 지갑 제공자를 사용하기 위해 지갑을 선택하세요."
-      },
-      "desktop": {
-        "compact_description": "메인 화면에서 다른 지갑 제공자를 사용하기 위해 지갑을 선택하세요.",
-        "wide_description": "왼쪽에서 지갑을 선택하여 다른 지갑 제공자를 사용하기 시작하세요."
-      }
-    }
-  },
-  "get_options": {
-    "title": "%{wallet}로 시작하세요",
-    "short_title": "%{wallet}얻기",
-    "mobile": {
-      "title": "모바일용 %{wallet}",
-      "description": "모바일 지갑으로 이더리움 세계를 탐험하세요.",
-      "download": {
-        "label": "앱 받기"
-      }
-    },
-    "extension": {
-      "title": "%{browser}용 %{wallet}",
-      "description": "가장 좋아하는 웹 브라우저에서 바로 지갑에 접근하세요.",
-      "download": {
-        "label": "추가하기 %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} 용 %{platform}",
-      "description": "강력한 데스크톱에서 네이티브로 지갑에 접근하세요.",
-      "download": {
-        "label": "%{platform}에 추가"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "설치하기 %{wallet}",
-    "description": "iOS 또는 Android에서 다운로드하기 위해 휴대폰으로 스캔하세요",
-    "continue": {
-      "label": "계속"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "연결"
-      },
-      "learn_more": {
-        "label": "더 알아보기"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "새로고침"
-      },
-      "learn_more": {
-        "label": "더 알아보기"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "연결"
-      },
-      "learn_more": {
-        "label": "더 알아보기"
-      }
-    }
-  },
   "chains": {
     "title": "네트워크 전환",
     "wrong_network": "잘못된 네트워크를 탐지했습니다, 계속하려면 전환하거나 연결을 해제하세요.",
     "confirm": "지갑에서 승인",
-    "switching_not_supported": "지갑에서 %{appName}네트워크를 전환하는 것은 지원되지 않습니다. 대신 지갑 내에서 네트워크를 전환해 보세요.",
-    "switching_not_supported_fallback": "당신의 지갑은 이 앱에서 네트워크를 바꾸는 것을 지원하지 않습니다. 대신 지갑 내에서 네트워크를 변경해 보세요.",
     "disconnect": "연결 해제",
     "connected": "연결됨"
   },
