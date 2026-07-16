@@ -1,0 +1,142 @@
+name: Security scan
+
+# Dependency vulnerability scanning via OSV-Scanner (https://google.github.io/osv-scanner/).
+#
+# Why not `pnpm audit`? The npm registry's audit endpoint it calls
+# (https://registry.npmjs.org/-/npm/v1/security/audits) now returns
+# "410: This endpoint is being retired", so `pnpm audit` cannot report anything.
+# OSV-Scanner reads `pnpm-lock.yaml` natively and queries the OSV database instead.
+#
+# This job intentionally does NOT run `pnpm install`: OSV-Scanner parses the committed
+# lockfile statically, so installing node_modules would only add minutes of CI time and
+# an extra failure mode without changing the result. That is why the usual
+# `corepack enable pnpm` / `setup-node` / `pnpm install --frozen-lockfile` preamble used
+# by ci.yml is absent here.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    # Weekly, Monday 05:27 UTC. Vulnerability databases change even when code does not,
+    # so a scheduled run catches newly-disclosed advisories against unchanged dependencies.
+    - cron: '27 5 * * 1'
+  workflow_dispatch:
+
+# Least privilege: the scan only needs to read the checked-out lockfile. Results are
+# gated in-job via the step summary rather than uploaded to code scanning, so no
+# `security-events: write` is required.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  osv-scan:
+    name: OSV vulnerability scan
+    runs-on: ubuntu-latest
+
+    env:
+      # Fail the build at or above this CVSS base score. 7.0 is the floor of the
+      # CVSS v3 "High" band, so High and Critical block while Medium/Low are
+      # reported but non-blocking. Gating on severity keeps the signal actionable;
+      # failing on every advisory trains people to ignore the job.
+      SEVERITY_THRESHOLD: '7.0'
+      RESULTS_FILE: osv-results.json
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # The scanner exits non-zero whenever *any* vulnerability is found, regardless of
+      # severity, so its exit code is deliberately ignored here. The gate step below is
+      # the authority on pass/fail, and it verifies the results file to make sure a
+      # genuine scanner error is never mistaken for a clean scan.
+      #
+      # Pinned to a full release tag: this action publishes no floating `v2` major tag
+      # (only v2.0.0 ... v2.3.8), so `@v2` would not resolve.
+      - name: Run OSV-Scanner
+        id: scan
+        uses: google/osv-scanner-action/osv-scanner-action@v2.3.8
+        continue-on-error: true
+        with:
+          # The pnpm workspace has a single root lockfile covering every package,
+          # so scanning it directly is both complete and precise.
+          scan-args: |-
+            --format=json
+            --output=${{ env.RESULTS_FILE }}
+            --lockfile=pnpm-lock.yaml
+
+      - name: Gate on high/critical vulnerabilities
+        run: |
+          set -euo pipefail
+
+          # A missing or malformed results file means the scanner itself failed
+          # (network, image, bad args) rather than finding nothing. Fail loudly:
+          # a broken scanner must never look like a clean bill of health.
+          if [ ! -s "${RESULTS_FILE}" ] || ! jq -e . "${RESULTS_FILE}" > /dev/null 2>&1; then
+            echo "::error::OSV-Scanner produced no valid results file (${RESULTS_FILE}). The scan step failed; treating as a scan failure rather than a pass."
+            exit 1
+          fi
+
+          # `groups[].max_severity` is the CVSS base score for a group of aliased
+          # advisories, as a string. It is empty when OSV has no score for them.
+          filter='[.results[]?.packages[]? | . as $p | .groups[]?
+                   | { pkg: "\($p.package.name)@\($p.package.version)",
+                       sev: (.max_severity // ""),
+                       ids: (.ids | join(", ")) }]'
+
+          blocking=$(jq -r "${filter}"' | map(select(.sev != "" and (.sev | tonumber) >= ($t | tonumber)))
+                     | unique | .[] | "- **\(.pkg)** — CVSS \(.sev) — \(.ids)"' \
+                     --arg t "${SEVERITY_THRESHOLD}" "${RESULTS_FILE}")
+
+          other=$(jq -r "${filter}"' | map(select(.sev == "" or (.sev | tonumber) < ($t | tonumber)))
+                  | unique | .[] | "- \(.pkg) — CVSS \(if .sev == "" then "unknown" else .sev end) — \(.ids)"' \
+                  --arg t "${SEVERITY_THRESHOLD}" "${RESULTS_FILE}")
+
+          {
+            echo "## OSV-Scanner results"
+            echo
+            if [ -n "${blocking}" ]; then
+              echo "### Blocking (CVSS >= ${SEVERITY_THRESHOLD})"
+              echo
+              echo "${blocking}"
+              echo
+            fi
+            if [ -n "${other}" ]; then
+              echo "### Below threshold (reported, non-blocking)"
+              echo
+              echo "${other}"
+              echo
+            fi
+            if [ -z "${blocking}" ] && [ -z "${other}" ]; then
+              echo "No known vulnerabilities found in \`pnpm-lock.yaml\`."
+            fi
+            echo "_Run \`osv-scanner scan source --lockfile=pnpm-lock.yaml\` locally to reproduce._"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ -n "${other}" ]; then
+            echo "Vulnerabilities below the CVSS ${SEVERITY_THRESHOLD} threshold (not failing the build):"
+            echo "${other}"
+          fi
+
+          if [ -n "${blocking}" ]; then
+            echo "${blocking}"
+            echo "::error::Found dependency vulnerabilities with CVSS >= ${SEVERITY_THRESHOLD}. See the job summary for details."
+            exit 1
+          fi
+
+          echo "No vulnerabilities at or above CVSS ${SEVERITY_THRESHOLD}."
+
+      - name: Upload OSV-Scanner results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: osv-scanner-results
+          path: ${{ env.RESULTS_FILE }}
+          retention-days: 5
+          if-no-files-found: ignore
