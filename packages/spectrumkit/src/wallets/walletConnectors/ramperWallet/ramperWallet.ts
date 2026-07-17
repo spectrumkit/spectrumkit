@@ -3,7 +3,7 @@ import { createWallet } from '../../createWallet';
 export const ramperWallet = createWallet({
   id: 'ramper',
   name: 'Ramper Wallet',
-  iconUrl: () => import('./ramperWallet.svg').then((m) => m.default),
+  iconUrl: () => import('./ramperWallet.png').then((m) => m.default),
   iconAccent: '#CDA349',
   iconBackground: '#fff',
   detect: { namespace: 'ramper2.provider' },

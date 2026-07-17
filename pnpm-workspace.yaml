@@ -1,7 +1,6 @@
 prefer-workspace-packages: true
 packages:
   - 'packages/*'
-  - 'site'
   - 'examples/*'
 # Don't install packages < 1 day old
 minimumReleaseAge: 1440

@@ -4,7 +4,7 @@ export const frameWallet = createWallet({
   id: 'frame',
   name: 'Frame',
   rdns: 'sh.frame',
-  iconUrl: () => import('./frameWallet.svg').then((m) => m.default),
+  iconUrl: () => import('./frameWallet.png').then((m) => m.default),
   iconBackground: '#121C20',
   detect: { flag: 'isFrame' },
   downloadUrls: {

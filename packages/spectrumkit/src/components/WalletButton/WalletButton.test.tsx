@@ -24,7 +24,12 @@ afterAll(() => {
 });
 
 describe('<WalletButton />', () => {
-  const getWalletButtonLabel = async (connectorId?: string) => {
+  // `renderedId` is the connector the button is expected to fall back to when
+  // `connectorId` is undefined, so the no-prop default can be exercised.
+  const getWalletButtonLabel = async (
+    connectorId?: string,
+    renderedId = connectorId,
+  ) => {
     const wallets = [
       { id: 'rainbow', name: 'Rainbow' },
       { id: 'metaMask', name: 'MetaMask' },
@@ -40,14 +45,14 @@ describe('<WalletButton />', () => {
     );
 
     const labelElement = await findByTestId(
-      `rk-wallet-button-label-${connectorId}`,
+      `rk-wallet-button-label-${renderedId}`,
     );
 
     return labelElement.textContent;
   };
 
   it("should display 'Rainbow' if no `wallet` prop specified", async () => {
-    const label = await getWalletButtonLabel('rainbow');
+    const label = await getWalletButtonLabel(undefined, 'rainbow');
     expect(label).toBe('Rainbow');
   });
 

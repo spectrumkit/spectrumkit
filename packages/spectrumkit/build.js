@@ -41,6 +41,25 @@ const baseBuildConfig = (onEnd) => {
     },
     plugins: [
       {
+        // Locale JSON is embedded verbatim by the `text` loader and
+        // `JSON.parse`d at runtime, so the source file's 2-space indentation
+        // and blank lines ship to consumers and get parsed on every load.
+        // Strip them: ~20% off the locale payload with no behavior change.
+        name: 'json-minify-plugin',
+        setup(build) {
+          build.onLoad({ filter: /\.json$/ }, async (args) => {
+            const fs = await import('node:fs/promises');
+
+            const text = await fs.readFile(args.path, 'utf8');
+
+            return {
+              contents: JSON.stringify(JSON.parse(text)),
+              loader: 'text',
+            };
+          });
+        },
+      },
+      {
         name: 'svg-url-encoding-plugin',
         setup(build) {
           build.onLoad({ filter: /\.svg$/ }, async (args) => {

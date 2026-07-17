@@ -5,24 +5,6 @@
       "label": "错误的网络"
     }
   },
-  "intro": {
-    "title": "什么是钱包？",
-    "description": "钱包用于发送、接收、存储和显示数字资产。它也是一种新型的登录方式，无需在每个网站上创建新账户和密码。",
-    "digital_asset": {
-      "title": "您的数字资产之家",
-      "description": "钱包用于发送、接收、存储和显示像以太坊和NFT这样的数字资产。"
-    },
-    "login": {
-      "title": "一种新的登录方式",
-      "description": "而不是在每个网站上创建新的账户和密码，只需连接您的钱包。"
-    },
-    "get": {
-      "label": "获取钱包"
-    },
-    "learn_more": {
-      "label": "了解更多"
-    }
-  },
   "sign_in": {
     "label": "验证您的账户",
     "description": "为了完成连接，您必须在钱包中签署一条消息，以验证您是此账户的所有者。",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "连接",
     "title": "连接钱包",
-    "new_to_ethereum": {
-      "description": "对以太坊钱包不熟悉？",
-      "learn_more": {
-        "label": "了解更多"
-      }
-    },
-    "learn_more": {
-      "label": "了解更多"
-    },
     "recent": "近期",
     "status": {
       "opening": "正在打开 %{wallet}...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "在钱包中接受连接请求"
     },
     "secondary_action": {
-      "get": {
-        "description": "没有 %{wallet}吗？",
-        "label": "获取"
-      },
       "install": {
         "label": "安装"
       },
@@ -96,98 +65,10 @@
     "more": "更多",
     "others": "其他的"
   },
-  "get": {
-    "title": "获取一个钱包",
-    "action": {
-      "label": "获取"
-    },
-    "mobile": {
-      "description": "移动钱包"
-    },
-    "extension": {
-      "description": "浏览器扩展"
-    },
-    "mobile_and_extension": {
-      "description": "移动钱包和扩展"
-    },
-    "mobile_and_desktop": {
-      "description": "移动和桌面钱包"
-    },
-    "looking_for": {
-      "title": "不是你要找的吗？",
-      "mobile": {
-        "description": "在主屏幕上选择一个钱包，以开始使用不同的钱包提供商。"
-      },
-      "desktop": {
-        "compact_description": "在主屏幕上选择一个钱包，以开始使用不同的钱包提供商。",
-        "wide_description": "在左侧选择一个钱包，以开始使用不同的钱包提供商。"
-      }
-    }
-  },
-  "get_options": {
-    "title": "开始使用 %{wallet}",
-    "short_title": "获取 %{wallet}",
-    "mobile": {
-      "title": "%{wallet} 用于移动",
-      "description": "使用移动钱包探索以太坊的世界。",
-      "download": {
-        "label": "获取应用"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} 为 %{browser}",
-      "description": "从您最喜欢的网络浏览器直接访问您的钱包。",
-      "download": {
-        "label": "添加到 %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} 对于 %{platform}",
-      "description": "从您强大的桌面原生访问您的钱包。",
-      "download": {
-        "label": "添加到 %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "安装 %{wallet}",
-    "description": "用手机扫描下载 iOS 或 Android",
-    "continue": {
-      "label": "继续"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "连接"
-      },
-      "learn_more": {
-        "label": "了解更多"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "刷新"
-      },
-      "learn_more": {
-        "label": "了解更多"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "连接"
-      },
-      "learn_more": {
-        "label": "了解更多"
-      }
-    }
-  },
   "chains": {
     "title": "切换网络",
     "wrong_network": "检测到错误的网络，请切换或断开连接以继续。",
     "confirm": "在钱包中确认",
-    "switching_not_supported": "您的钱包不支持从 %{appName}切换网络。请尝试从您的钱包内部切换网络。",
-    "switching_not_supported_fallback": "您的钱包不支持从此应用切换网络。尝试从您的钱包内切换网络。",
     "disconnect": "断开连接",
     "connected": "已连接"
   },

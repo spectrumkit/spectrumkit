@@ -5,24 +5,6 @@
       "label": "شبكة خاطئة"
     }
   },
-  "intro": {
-    "title": "ما هو المحفظة؟",
-    "description": "تُستخدم المحفظة لإرسال واستلام وتخزين وعرض الأصول الرقمية. إنها أيضاً طريقة جديدة لتسجيل الدخول، دون الحاجة إلى إنشاء حسابات وكلمات مرور جديدة على كل موقع.",
-    "digital_asset": {
-      "title": "دار لأصولك الرقمية",
-      "description": "تُستخدم المحافظ لإرسال واستلام وتخزين وعرض الأصول الرقمية مثل إيثيريوم والـ NFTs."
-    },
-    "login": {
-      "title": "طريقة جديدة لتسجيل الدخول",
-      "description": "بدلاً من إنشاء حسابات وكلمات مرور جديدة على كل موقع، فقط قم بتوصيل محفظتك."
-    },
-    "get": {
-      "label": "احصل على محفظة"
-    },
-    "learn_more": {
-      "label": "تعلم المزيد"
-    }
-  },
   "sign_in": {
     "label": "تحقق من حسابك",
     "description": "لإنهاء الاتصال، يجب عليك توقيع رسالة في محفظتك للتحقق من أنك صاحب هذا الحساب.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "اتصل",
     "title": "اتصال بالمحفظة",
-    "new_to_ethereum": {
-      "description": "جديد في محافظ Ethereum؟",
-      "learn_more": {
-        "label": "تعلم المزيد"
-      }
-    },
-    "learn_more": {
-      "label": "أعرف أكثر"
-    },
     "recent": "الأخير",
     "status": {
       "opening": "جار فتح %{wallet}...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "قبل طلب الاتصال في المحفظة"
     },
     "secondary_action": {
-      "get": {
-        "description": "لا يوجد لديك %{wallet}؟",
-        "label": "احصل"
-      },
       "install": {
         "label": "تثبيت"
       },
@@ -96,98 +65,10 @@
     "more": "المزيد",
     "others": "الآخرين"
   },
-  "get": {
-    "title": "احصل على محفظة",
-    "action": {
-      "label": "احصل"
-    },
-    "mobile": {
-      "description": "محفظة الموبايل"
-    },
-    "extension": {
-      "description": "ملحق المتصفح"
-    },
-    "mobile_and_extension": {
-      "description": "محفظة موبايل وملحق"
-    },
-    "mobile_and_desktop": {
-      "description": "محفظة الموبايل والكمبيوتر"
-    },
-    "looking_for": {
-      "title": "ليست هذه هي ما تبحث عنه؟",
-      "mobile": {
-        "description": "حدد محفظة على الشاشة الرئيسية للبدء باستخدام موفر محفظة مختلف."
-      },
-      "desktop": {
-        "compact_description": "حدد محفظة على الشاشة الرئيسية للبدء باستخدام موفر محفظة مختلف.",
-        "wide_description": "حدد محفظة على اليسار للبدء باستخدام موفر محفظة مختلف."
-      }
-    }
-  },
-  "get_options": {
-    "title": "ابدأ مع %{wallet}",
-    "short_title": "احصل على %{wallet}",
-    "mobile": {
-      "title": "%{wallet} للجوال",
-      "description": "استخدم محفظة الموبايل لاستكشاف عالم Ethereum.",
-      "download": {
-        "label": "احصل على التطبيق"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} لـ %{browser}",
-      "description": "وصول لمحفظتك مباشرة من متصفح الويب المفضل لديك.",
-      "download": {
-        "label": "أضف إلى %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} لـ %{platform}",
-      "description": "قم بالوصول إلى محفظتك بشكل أصلي من كمبيوترك القوي.",
-      "download": {
-        "label": "أضف إلى %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "قم بالتثبيت %{wallet}",
-    "description": "استخدم هاتفك للتحميل على iOS أو Android",
-    "continue": {
-      "label": "استمر"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "اتصل"
-      },
-      "learn_more": {
-        "label": "تعلم المزيد"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "تحديث"
-      },
-      "learn_more": {
-        "label": "تعلم المزيد"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "اتصل"
-      },
-      "learn_more": {
-        "label": "تعلم المزيد"
-      }
-    }
-  },
   "chains": {
     "title": "تبديل الشبكات",
     "wrong_network": "تم اكتشاف شبكة غير صحيحة، قم بالتبديل أو القطع للمتابعة.",
     "confirm": "التأكيد في المحفظة",
-    "switching_not_supported": "محفظتك لا تدعم التبديل بين الشبكات من %{appName}. جرب التبديل بين الشبكات من داخل المحفظة بدلاً من ذلك.",
-    "switching_not_supported_fallback": "محفظتك لا تدعم تبديل الشبكات من هذا التطبيق. حاول تبديل الشبكات من داخل المحفظة بدلاً من ذلك.",
     "disconnect": "قطع الاتصال",
     "connected": "متصل"
   },

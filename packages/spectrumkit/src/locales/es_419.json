@@ -5,24 +5,6 @@
       "label": "Red incorrecta"
     }
   },
-  "intro": {
-    "title": "¿Qué es una billetera?",
-    "description": "Una billetera se usa para enviar, recibir, almacenar y mostrar activos digitales. También es una nueva forma de iniciar sesión, sin necesidad de crear nuevas cuentas y contraseñas en cada sitio web.",
-    "digital_asset": {
-      "title": "Un hogar para tus Activos Digitales",
-      "description": "Las carteras se utilizan para enviar, recibir, almacenar y mostrar activos digitales como Ethereum y NFTs."
-    },
-    "login": {
-      "title": "Una nueva forma de iniciar sesión",
-      "description": "En lugar de crear nuevas cuentas y contraseñas en cada sitio web, simplemente conecta tu cartera."
-    },
-    "get": {
-      "label": "Obtener una billetera"
-    },
-    "learn_more": {
-      "label": "Obtener más información"
-    }
-  },
   "sign_in": {
     "label": "Verifica tu cuenta",
     "description": "Para terminar de conectar, debes firmar un mensaje en tu billetera para verificar que eres el propietario de esta cuenta.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "Conectar",
     "title": "Conectar una billetera",
-    "new_to_ethereum": {
-      "description": "¿Eres nuevo en las billeteras Ethereum?",
-      "learn_more": {
-        "label": "Obtener más información"
-      }
-    },
-    "learn_more": {
-      "label": "Obtener más información"
-    },
     "recent": "Reciente",
     "status": {
       "opening": "Abriendo %{wallet}...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "Aceptar la solicitud de conexión en la cartera"
     },
     "secondary_action": {
-      "get": {
-        "description": "¿No tienes %{wallet}?",
-        "label": "OBTENER"
-      },
       "install": {
         "label": "INSTALAR"
       },
@@ -96,98 +65,10 @@
     "more": "Más",
     "others": "Otros"
   },
-  "get": {
-    "title": "Obtener una billetera",
-    "action": {
-      "label": "OBTENER"
-    },
-    "mobile": {
-      "description": "Billetera Móvil"
-    },
-    "extension": {
-      "description": "Extensión de navegador"
-    },
-    "mobile_and_extension": {
-      "description": "Billetera móvil y extensión"
-    },
-    "mobile_and_desktop": {
-      "description": "Billetera Móvil y de Escritorio"
-    },
-    "looking_for": {
-      "title": "¿No es lo que estás buscando?",
-      "mobile": {
-        "description": "Seleccione una billetera en la pantalla principal para comenzar con un proveedor de billetera diferente."
-      },
-      "desktop": {
-        "compact_description": "Seleccione una cartera en la pantalla principal para comenzar con un proveedor de cartera diferente.",
-        "wide_description": "Seleccione una cartera a la izquierda para comenzar con un proveedor de cartera diferente."
-      }
-    }
-  },
-  "get_options": {
-    "title": "Comienza con %{wallet}",
-    "short_title": "Obtener %{wallet}",
-    "mobile": {
-      "title": "%{wallet} para móvil",
-      "description": "Use la billetera móvil para explorar el mundo de Ethereum.",
-      "download": {
-        "label": "Obtener la aplicación"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} para %{browser}",
-      "description": "Acceda a su billetera directamente desde su navegador web favorito.",
-      "download": {
-        "label": "Añadir a %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} para %{platform}",
-      "description": "Acceda a su billetera de forma nativa desde su potente escritorio.",
-      "download": {
-        "label": "Añadir a %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "Instalar %{wallet}",
-    "description": "Escanee con su teléfono para descargar en iOS o Android",
-    "continue": {
-      "label": "Continuar"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "Conectar"
-      },
-      "learn_more": {
-        "label": "Obtener más información"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "Actualizar"
-      },
-      "learn_more": {
-        "label": "Obtener más información"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "Conectar"
-      },
-      "learn_more": {
-        "label": "Obtener más información"
-      }
-    }
-  },
   "chains": {
     "title": "Cambiar redes",
     "wrong_network": "Se detectó la red incorrecta, cambia o desconéctate para continuar.",
     "confirm": "Confirmar en la cartera",
-    "switching_not_supported": "Tu cartera no admite cambiar las redes desde %{appName}. Intenta cambiar las redes desde tu cartera.",
-    "switching_not_supported_fallback": "Su billetera no admite el cambio de redes desde esta aplicación. Intente cambiar de red desde dentro de su billetera en su lugar.",
     "disconnect": "Desconectar",
     "connected": "Conectado"
   },

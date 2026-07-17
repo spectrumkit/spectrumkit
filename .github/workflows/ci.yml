@@ -28,7 +28,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - name: Build packages
-        run: pnpm --filter "@spectrumkit/*" --filter example --parallel build
+        run: pnpm --filter "@spectrumkit/*" --filter example build
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:

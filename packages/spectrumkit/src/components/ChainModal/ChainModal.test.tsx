@@ -65,10 +65,10 @@ describe('<ChainModal />', () => {
     ]);
 
     const mainnetOption = await modal.findByTestId(
-      `rk-chain-option-${optimism.id}`,
+      `rk-chain-option-${mainnet.id}`,
     );
     const arbitrumOption = await modal.findByTestId(
-      `rk-chain-option-${optimism.id}`,
+      `rk-chain-option-${arbitrum.id}`,
     );
     const optimismOption = await modal.findByTestId(
       `rk-chain-option-${optimism.id}`,

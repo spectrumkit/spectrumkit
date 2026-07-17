@@ -6,25 +6,6 @@
     }
   },
 
-  "intro": {
-    "title": "What is a Wallet?",
-    "description": "A wallet is used to send, receive, store, and display digital assets. It's also a new way to log in, without needing to create new accounts and passwords on every website.",
-    "digital_asset": {
-      "title": "A Home for your Digital Assets",
-      "description": "Wallets are used to send, receive, store, and display digital assets like Ethereum and NFTs."
-    },
-    "login": {
-      "title": "A New Way to Log In",
-      "description": "Instead of creating new accounts and passwords on every website, just connect your wallet."
-    },
-    "get": {
-      "label": "Get a Wallet"
-    },
-    "learn_more": {
-      "label": "Learn More"
-    }
-  },
-
   "sign_in": {
     "label": "Verify your account",
     "description": "To finish connecting, you must sign a message in your wallet to verify that you are the owner of this account.",
@@ -46,15 +27,6 @@
   "connect": {
     "label": "Connect",
     "title": "Connect a Wallet",
-    "new_to_ethereum": {
-      "description": "New to Ethereum wallets?",
-      "learn_more": {
-        "label": "Learn More"
-      }
-    },
-    "learn_more": {
-      "label": "Learn more"
-    },
     "recent": "Recent",
     "status": {
       "opening": "Opening %{wallet}...",
@@ -66,10 +38,6 @@
       "confirm_mobile": "Accept connection request in the wallet"
     },
     "secondary_action": {
-      "get": {
-        "description": "Don't have %{wallet}?",
-        "label": "GET"
-      },
       "install": {
         "label": "INSTALL"
       },
@@ -102,102 +70,10 @@
     "others": "Others"
   },
 
-  "get": {
-    "title": "Get a Wallet",
-    "action": {
-      "label": "GET"
-    },
-    "mobile": {
-      "description": "Mobile Wallet"
-    },
-    "extension": {
-      "description": "Browser Extension"
-    },
-    "mobile_and_extension": {
-      "description": "Mobile Wallet and Extension"
-    },
-    "mobile_and_desktop": {
-      "description": "Mobile and Desktop Wallet"
-    },
-    "looking_for": {
-      "title": "Not what you're looking for?",
-      "mobile": {
-        "description": "Select a wallet on the main screen to get started with a different wallet provider."
-      },
-      "desktop": {
-        "compact_description": "Select a wallet on the main screen to get started with a different wallet provider.",
-        "wide_description": "Select a wallet on the left to get started with a different wallet provider."
-      }
-    }
-  },
-
-  "get_options": {
-    "title": "Get started with %{wallet}",
-    "short_title": "Get %{wallet}",
-    "mobile": {
-      "title": "%{wallet} for Mobile",
-      "description": "Use the mobile wallet to explore the world of Ethereum.",
-      "download": {
-        "label": "Get the app"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} for %{browser}",
-      "description": "Access your wallet right from your favorite web browser.",
-      "download": {
-        "label": "Add to %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} for %{platform}",
-      "description": "Access your wallet natively from your powerful desktop.",
-      "download": {
-        "label": "Add to %{platform}"
-      }
-    }
-  },
-
-  "get_mobile": {
-    "title": "Install %{wallet}",
-    "description": "Scan with your phone to download on iOS or Android",
-    "continue": {
-      "label": "Continue"
-    }
-  },
-
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "Connect"
-      },
-      "learn_more": {
-        "label": "Learn More"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "Refresh"
-      },
-      "learn_more": {
-        "label": "Learn More"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "Connect"
-      },
-      "learn_more": {
-        "label": "Learn More"
-      }
-    }
-  },
-
   "chains": {
     "title": "Switch Networks",
     "wrong_network": "Wrong network detected, switch or disconnect to continue.",
     "confirm": "Confirm in Wallet",
-    "switching_not_supported": "Your wallet does not support switching networks from %{appName}. Try switching networks from within your wallet instead.",
-    "switching_not_supported_fallback": "Your wallet does not support switching networks from this app. Try switching networks from within your wallet instead.",
     "disconnect": "Disconnect",
     "connected": "Connected"
   },

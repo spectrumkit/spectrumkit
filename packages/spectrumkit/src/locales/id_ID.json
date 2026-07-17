@@ -5,24 +5,6 @@
       "label": "Jaringan yang salah"
     }
   },
-  "intro": {
-    "title": "Apa itu Dompet?",
-    "description": "Sebuah dompet digunakan untuk mengirim, menerima, menyimpan, dan menampilkan aset digital. Ini juga cara baru untuk masuk, tanpa perlu membuat akun dan kata sandi baru di setiap situs web.",
-    "digital_asset": {
-      "title": "Sebuah Rumah untuk Aset Digital Anda",
-      "description": "Dompet digunakan untuk mengirim, menerima, menyimpan, dan menampilkan aset digital seperti Ethereum dan NFTs."
-    },
-    "login": {
-      "title": "Cara Baru untuk Masuk",
-      "description": "Alih-alih membuat akun dan kata sandi baru di setiap situs web, cukup hubungkan dompet Anda."
-    },
-    "get": {
-      "label": "Dapatkan Dompet"
-    },
-    "learn_more": {
-      "label": "Pelajari lebih lanjut"
-    }
-  },
   "sign_in": {
     "label": "Verifikasi akun Anda",
     "description": "Untuk menyelesaikan koneksi, Anda harus menandatangani sebuah pesan di dompet Anda untuk memastikan bahwa Anda adalah pemilik dari akun ini.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "Hubungkan",
     "title": "Hubungkan Dompet",
-    "new_to_ethereum": {
-      "description": "Baru dalam dompet Ethereum?",
-      "learn_more": {
-        "label": "Pelajari lebih lanjut"
-      }
-    },
-    "learn_more": {
-      "label": "Pelajari lebih lanjut"
-    },
     "recent": "Terkini",
     "status": {
       "opening": "Membuka %{wallet}...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "Terima permintaan koneksi di dompet"
     },
     "secondary_action": {
-      "get": {
-        "description": "Tidak memiliki %{wallet}?",
-        "label": "DAPATKAN"
-      },
       "install": {
         "label": "PASANG"
       },
@@ -96,98 +65,10 @@
     "more": "Lebih Banyak",
     "others": "Lainnya"
   },
-  "get": {
-    "title": "Dapatkan Dompet",
-    "action": {
-      "label": "DAPATKAN"
-    },
-    "mobile": {
-      "description": "Dompet Mobile"
-    },
-    "extension": {
-      "description": "Ekstensi Browser"
-    },
-    "mobile_and_extension": {
-      "description": "Dompet Mobile dan Ekstensi"
-    },
-    "mobile_and_desktop": {
-      "description": "Dompet Seluler dan Desktop"
-    },
-    "looking_for": {
-      "title": "Bukan yang Anda cari?",
-      "mobile": {
-        "description": "Pilih dompet di layar utama untuk memulai dengan penyedia dompet yang berbeda."
-      },
-      "desktop": {
-        "compact_description": "Pilih dompet di layar utama untuk memulai dengan penyedia dompet yang berbeda.",
-        "wide_description": "Pilih dompet di sebelah kiri untuk memulai dengan penyedia dompet yang berbeda."
-      }
-    }
-  },
-  "get_options": {
-    "title": "Mulai dengan %{wallet}",
-    "short_title": "Dapatkan %{wallet}",
-    "mobile": {
-      "title": "%{wallet} untuk Mobile",
-      "description": "Gunakan dompet mobile untuk menjelajahi dunia Ethereum.",
-      "download": {
-        "label": "Dapatkan aplikasinya"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} untuk %{browser}",
-      "description": "Akses dompet Anda langsung dari browser web favorit Anda.",
-      "download": {
-        "label": "Tambahkan ke %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} untuk %{platform}",
-      "description": "Akses dompet Anda secara native dari desktop yang kuat Anda.",
-      "download": {
-        "label": "Tambahkan ke %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "Instal %{wallet}",
-    "description": "Pindai dengan ponsel Anda untuk mengunduh di iOS atau Android",
-    "continue": {
-      "label": "Lanjutkan"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "Hubungkan"
-      },
-      "learn_more": {
-        "label": "Pelajari lebih lanjut"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "Segarkan"
-      },
-      "learn_more": {
-        "label": "Pelajari lebih lanjut"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "Hubungkan"
-      },
-      "learn_more": {
-        "label": "Pelajari lebih lanjut"
-      }
-    }
-  },
   "chains": {
     "title": "Alihkan Jaringan",
     "wrong_network": "Jaringan yang salah terdeteksi, alihkan atau diskonek untuk melanjutkan.",
     "confirm": "Konfirmasi di Dompet",
-    "switching_not_supported": "Dompet Anda tidak mendukung pengalihan jaringan dari %{appName}. Coba alihkan jaringan dari dalam dompet Anda.",
-    "switching_not_supported_fallback": "Wallet Anda tidak mendukung penggantian jaringan dari aplikasi ini. Cobalah ganti jaringan dari dalam wallet Anda.",
     "disconnect": "Putuskan koneksi",
     "connected": "Terkoneksi"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@spectrumkit/spectrumkit-siwe-next-auth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "SpectrumKit authentication adapter for Sign-In with Ethereum and NextAuth",
   "files": [
     "dist"
@@ -26,18 +26,20 @@
     "build:watch": "node build.js --watch",
     "dev": "pnpm build:watch & pnpm typegen:watch",
     "prepare": "pnpm build",
-    "prebuild": "pnpm typegen",
+    "prebuild": "pnpm clean:dist && pnpm typegen",
+    "clean:dist": "rm -rf dist",
     "typecheck": "pnpm tsc --noEmit",
-    "typegen": "tsc --emitDeclarationOnly || true",
+    "typegen": "tsc --emitDeclarationOnly",
     "typegen:watch": "tsc --emitDeclarationOnly --watch"
   },
   "keywords": [],
-  "author": "Rainbow",
+  "author": "SpectrumKit",
   "license": "MIT",
   "peerDependencies": {
     "@spectrumkit/spectrumkit": "0.0.x",
     "next-auth": ">=4.21.0 <5",
-    "react": ">=18"
+    "react": ">=18",
+    "viem": "2.x"
   },
   "devDependencies": {
     "@spectrumkit/spectrumkit": "workspace:*"

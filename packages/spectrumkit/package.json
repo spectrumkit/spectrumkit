@@ -1,6 +1,6 @@
 {
   "name": "@spectrumkit/spectrumkit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The best way to connect a wallet",
   "files": [
     "dist",
@@ -25,7 +25,9 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": [
-    "src/css/reset.css.ts"
+    "src/css/reset.css.ts",
+    "*.css",
+    "dist/*.css"
   ],
   "engines": {
     "node": ">=12.4"
@@ -35,9 +37,10 @@
     "build:watch": "node build.js --watch",
     "dev": "pnpm build:watch & pnpm typegen:watch",
     "prepare": "MINIFY_CSS=true pnpm build",
-    "prebuild": "pnpm typegen",
+    "prebuild": "pnpm clean:dist && pnpm typegen",
+    "clean:dist": "rm -rf dist",
     "typecheck": "pnpm tsc --noEmit",
-    "typegen": "tsc --emitDeclarationOnly || true",
+    "typegen": "tsc --emitDeclarationOnly",
     "typegen:watch": "tsc --emitDeclarationOnly --watch"
   },
   "keywords": [
@@ -48,7 +51,7 @@
     "hooks",
     "blockchain"
   ],
-  "author": "Rainbow",
+  "author": "SpectrumKit",
   "license": "MIT",
   "peerDependencies": {
     "@tanstack/react-query": ">=5.0.0",
@@ -75,7 +78,6 @@
   },
   "dependencies": {
     "@base-org/account": "~2.5.7",
-    "@gemini-wallet/core": "~0.3.1",
     "@metamask/connect-evm": "^2.1.0",
     "@safe-global/safe-apps-provider": "~0.18.6",
     "@safe-global/safe-apps-sdk": "~9.1.0",

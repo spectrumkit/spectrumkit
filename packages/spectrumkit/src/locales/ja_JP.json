@@ -5,24 +5,6 @@
       "label": "ネットワークが間違っています"
     }
   },
-  "intro": {
-    "title": "ウォレットとは何ですか？",
-    "description": "ウォレットは、デジタルアセットを送信、受信、保存、表示するために使用されます。また、各ウェブサイトで新たなアカウントやパスワードを作成する必要なく、ログインする新しい方法でもあります。",
-    "digital_asset": {
-      "title": "あなたのデジタル資産のための家",
-      "description": "ウォレットは、EthereumやNFTのようなデジタル資産を送信、受信、保存、表示するために使用されます。"
-    },
-    "login": {
-      "title": "新しいログイン方法",
-      "description": "すべてのウェブサイトで新しいアカウントとパスワードを作成する代わりに、ウォレットを接続します。"
-    },
-    "get": {
-      "label": "ウォレットを取得する"
-    },
-    "learn_more": {
-      "label": "詳しくはこちら"
-    }
-  },
   "sign_in": {
     "label": "アカウントを確認する",
     "description": "接続を完了するには、このアカウントの所有者であることを証明するためにウォレットでメッセージに署名する必要があります。",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "接続",
     "title": "ウォレットを接続する",
-    "new_to_ethereum": {
-      "description": "Ethereumのウォレットが初めてですか？",
-      "learn_more": {
-        "label": "詳しくはこちら"
-      }
-    },
-    "learn_more": {
-      "label": "詳しくはこちら"
-    },
     "recent": "最近利用しました",
     "status": {
       "opening": "%{wallet}を開いています...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "ウォレットでの接続リクエストを承認する"
     },
     "secondary_action": {
-      "get": {
-        "description": "%{wallet}がありませんか？",
-        "label": "取得"
-      },
       "install": {
         "label": "インストール"
       },
@@ -96,98 +65,10 @@
     "more": "もっと",
     "others": "その他"
   },
-  "get": {
-    "title": "ウォレットを取得",
-    "action": {
-      "label": "取得"
-    },
-    "mobile": {
-      "description": "モバイルウォレット"
-    },
-    "extension": {
-      "description": "ブラウザ拡張"
-    },
-    "mobile_and_extension": {
-      "description": "モバイルウォレットと拡張機能"
-    },
-    "mobile_and_desktop": {
-      "description": "モバイルとデスクトップウォレット"
-    },
-    "looking_for": {
-      "title": "お探しのウォレットがありませんか？",
-      "mobile": {
-        "description": "メイン画面でウォレットを選択し、異なるウォレットプロバイダーで始めてください。"
-      },
-      "desktop": {
-        "compact_description": "メイン画面でウォレットを選択し、異なるウォレットプロバイダーで始めてください。",
-        "wide_description": "左側のウォレットを選択して、別のウォレットプロバイダーで始めてください。"
-      }
-    }
-  },
-  "get_options": {
-    "title": "%{wallet}で始める",
-    "short_title": "%{wallet}を取得する",
-    "mobile": {
-      "title": "モバイル用 %{wallet}",
-      "description": "モバイルウォレットを使用して、イーサリアムの世界を探索します。",
-      "download": {
-        "label": "アプリを取得"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} for %{browser}",
-      "description": "お好きなウェブブラウザからウォレットに直接アクセスします。",
-      "download": {
-        "label": "%{browser}に追加"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} for %{platform}",
-      "description": "あなたの強力なデスクトップからネイティブにウォレットにアクセスします。",
-      "download": {
-        "label": "%{platform}に追加する"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "%{wallet}をインストール",
-    "description": "iOSまたはAndroidでダウンロードするために電話でスキャン",
-    "continue": {
-      "label": "続行"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "接続"
-      },
-      "learn_more": {
-        "label": "詳しくはこちら"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "更新"
-      },
-      "learn_more": {
-        "label": "詳しくはこちら"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "接続"
-      },
-      "learn_more": {
-        "label": "詳しくはこちら"
-      }
-    }
-  },
   "chains": {
     "title": "ネットワークを切り替える",
     "wrong_network": "誤ったネットワークが検出されました、続行するには切り替えるか切断してください。",
     "confirm": "ウォレットで確認する",
-    "switching_not_supported": "あなたのウォレットは %{appName}からネットワークを切り替えることをサポートしていません。ウォレット内でネットワークを切り替えてみてください。",
-    "switching_not_supported_fallback": "あなたのウォレットは、このアプリからネットワークを切り替えることをサポートしていません。代わりにウォレット内からネットワークを切り替えてみてください。",
     "disconnect": "切断する",
     "connected": "接続しました"
   },

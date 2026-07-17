@@ -5,24 +5,6 @@
       "label": "錯誤的網絡"
     }
   },
-  "intro": {
-    "title": "錢包是什麼？",
-    "description": "錢包可以用來發送、接收、存儲和顯示數字資產。這也是一種新的登錄方式，不需要在每個網站上創建新的賬號和密碼。",
-    "digital_asset": {
-      "title": "您的數字資產之家",
-      "description": "錢包可用於發送、接收、存儲和顯示數字資產，例如以太坊和NFT。"
-    },
-    "login": {
-      "title": "一種新的登錄方式",
-      "description": "無需在每個網站上創建新的賬號和密碼，只需連接您的錢包。"
-    },
-    "get": {
-      "label": "獲取錢包"
-    },
-    "learn_more": {
-      "label": "了解更多"
-    }
-  },
   "sign_in": {
     "label": "驗證你的賬戶",
     "description": "要完成連接，你必須在錢包中簽署一條消息，以驗證你是這個賬戶的擁有者。",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "連接",
     "title": "連接錢包",
-    "new_to_ethereum": {
-      "description": "新手入門以太坊錢包？",
-      "learn_more": {
-        "label": "了解更多"
-      }
-    },
-    "learn_more": {
-      "label": "了解更多"
-    },
     "recent": "最近",
     "status": {
       "opening": "正在開啟%{wallet}...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "在錢包中接受連接請求"
     },
     "secondary_action": {
-      "get": {
-        "description": "沒有%{wallet}？",
-        "label": "獲取"
-      },
       "install": {
         "label": "安裝"
       },
@@ -96,98 +65,10 @@
     "more": "更多",
     "others": "其他"
   },
-  "get": {
-    "title": "獲取錢包",
-    "action": {
-      "label": "獲取"
-    },
-    "mobile": {
-      "description": "手機錢包"
-    },
-    "extension": {
-      "description": "瀏覽器擴展"
-    },
-    "mobile_and_extension": {
-      "description": "手機錢包和擴展"
-    },
-    "mobile_and_desktop": {
-      "description": "行動裝置和桌面錢包"
-    },
-    "looking_for": {
-      "title": "找不到你想要的？",
-      "mobile": {
-        "description": "在主屏幕上選擇一個錢包，以開始使用不同的錢包提供商。"
-      },
-      "desktop": {
-        "compact_description": "在主屏幕上選擇一個錢包，以開始使用不同的錢包提供商。",
-        "wide_description": "在左邊選擇一個錢包，以開始使用不同的錢包提供商。"
-      }
-    }
-  },
-  "get_options": {
-    "title": "開始使用%{wallet}",
-    "short_title": "獲取%{wallet}",
-    "mobile": {
-      "title": "%{wallet} 手機版",
-      "description": "使用手機錢包探索以太坊的世界。",
-      "download": {
-        "label": "獲取應用"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} 適用於 %{browser}",
-      "description": "直接從您喜愛的網頁瀏覽器中訪問您的錢包。",
-      "download": {
-        "label": "添加到%{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} 用於 %{platform}",
-      "description": "從強大的桌面上本地訪問你的錢包。",
-      "download": {
-        "label": "添加到 %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "安裝%{wallet}",
-    "description": "用你的手機掃描以下載iOS或Android版本",
-    "continue": {
-      "label": "繼續"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "連接"
-      },
-      "learn_more": {
-        "label": "了解更多"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "刷新"
-      },
-      "learn_more": {
-        "label": "了解更多"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "連接"
-      },
-      "learn_more": {
-        "label": "了解更多"
-      }
-    }
-  },
   "chains": {
     "title": "切換網絡",
     "wrong_network": "檢測到錯誤的網絡，請切換或斷開連接以繼續。",
     "confirm": "在錢包中確認",
-    "switching_not_supported": "您的錢包不支持從 %{appName} 切換網絡。請嘗試在您的錢包內切換網絡。",
-    "switching_not_supported_fallback": "您的錢包不支持從此應用切換網絡。請嘗試在您的錢包內切換網絡。",
     "disconnect": "斷開連接",
     "connected": "已連接"
   },

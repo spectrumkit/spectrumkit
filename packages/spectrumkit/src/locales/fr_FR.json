@@ -5,24 +5,6 @@
       "label": "Réseau incorrect"
     }
   },
-  "intro": {
-    "title": "Qu'est-ce qu'un portefeuille?",
-    "description": "Un portefeuille est utilisé pour envoyer, recevoir, stocker et afficher des actifs numériques. C'est aussi une nouvelle façon de se connecter, sans avoir besoin de créer de nouveaux comptes et mots de passe sur chaque site.",
-    "digital_asset": {
-      "title": "Un foyer pour vos actifs numériques",
-      "description": "Les portefeuilles sont utilisés pour envoyer, recevoir, stocker et afficher des actifs numériques comme Ethereum et les NFTs."
-    },
-    "login": {
-      "title": "Une nouvelle façon de se connecter",
-      "description": "Au lieu de créer de nouveaux comptes et mots de passe sur chaque site Web, connectez simplement votre portefeuille."
-    },
-    "get": {
-      "label": "Obtenir un portefeuille"
-    },
-    "learn_more": {
-      "label": "En savoir plus"
-    }
-  },
   "sign_in": {
     "label": "Vérifiez votre compte",
     "description": "Pour terminer la connexion, vous devez signer un message dans votre portefeuille pour vérifier que vous êtes le propriétaire de ce compte.",
@@ -43,15 +25,6 @@
   "connect": {
     "label": "Connecter",
     "title": "Connecter un portefeuille",
-    "new_to_ethereum": {
-      "description": "Nouveau aux portefeuilles Ethereum?",
-      "learn_more": {
-        "label": "En savoir plus"
-      }
-    },
-    "learn_more": {
-      "label": "En savoir plus"
-    },
     "recent": "Récents",
     "status": {
       "opening": "Ouverture %{wallet}...",
@@ -63,10 +36,6 @@
       "confirm_mobile": "Accepter la demande de connexion dans le portefeuille"
     },
     "secondary_action": {
-      "get": {
-        "description": "Vous n'avez pas de %{wallet}?",
-        "label": "OBTENIR"
-      },
       "install": {
         "label": "INSTALLER"
       },
@@ -96,98 +65,10 @@
     "more": "Plus",
     "others": "Autres"
   },
-  "get": {
-    "title": "Obtenez un portefeuille",
-    "action": {
-      "label": "OBTENIR"
-    },
-    "mobile": {
-      "description": "Portefeuille mobile"
-    },
-    "extension": {
-      "description": "Extension de navigateur"
-    },
-    "mobile_and_extension": {
-      "description": "Portefeuille mobile et extension"
-    },
-    "mobile_and_desktop": {
-      "description": "Portefeuille mobile et de bureau"
-    },
-    "looking_for": {
-      "title": "Ce n'est pas ce que vous cherchez ?",
-      "mobile": {
-        "description": "Sélectionnez un portefeuille sur l'écran principal pour commencer avec un autre fournisseur de portefeuille."
-      },
-      "desktop": {
-        "compact_description": "Sélectionnez un portefeuille sur l'écran principal pour commencer avec un autre fournisseur de portefeuille.",
-        "wide_description": "Sélectionnez un portefeuille sur la gauche pour commencer avec un autre fournisseur de portefeuille."
-      }
-    }
-  },
-  "get_options": {
-    "title": "Commencez avec %{wallet}",
-    "short_title": "Obtenez %{wallet}",
-    "mobile": {
-      "title": "%{wallet} pour mobile",
-      "description": "Utilisez le portefeuille mobile pour explorer le monde d'Ethereum.",
-      "download": {
-        "label": "Obtenez l'application"
-      }
-    },
-    "extension": {
-      "title": "%{wallet} pour %{browser}",
-      "description": "Accédez à votre portefeuille directement depuis votre navigateur web préféré.",
-      "download": {
-        "label": "Ajouter à %{browser}"
-      }
-    },
-    "desktop": {
-      "title": "%{wallet} pour %{platform}",
-      "description": "Accédez à votre portefeuille nativement depuis votre puissant ordinateur de bureau.",
-      "download": {
-        "label": "Ajouter à %{platform}"
-      }
-    }
-  },
-  "get_mobile": {
-    "title": "Installer %{wallet}",
-    "description": "Scannez avec votre téléphone pour télécharger sur iOS ou Android",
-    "continue": {
-      "label": "Continuer"
-    }
-  },
-  "get_instructions": {
-    "mobile": {
-      "connect": {
-        "label": "Connecter"
-      },
-      "learn_more": {
-        "label": "En savoir plus"
-      }
-    },
-    "extension": {
-      "refresh": {
-        "label": "Rafraîchir"
-      },
-      "learn_more": {
-        "label": "En savoir plus"
-      }
-    },
-    "desktop": {
-      "connect": {
-        "label": "Connecter"
-      },
-      "learn_more": {
-        "label": "En savoir plus"
-      }
-    }
-  },
   "chains": {
     "title": "Changer de réseau",
     "wrong_network": "Mauvais réseau détecté, changez ou déconnectez-vous pour continuer.",
     "confirm": "Confirmer dans le portefeuille",
-    "switching_not_supported": "Votre portefeuille ne supporte pas le changement de réseau depuis %{appName}. Essayez de changer de réseau depuis votre portefeuille.",
-    "switching_not_supported_fallback": "Votre portefeuille ne prend pas en charge le changement de réseau à partir de cette application. Essayez de changer de réseau à partir de votre portefeuille à la place.",
     "disconnect": "Déconnecter",
     "connected": "Connecté"
   },

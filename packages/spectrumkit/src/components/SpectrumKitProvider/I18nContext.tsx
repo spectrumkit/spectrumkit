@@ -39,11 +39,10 @@ export const I18nProvider = ({ children, locale }: I18nProviderProps) => {
     }
   }, [locale, browserLocale]);
 
+  // A new object identity on every `updateCount` change is the point here — it
+  // is what re-renders consumers when the locale swaps.
   // biome-ignore lint/correctness/useExhaustiveDependencies: incorrect warning
-  const memoizedValue = useMemo(() => {
-    const t = (key: string, options?: any) => i18n.t(key, options);
-    return { t, i18n };
-  }, [updateCount]);
+  const memoizedValue = useMemo(() => ({ i18n }), [updateCount]);
 
   return (
     <I18nContext.Provider value={memoizedValue}>

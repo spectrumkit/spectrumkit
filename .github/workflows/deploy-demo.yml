@@ -30,7 +30,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - name: Build library
-        run: pnpm --filter "@spectrumkit/*" --parallel build
+        run: pnpm --filter "@spectrumkit/*" build
       - name: Build Vite demo
         run: pnpm --filter with-vite build
         env:
