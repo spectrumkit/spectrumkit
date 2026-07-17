@@ -125,12 +125,6 @@ importers:
         specifier: 3.6.21
         version: 3.6.21(d407d072561cb4d5286d70a911c304a8)
 
-  examples/with-next-app:
-    dependencies:
-      '@spectrumkit/spectrumkit':
-        specifier: workspace:*
-        version: link:../../packages/spectrumkit
-
   examples/with-vite:
     dependencies:
       '@spectrumkit/spectrumkit':
