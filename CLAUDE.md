@@ -112,6 +112,11 @@ they are often conflated:
   under `packages/spectrumkit/node_modules`. Hoisting got the wagmi case right by luck
   of resolution order, not by design.
 
+Not every override is a singleton pin: the `axios` override is a security floor.
+`@coinbase/cdp-sdk` (via `@base-org/account`) pins `axios` to an exact version with
+known High-severity advisories, so the override is what keeps the OSV security scan
+green. Remove it only once cdp-sdk itself depends on a patched axios.
+
 So: don't drop the overrides thinking hoisting covers you — it doesn't. Note also that
 `hoisted` disables the phantom-dependency detection that is pnpm's main advantage, which
 is why `packages/example` can run `tsc` without declaring `typescript`.
