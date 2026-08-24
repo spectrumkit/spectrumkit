@@ -1,4 +1,4 @@
-import { porto, type PortoParameters } from 'wagmi/connectors';
+import { porto, type PortoParameters } from 'porto/wagmi';
 import type { Wallet, WalletDetailsParams } from '../../Wallet';
 import { createConnector } from 'wagmi';
 

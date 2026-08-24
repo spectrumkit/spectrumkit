@@ -5,23 +5,23 @@
   "private": true,
   "main": "index.js",
   "dependencies": {
-    "@base-org/account": "~2.5.7",
+    "@base-org/account": "~2.5.10",
     "@spectrumkit/spectrumkit": "workspace:*",
     "@spectrumkit/spectrumkit-siwe-next-auth": "workspace:*",
-    "@tanstack/react-query": "5.101.2",
+    "@tanstack/react-query": "5.102.2",
     "cuer": "^0.0.3",
     "mipd": "^0.0.7",
     "next": "^16.2.11",
     "next-auth": "4.24.15",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "viem": "2.53.1",
-    "wagmi": "3.6.21"
+    "viem": "2.55.19",
+    "wagmi": "3.7.6"
   },
   "devDependencies": {
     "@types/node": "^26.0.1",
     "@types/react": "^19.2.17",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   },
   "scripts": {
     "dev": "next dev",
