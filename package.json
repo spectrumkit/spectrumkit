@@ -54,8 +54,8 @@
     "esbuild": "^0.28.1",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
-    "next": "^16.2.9",
-    "next-auth": "4.24.14",
+    "next": "^16.2.11",
+    "next-auth": "4.24.15",
     "postcss": "^8.5.16",
     "postcss-prefix-selector": "^2.1.1",
     "react": "^19.2.7",
@@ -96,7 +96,9 @@
       "@walletconnect/types": "2.23.10",
       "@walletconnect/sign-client": "2.23.10",
       "@walletconnect/universal-provider": "2.23.10",
-      "uuid": "^11.1.1"
+      "uuid": "^11.1.1",
+      "sharp": "^0.35.0",
+      "axios": "^1.18.0"
     }
   },
   "engines": {
