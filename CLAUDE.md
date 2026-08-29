@@ -85,11 +85,13 @@ Environment variables (`.env.local`):
 
 `packages/spectrumkit` declares several packages it never imports —
 `@base-org/account`, `@metamask/connect-evm`, `@safe-global/*`,
-`@walletconnect/ethereum-provider`, `porto`. **These are load-bearing.** They are
+`@walletconnect/ethereum-provider`. **These are load-bearing.** They are
 `optional: true` peers of `@wagmi/connectors`, which pnpm does not auto-install,
 so declaring them as real dependencies is what puts them on disk for the
 corresponding connectors to require at runtime. A depcheck tool will call them
-unused. They are not.
+unused. They are not. (`porto` used to be on this list, but since wagmi 3.7 /
+`@wagmi/connectors` v8 dropped its porto re-export, it is now imported directly
+via `porto/wagmi` in `portoWallet.ts`.)
 
 `packages/spectrumkit-siwe-next-auth` declares **no** regular dependencies — only
 peers. That is deliberate: it must share the host app's single copy of React,
